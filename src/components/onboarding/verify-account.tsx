@@ -4,10 +4,19 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { EyeIcon } from "@/components/onboarding/eye-icon";
+import {
+  identitySteps,
+  OnboardingHeader,
+} from "@/components/onboarding/onboarding-header";
+import {
+  OnboardingActions,
+  OnboardingData,
+} from "@/components/onboarding/onboarding-panel";
 
 const inputClassName =
   "h-[42px] rounded-[8px] border-[#d1d5db] bg-white px-3 text-sm leading-5 font-normal text-[#111827] shadow-none placeholder:text-[#9ca3af] focus-visible:border-[#2563eb] focus-visible:ring-0 md:text-sm";
@@ -47,40 +56,6 @@ function formatDob(digits: string) {
   return `${month}/${day}/${year}`;
 }
 
-function StepMarker({
-  step,
-  current = false,
-}: {
-  step: number;
-  current?: boolean;
-}) {
-  if (current) {
-    return (
-      <span className="flex size-6 items-center justify-center rounded-full bg-[#2563eb] font-inter text-xs leading-4 font-medium text-white shadow-[0_1px_1px_rgba(0,0,0,0.05)]">
-        {step}
-      </span>
-    );
-  }
-
-  return (
-    <span className="flex size-6 items-center justify-center rounded-full border-[1.5px] border-[#b8c0cc] bg-white font-inter text-xs leading-4 font-medium text-[#667085]">
-      {step}
-    </span>
-  );
-}
-
-function Logo() {
-  return (
-    <div className="relative h-6 w-[57px] shrink-0 overflow-hidden">
-      <img
-        src="/onboarding/logo.png"
-        alt="Logo"
-        className="pointer-events-none absolute top-[-62.5%] left-0 h-[237.5%] w-full max-w-none"
-      />
-    </div>
-  );
-}
-
 export function VerifyAccount() {
   const [firstName, setFirstName] = useState("");
   const [middleName, setMiddleName] = useState("");
@@ -88,6 +63,7 @@ export function VerifyAccount() {
   const [ssn, setSsn] = useState("");
   const [dob, setDob] = useState("");
   const [ssnRevealed, setSsnRevealed] = useState(false);
+  const router = useRouter();
 
   function handleSsnChange(next: string) {
     if (ssnRevealed) {
@@ -128,50 +104,20 @@ export function VerifyAccount() {
 
     if (!form.checkValidity()) {
       form.reportValidity();
+      return;
     }
+
+    router.push("/create-login");
   }
 
   return (
-    <div className="relative min-h-screen bg-white">
-      <header className="fixed inset-x-0 top-0 z-20 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.06),0_4px_10px_rgba(15,23,42,0.06)]">
-        <div className="relative flex h-[58px] items-center gap-3 px-6">
-          <Logo />
-          <nav
-            aria-label="Onboarding progress"
-            className="flex h-[58px] min-w-0 flex-1 items-center justify-start overflow-x-auto md:absolute md:top-0 md:left-1/2 md:h-[58px] md:max-w-[calc(100%-8rem)] md:flex-none md:-translate-x-1/2 md:justify-center"
-          >
-            <ol className="flex items-center gap-2">
-              <li className="flex shrink-0 items-center gap-2">
-                <span className="flex items-center gap-2">
-                  <StepMarker step={1} current />
-                  <span className="font-inter text-xs leading-4 font-semibold text-[#2563eb]">
-                    Identity
-                  </span>
-                </span>
-                <span className="flex w-7 items-center pl-2" aria-hidden="true">
-                  <span className="block h-px w-5 bg-[#e5e7eb]" />
-                </span>
-              </li>
-              {[2, 3, 4, 5].map((step) => (
-                <li key={step} className="flex shrink-0 items-center gap-2">
-                  <StepMarker step={step} />
-                  <span className="block h-px w-5 bg-[#e5e7eb]" aria-hidden="true" />
-                </li>
-              ))}
-              <li className="shrink-0">
-                <StepMarker step={6} />
-              </li>
-            </ol>
-          </nav>
-        </div>
-        <div className="h-1 bg-[#ebebed]" aria-hidden="true">
-          <div className="h-full w-1/6 bg-[#3d5cf2]" />
-        </div>
-      </header>
+    <div className="relative min-h-screen bg-white max-lg:pb-[184px]">
+      <OnboardingHeader steps={identitySteps} progress="w-1/6" />
 
       <div className="flex min-h-screen flex-col lg:flex-row">
-        <section className="flex w-full justify-center px-6 pt-[86px] pb-12 lg:min-h-screen lg:w-[48.889%] lg:items-center lg:px-12 lg:pb-[86px]">
-          <form className="flex w-full max-w-[580px] flex-col" onSubmit={onSubmit}>
+        <section className="w-full lg:min-h-screen lg:w-[48.889%]">
+          <form onSubmit={onSubmit}>
+            <OnboardingData insetClassName="lg:px-12">
             <div className="pb-10">
               <div className="flex flex-col gap-2">
                 <p className="text-xs leading-4 font-semibold tracking-[1.2px] text-[#6b7280] uppercase">
@@ -312,7 +258,8 @@ export function VerifyAccount() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-4 border-t border-[#f3f4f6] pt-[33px]">
+            </OnboardingData>
+            <OnboardingActions panelClassName="lg:w-[48.889%]" insetClassName="lg:px-12">
               <Button
                 type="submit"
                 className="h-12 w-full rounded-[7px] bg-[#2563eb] px-6 text-base font-semibold text-white hover:bg-[#1d4ed8]"
@@ -326,7 +273,7 @@ export function VerifyAccount() {
               >
                 Have Questions?
               </Button>
-            </div>
+            </OnboardingActions>
           </form>
         </section>
 
