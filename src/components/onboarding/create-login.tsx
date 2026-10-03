@@ -47,7 +47,7 @@ export function CreateLogin() {
             <OnboardingData insetClassName="lg:px-[62px]">
               <Link
                 href="/"
-                className="absolute -top-9 left-0 inline-flex items-center gap-1.5 text-sm leading-5 font-medium text-[#6b7280]"
+                className="absolute -top-9 -left-2 inline-flex min-h-9 items-center gap-1.5 rounded-md p-2 text-sm leading-5 font-medium text-[#6b7280] hover:bg-black/[0.06] focus-visible:bg-black/[0.06] focus-visible:outline-none"
               >
                 <img
                   src="/onboarding/back.svg"
@@ -137,7 +137,7 @@ export function CreateLogin() {
 
             </OnboardingData>
             <OnboardingActions
-              panelClassName="lg:w-1/2 lg:rounded-br-2xl lg:border-r lg:border-[#ebebed]"
+              panelClassName="lg:w-1/2"
               insetClassName="lg:px-[62px]"
             >
               <Button

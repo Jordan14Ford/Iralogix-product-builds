@@ -22,10 +22,14 @@ export function OnboardingActions({
   insetClassName: string;
 }) {
   return (
-    <div
-      className={`fixed inset-x-0 bottom-0 z-[1] border-t border-[#f3f4f6] bg-white px-6 py-6 shadow-[0_-1px_2px_rgba(15,23,42,0.06),0_-4px_10px_rgba(15,23,42,0.06)] ${panelClassName} ${insetClassName}`}
-    >
-      <div className="mx-auto flex w-full max-w-[580px] flex-col gap-4">{children}</div>
+    <div className={`pointer-events-none fixed inset-x-0 bottom-0 z-[1] ${panelClassName}`}>
+      <div
+        aria-hidden="true"
+        className="h-9 bg-[linear-gradient(to_bottom,transparent,#fff)]"
+      />
+      <div className={`pointer-events-auto bg-white px-6 py-6 ${insetClassName}`}>
+        <div className="mx-auto flex w-full max-w-[580px] flex-col gap-4">{children}</div>
+      </div>
     </div>
   );
 }
