@@ -1,3 +1,20 @@
+import Link from "next/link";
+
+/* The back mark is a fixed 18px design asset. */
+/* eslint-disable @next/next/no-img-element */
+
+export function OnboardingBack({ href }: { href: string }) {
+  return (
+    <Link
+      href={href}
+      className="absolute -top-9 -left-2 inline-flex min-h-9 items-center gap-1.5 rounded-md p-2 text-sm leading-5 font-medium text-[#6b7280] hover:bg-black/[0.06] focus-visible:bg-black/[0.06] focus-visible:outline-none"
+    >
+      <img src="/onboarding/back.svg" alt="" width={18} height={18} className="max-w-none" />
+      Back
+    </Link>
+  );
+}
+
 export function OnboardingData({
   children,
   insetClassName,

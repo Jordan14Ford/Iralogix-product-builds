@@ -124,3 +124,12 @@ export const loginSteps: OnboardingStep[] = [
   { state: "upcoming" },
   { state: "upcoming" },
 ];
+
+export function flowSteps(current: number): OnboardingStep[] {
+  return Array.from({ length: 6 }, (_, index) => {
+    const step = index + 1;
+    if (step < current) return { state: "complete" };
+    if (step === current) return { state: "current", label: "Identity" };
+    return { state: "upcoming" };
+  });
+}

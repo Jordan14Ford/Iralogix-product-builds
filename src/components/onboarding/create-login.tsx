@@ -1,15 +1,14 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element */
-
 import { FormEvent, useState } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { loginSteps, OnboardingHeader } from "@/components/onboarding/onboarding-header";
 import {
   OnboardingActions,
+  OnboardingBack,
   OnboardingData,
 } from "@/components/onboarding/onboarding-panel";
 
@@ -17,6 +16,7 @@ const inputClassName =
   "h-[42px] rounded-[8px] border-[#d1d5db] bg-white px-3 text-sm leading-5 font-normal text-[#111827] shadow-none placeholder:text-[#9ca3af] focus-visible:border-[#2563eb] focus-visible:ring-0 md:text-sm";
 
 export function CreateLogin() {
+  const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -34,7 +34,10 @@ export function CreateLogin() {
 
     if (!form.checkValidity()) {
       form.reportValidity();
+      return;
     }
+
+    router.push("/contribution");
   }
 
   return (
@@ -45,19 +48,7 @@ export function CreateLogin() {
         <section className="w-full border-[#ebebed] bg-white lg:min-h-screen lg:w-1/2 lg:rounded-r-2xl lg:border-r lg:border-b">
           <form onSubmit={onSubmit}>
             <OnboardingData insetClassName="lg:px-[62px]">
-              <Link
-                href="/"
-                className="absolute -top-9 -left-2 inline-flex min-h-9 items-center gap-1.5 rounded-md p-2 text-sm leading-5 font-medium text-[#6b7280] hover:bg-black/[0.06] focus-visible:bg-black/[0.06] focus-visible:outline-none"
-              >
-                <img
-                  src="/onboarding/back.svg"
-                  alt=""
-                  width={18}
-                  height={18}
-                  className="max-w-none"
-                />
-                Back
-              </Link>
+              <OnboardingBack href="/" />
 
             <div className="pb-10">
               <div className="flex flex-col gap-2">
