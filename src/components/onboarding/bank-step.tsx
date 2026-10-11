@@ -5,17 +5,18 @@
 
 import { useState } from "react";
 import { OnboardingStep, StepIntro } from "@/components/onboarding/step-screen";
+import { asset } from "@/lib/public-asset";
 
 const banks = [
-  { name: "Chase", src: "/onboarding/bank-chase.png", width: 100, height: 34 },
-  { name: "Citi", src: "/onboarding/bank-citi.png", width: 113, height: 38 },
-  { name: "Deutsche Bank", src: "/onboarding/bank-deutsche.png", width: 150, height: 50 },
-  { name: "TD Bank", src: "/onboarding/bank-td.png", width: 100, height: 34 },
-  { name: "Bank of America", src: "/onboarding/bank-bofa.png", width: 100, height: 34 },
-  { name: "Raiffeisen Bank", src: "/onboarding/bank-raiffeisen.png", width: 100, height: 34 },
-  { name: "Societe Generale", src: "/onboarding/bank-socgen.png", width: 100, height: 34 },
-  { name: "UBS", src: "/onboarding/bank-ubs.png", width: 100, height: 34 },
-  { name: "UBS", src: "/onboarding/bank-ubs.png", width: 100, height: 34 },
+  { name: "Chase", src: asset("/onboarding/bank-chase.png"), width: 100, height: 34 },
+  { name: "Citi", src: asset("/onboarding/bank-citi.png"), width: 113, height: 38 },
+  { name: "Deutsche Bank", src: asset("/onboarding/bank-deutsche.png"), width: 150, height: 50 },
+  { name: "TD Bank", src: asset("/onboarding/bank-td.png"), width: 100, height: 34 },
+  { name: "Bank of America", src: asset("/onboarding/bank-bofa.png"), width: 100, height: 34 },
+  { name: "Raiffeisen Bank", src: asset("/onboarding/bank-raiffeisen.png"), width: 100, height: 34 },
+  { name: "Societe Generale", src: asset("/onboarding/bank-socgen.png"), width: 100, height: 34 },
+  { name: "UBS", src: asset("/onboarding/bank-ubs.png"), width: 100, height: 34 },
+  { name: "UBS", src: asset("/onboarding/bank-ubs.png"), width: 100, height: 34 },
 ];
 
 function NextAside() {
@@ -124,7 +125,7 @@ export function BanksConnectedStep() {
           name="Bank of America"
           detail="Checking account"
           ending="4829"
-          logo="/onboarding/bank-bofa.png"
+          logo={asset("/onboarding/bank-bofa.png")}
           logoWidth={100}
           logoHeight={34}
         />
@@ -132,7 +133,7 @@ export function BanksConnectedStep() {
           name="Chase"
           detail="Trading account"
           ending="9302"
-          logo="/onboarding/bank-chase.png"
+          logo={asset("/onboarding/bank-chase.png")}
           logoWidth={100}
           logoHeight={34}
         />

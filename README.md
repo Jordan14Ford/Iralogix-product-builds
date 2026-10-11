@@ -18,3 +18,13 @@ Open [http://127.0.0.1:43123](http://127.0.0.1:43123) for the identity step. Get
 - [http://127.0.0.1:43123/beneficiaries](http://127.0.0.1:43123/beneficiaries)
 - [http://127.0.0.1:43123/signature](http://127.0.0.1:43123/signature)
 - [http://127.0.0.1:43123/review](http://127.0.0.1:43123/review)
+
+## GitHub Pages
+
+The public site is a static export served from the `gh-pages` branch at [https://jordan14ford.github.io/Iralogix-product-builds/](https://jordan14ford.github.io/Iralogix-product-builds/).
+
+```bash
+NEXT_PUBLIC_BASE_PATH=/Iralogix-product-builds npm run build
+```
+
+That writes `out/`. Publish the contents of `out/` to `gh-pages` (include `.nojekyll` so `/_next` assets are served). Do not force-push `main`.

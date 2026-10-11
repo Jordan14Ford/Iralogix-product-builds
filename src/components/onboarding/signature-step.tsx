@@ -5,6 +5,7 @@
 
 import { PointerEvent, useEffect, useRef, useState } from "react";
 import { OnboardingStep, StepIntro } from "@/components/onboarding/step-screen";
+import { asset } from "@/lib/public-asset";
 
 export function SignatureStep() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -123,7 +124,7 @@ export function SignatureStep() {
           onClick={clearCanvas}
           className="absolute top-3 right-3 inline-flex items-center gap-1.5 rounded-lg border border-[#e9eaef] bg-white px-[11px] py-[7px] text-xs leading-4 font-semibold text-[#5b5f6d] shadow-[0_1px_1px_rgba(0,0,0,0.05)]"
         >
-          <img src="/onboarding/clear-icon.svg" alt="" width={9.75} height={9.75} className="max-w-none" />
+          <img src={asset("/onboarding/clear-icon.svg")} alt="" width={9.75} height={9.75} className="max-w-none" />
           Clear
         </button>
       </div>
@@ -140,7 +141,7 @@ export function SignatureStep() {
             className="sr-only"
           />
           {agreed ? (
-            <img src="/onboarding/check-icon.svg" alt="" width={14} height={14} className="max-w-none" />
+            <img src={asset("/onboarding/check-icon.svg")} alt="" width={14} height={14} className="max-w-none" />
           ) : null}
         </span>
         <span className="text-sm leading-[22.75px] text-black/45">

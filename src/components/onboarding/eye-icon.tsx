@@ -1,4 +1,5 @@
 /* Design SVGs must keep their intrinsic width and height. */
+import { asset } from "@/lib/public-asset";
 /* eslint-disable @next/next/no-img-element */
 
 type EyeIconProps = {
@@ -9,21 +10,21 @@ export function EyeIcon({ slashed = true }: EyeIconProps) {
   return (
     <span className="relative block size-5 shrink-0" aria-hidden="true">
       <img
-        src="/onboarding/eye-outline.svg"
+        src={asset("/onboarding/eye-outline.svg")}
         alt=""
         width={19.5}
         height={13.5}
         className="absolute left-[0.25px] top-[3.25px] max-w-none"
       />
       <img
-        src="/onboarding/iris.svg"
+        src={asset("/onboarding/iris.svg")}
         alt=""
         width={8}
         height={8}
         className="absolute top-[6px] left-[6px] max-w-none"
       />
       <img
-        src="/onboarding/pupil.svg"
+        src={asset("/onboarding/pupil.svg")}
         alt=""
         width={4}
         height={4}
@@ -31,7 +32,7 @@ export function EyeIcon({ slashed = true }: EyeIconProps) {
       />
       {slashed ? (
         <img
-          src="/onboarding/slash.svg"
+          src={asset("/onboarding/slash.svg")}
           alt=""
           width={16}
           height={18}

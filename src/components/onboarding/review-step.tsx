@@ -6,6 +6,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { OnboardingStep, StepIntro } from "@/components/onboarding/step-screen";
+import { asset } from "@/lib/public-asset";
 
 const steps = [
   "Your employer is notified automatically.",
@@ -84,13 +85,13 @@ export function ReviewStep() {
               name="Bank of America"
               detail="Checking account"
               ending="4829"
-              logo="/onboarding/bank-bofa.png"
+              logo={asset("/onboarding/bank-bofa.png")}
             />
             <ConnectedBank
               name="Chase"
               detail="Trading account"
               ending="9302"
-              logo="/onboarding/bank-chase.png"
+              logo={asset("/onboarding/bank-chase.png")}
             />
           </div>
         </SummaryBlock>

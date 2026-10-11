@@ -13,6 +13,7 @@ import {
   identitySteps,
   OnboardingHeader,
 } from "@/components/onboarding/onboarding-header";
+import { asset } from "@/lib/public-asset";
 import {
   OnboardingActions,
   OnboardingData,
@@ -279,13 +280,13 @@ export function VerifyAccount() {
 
         <aside className="relative h-72 overflow-hidden lg:h-auto lg:min-h-screen lg:w-[51.111%]">
           <img
-            src="/onboarding/workspace-overview.png"
+            src={asset("/onboarding/workspace-overview.png")}
             alt=""
             className="absolute inset-0 size-full object-cover"
           />
           <div className="pointer-events-none absolute inset-0 opacity-15 mix-blend-overlay">
             <img
-              src="/onboarding/grain.svg"
+              src={asset("/onboarding/grain.svg")}
               alt=""
               width={737}
               height={1024}

@@ -7,6 +7,7 @@ import { useMemo, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { OnboardingStep, StepIntro } from "@/components/onboarding/step-screen";
+import { asset } from "@/lib/public-asset";
 
 type Person = { id: number; name: string; relationship: string; percentage: string };
 
@@ -62,7 +63,7 @@ export function BeneficiariesStep() {
           {named ? null : (
             <div className="flex flex-col items-center gap-5 rounded-[14px] bg-[#fcfcfd] p-4 text-center">
               <span className="flex size-[38px] items-center justify-center rounded-[22px] bg-[#eef2fe]">
-                <img src="/onboarding/user-03.svg" alt="" width={21} height={21} className="max-w-none" />
+                <img src={asset("/onboarding/user-03.svg")} alt="" width={21} height={21} className="max-w-none" />
               </span>
               <div>
                 <p className="text-[17px] leading-[22px] font-semibold text-[#1b1b3a]">
@@ -138,7 +139,7 @@ function PersonGroup({
             onClick={onAdd}
             className="inline-flex h-10 items-center gap-2 rounded-md px-4 text-sm font-semibold text-[#2563eb]"
           >
-            <img src="/onboarding/plus-circle.svg" alt="" width={16} height={16} className="max-w-none" />
+            <img src={asset("/onboarding/plus-circle.svg")} alt="" width={16} height={16} className="max-w-none" />
             {action}
           </button>
         </div>
@@ -170,7 +171,7 @@ function PersonGroup({
                 <option value="Daughter">Daughter</option>
               </select>
               <img
-                src="/onboarding/chevron-down.svg"
+                src={asset("/onboarding/chevron-down.svg")}
                 alt=""
                 width={16}
                 height={16}

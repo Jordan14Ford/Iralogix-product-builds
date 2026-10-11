@@ -6,40 +6,41 @@
 import { useState } from "react";
 import { HorizonTabs, OnboardingStep, StepIntro } from "@/components/onboarding/step-screen";
 import { formatWholeDollars, projectedBalance } from "@/components/onboarding/contribution-math";
+import { asset } from "@/lib/public-asset";
 
 const strategies = [
   {
     id: "conservative",
     title: "Conservative",
     detail: "Lower risk, smaller market swings",
-    empty: "/onboarding/radio-empty.svg",
+    empty: asset("/onboarding/radio-empty.svg"),
   },
   {
     id: "balanced",
     title: "Balanced",
     detail: "Moderate risk, a mix of stocks and bonds",
-    empty: "/onboarding/radio-empty-2.svg",
+    empty: asset("/onboarding/radio-empty-2.svg"),
   },
   {
     id: "growth",
     title: "Growth",
     detail: "Higher risk, more long-term growth potential",
-    empty: "/onboarding/radio-empty.svg",
+    empty: asset("/onboarding/radio-empty.svg"),
   },
   {
     id: "target-2055",
     title: "Target Date 2055",
     detail: "Adjusts automatically as retirement gets closer",
-    empty: "/onboarding/radio-empty.svg",
+    empty: asset("/onboarding/radio-empty.svg"),
   },
 ] as const;
 
 const funds = [
-  { label: "US Stock", dot: "/onboarding/dot-us.svg" },
-  { label: "International Fund", dot: "/onboarding/dot-intl.svg" },
-  { label: "Bond Fund", dot: "/onboarding/dot-bond.svg" },
-  { label: "Short Term Bond Fund", dot: "/onboarding/dot-short.svg" },
-  { label: "Cash Reserve", dot: "/onboarding/dot-cash.svg" },
+  { label: "US Stock", dot: asset("/onboarding/dot-us.svg") },
+  { label: "International Fund", dot: asset("/onboarding/dot-intl.svg") },
+  { label: "Bond Fund", dot: asset("/onboarding/dot-bond.svg") },
+  { label: "Short Term Bond Fund", dot: asset("/onboarding/dot-short.svg") },
+  { label: "Cash Reserve", dot: asset("/onboarding/dot-cash.svg") },
 ];
 
 export function StrategyStep() {
@@ -67,7 +68,7 @@ export function StrategyStep() {
             Target date 2055
           </p>
           <div className="flex gap-3 rounded-xl bg-[#f3f4f6] p-4">
-            <img src="/onboarding/info-circle.svg" alt="" width={24} height={24} className="max-w-none" />
+            <img src={asset("/onboarding/info-circle.svg")} alt="" width={24} height={24} className="max-w-none" />
             <div>
               <p className="text-[13px] leading-[18px] font-semibold text-[#12123d]">
                 What a target date fund does
@@ -82,7 +83,7 @@ export function StrategyStep() {
           <p className="text-sm leading-5 font-semibold text-[#12123d]">Fund details</p>
           <div className="flex items-center gap-6">
             <img
-              src="/onboarding/donut-chart.svg"
+              src={asset("/onboarding/donut-chart.svg")}
               alt=""
               width={130}
               height={132}
@@ -151,7 +152,7 @@ export function StrategyStep() {
                 <span className="mt-1 block text-sm leading-[22px] text-black/45">{option.detail}</span>
               </span>
               <img
-                src={selected ? "/onboarding/radio-selected.svg" : option.empty}
+                src={selected ? asset("/onboarding/radio-selected.svg") : option.empty}
                 alt=""
                 width={20}
                 height={20}

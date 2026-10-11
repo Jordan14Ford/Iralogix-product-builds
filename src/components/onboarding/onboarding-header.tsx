@@ -1,4 +1,5 @@
 /* The logo crop is a fixed design asset. */
+import { asset } from "@/lib/public-asset";
 /* eslint-disable @next/next/no-img-element */
 
 export type OnboardingStepState = "current" | "complete" | "upcoming";
@@ -36,7 +37,7 @@ function Logo() {
   return (
     <div className="relative h-6 w-[57px] shrink-0 overflow-hidden">
       <img
-        src="/onboarding/logo.png"
+        src={asset("/onboarding/logo.png")}
         alt="Logo"
         className="pointer-events-none absolute top-[-62.5%] left-0 h-[237.5%] w-full max-w-none"
       />

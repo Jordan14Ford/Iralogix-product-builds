@@ -5,6 +5,7 @@
 
 import { useState } from "react";
 import { HorizonTabs, OnboardingStep, StepIntro } from "@/components/onboarding/step-screen";
+import { asset } from "@/lib/public-asset";
 import {
   formatDollars,
   formatWholeDollars,
@@ -85,7 +86,7 @@ export function ContributionStep() {
               style={{ width: `${percent * 10}%` }}
             />
             <img
-              src="/onboarding/slider-thumb.svg"
+              src={asset("/onboarding/slider-thumb.svg")}
               alt=""
               width={18}
               height={18}
