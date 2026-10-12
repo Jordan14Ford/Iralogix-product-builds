@@ -47,6 +47,39 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-primary-hover: var(--brand-primary-hover);
+  --color-brand-primary-active: var(--brand-primary-active);
+  --color-brand-primary-subtle: var(--brand-primary-subtle);
+  --color-brand-on-primary: var(--brand-on-primary);
+  --color-semantic-success: var(--semantic-success);
+  --color-semantic-success-subtle: var(--semantic-success-subtle);
+  --color-semantic-danger: var(--semantic-danger);
+  --color-semantic-danger-subtle: var(--semantic-danger-subtle);
+  --color-semantic-warning: var(--semantic-warning);
+  --color-semantic-warning-subtle: var(--semantic-warning-subtle);
+  --color-semantic-info: var(--semantic-info);
+  --color-semantic-info-subtle: var(--semantic-info-subtle);
+  --color-data-positive: var(--data-positive);
+  --color-data-negative: var(--data-negative);
+  --color-data-neutral: var(--data-neutral);
+  --color-data-chart-1: var(--data-chart-1);
+  --color-data-chart-2: var(--data-chart-2);
+  --color-data-chart-3: var(--data-chart-3);
+  --color-data-chart-4: var(--data-chart-4);
+  --color-data-chart-5: var(--data-chart-5);
+  --color-data-chart-6: var(--data-chart-6);
+  --color-theme-bg-app: var(--theme-bg-app);
+  --color-theme-bg-surface: var(--theme-bg-surface);
+  --color-state-hover-overlay: var(--state-hover-overlay);
+  --color-state-selected-bg: var(--state-selected-bg);
+  --color-state-disabled-bg: var(--state-disabled-bg);
+  --color-skeleton-base: var(--skeleton-base);
+  --color-theme-border: var(--theme-border);
+  --color-state-focus-ring: var(--state-focus-ring);
+  --stroke-thin: 1px;
+  --stroke-thick: 2px;
+  --shadow-light-2: 0 2px 4px #0000000f;
 }
 
 :root {
@@ -82,6 +115,38 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Piggy DS V2 foundations. Named only from the color frames. */
+  --brand-primary: #2563eb;
+  --brand-primary-hover: #1d4ed8;
+  --brand-primary-active: #1e40af;
+  --brand-primary-subtle: #eff6ff;
+  --brand-on-primary: #ffffff;
+  --semantic-success: #16a34a;
+  --semantic-success-subtle: #e8f7ee;
+  --semantic-danger: #dc2626;
+  --semantic-danger-subtle: #fdecec;
+  --semantic-warning: #d97706;
+  --semantic-warning-subtle: #fdf3e3;
+  --semantic-info: #0284c7;
+  --semantic-info-subtle: #e6f4fb;
+  --data-positive: #16a34a;
+  --data-negative: #dc2626;
+  --data-neutral: #737373;
+  --data-chart-1: #6c2bd9;
+  --data-chart-2: #0284c7;
+  --data-chart-3: #0d9488;
+  --data-chart-4: #d97706;
+  --data-chart-5: #db2777;
+  --data-chart-6: #6366f1;
+  --theme-bg-app: #fcfcfc;
+  --theme-bg-surface: #ffffff;
+  --state-hover-overlay: rgb(0 0 0 / 0.04);
+  --state-selected-bg: #f3efff;
+  --state-disabled-bg: #f5f5f5;
+  --skeleton-base: #f5f5f5;
+  --theme-border: #ebebeb;
+  --state-focus-ring: rgb(108 43 217 / 0.35);
 }
 
 .dark {

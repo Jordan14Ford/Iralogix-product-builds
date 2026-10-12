@@ -112,11 +112,11 @@ export function VerifyAccount() {
   }
 
   return (
-    <div className="relative min-h-screen bg-white max-lg:pb-[184px]">
+    <div className="relative min-h-screen bg-white max-lg:pb-[184px] lg:h-screen lg:overflow-hidden">
       <OnboardingHeader steps={identitySteps} progress="w-1/6" />
 
-      <div className="flex min-h-screen flex-col lg:flex-row">
-        <section className="w-full lg:min-h-screen lg:w-[48.889%]">
+      <div className="flex min-h-screen flex-col lg:h-screen lg:flex-row lg:overflow-hidden">
+        <section className="w-full lg:h-screen lg:w-[48.889%] lg:overflow-y-auto">
           <form onSubmit={onSubmit}>
             <OnboardingData insetClassName="lg:px-12">
             <div className="pb-10">
@@ -217,9 +217,7 @@ export function VerifyAccount() {
                   />
                   <Button
                     type="button"
-                    variant="ghost"
-                    size="icon"
-                    className="absolute top-1/2 right-3 size-5 -translate-y-1/2 rounded-none bg-transparent p-0 shadow-none hover:bg-transparent active:translate-y-[-50%]"
+                    className="absolute top-1/2 right-3 size-5 -translate-y-1/2 rounded-none border-0 bg-transparent p-0 shadow-none hover:bg-transparent"
                     aria-pressed={ssnRevealed}
                     aria-label={ssnRevealed ? "Hide SSN" : "Show SSN"}
                     onClick={() => setSsnRevealed((revealed) => !revealed)}
@@ -269,8 +267,7 @@ export function VerifyAccount() {
               </Button>
               <Button
                 type="button"
-                variant="ghost"
-                className="h-12 w-full rounded-[7px] bg-transparent px-6 text-base font-semibold text-[#0f172a] hover:bg-[#f8fafc]"
+                className="h-12 w-full rounded-[7px] border-0 bg-transparent px-6 text-base font-semibold text-[#0f172a] hover:bg-[#f8fafc]"
               >
                 Have Questions?
               </Button>
@@ -278,11 +275,11 @@ export function VerifyAccount() {
           </form>
         </section>
 
-        <aside className="relative h-72 overflow-hidden lg:h-auto lg:min-h-screen lg:w-[51.111%]">
+        <aside className="relative flex h-72 shrink-0 items-center justify-center overflow-hidden lg:h-screen lg:w-[51.111%]">
           <img
             src={asset("/onboarding/workspace-overview.png")}
             alt=""
-            className="absolute inset-0 size-full object-cover"
+            className="absolute top-1/2 left-1/2 h-full w-full max-w-none -translate-x-1/2 -translate-y-1/2 object-cover object-center"
           />
           <div className="pointer-events-none absolute inset-0 opacity-15 mix-blend-overlay">
             <img

@@ -14,7 +14,7 @@ const primaryButtonClass =
   "h-12 w-full rounded-[7px] bg-[#2563eb] px-6 text-base font-semibold text-white hover:bg-[#1d4ed8]";
 
 const secondaryButtonClass =
-  "h-12 w-full rounded-[7px] bg-transparent px-6 text-base font-semibold text-[#0f172a] hover:bg-[#f8fafc]";
+  "h-12 w-full rounded-[7px] border-0 bg-transparent px-6 text-base font-semibold text-[#0f172a] hover:bg-[#f8fafc]";
 
 export function StepIntro({
   eyebrow,
@@ -84,7 +84,7 @@ export function OnboardingStep({
               <Button type="submit" className={primaryButtonClass}>
                 Continue
               </Button>
-              <Button type="button" variant="ghost" className={secondaryButtonClass}>
+              <Button type="button" className={secondaryButtonClass}>
                 {secondaryLabel}
               </Button>
             </OnboardingActions>

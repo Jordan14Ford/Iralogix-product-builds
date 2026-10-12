@@ -139,8 +139,7 @@ export function CreateLogin() {
               </Button>
               <Button
                 type="button"
-                variant="ghost"
-                className="h-12 w-full rounded-[7px] bg-transparent px-6 text-base font-semibold text-[#0f172a] hover:bg-[#f8fafc]"
+                className="h-12 w-full rounded-[7px] border-0 bg-transparent px-6 text-base font-semibold text-[#0f172a] hover:bg-[#f8fafc]"
               >
                 Save & Close
               </Button>
