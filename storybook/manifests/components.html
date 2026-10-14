@@ -1,0 +1,3463 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Components Manifest</title>
+  <style>
+      :root {
+          --bg: #0b0c10;
+          --panel: #121318;
+          --muted: #9aa0a6;
+          --fg: #e8eaed;
+          --ok: #22c55e;
+          --info: #1e88e5;
+          --err: #c62828;
+          --ok-bg: #0c1a13;
+          --info-bg: #0c1624;
+          --err-bg: #1a0e0e;
+          --chip: #1f2330;
+          --border: #2b2f3a;
+          --link: #8ab4f8;
+          --active-ring: 1px; /* 1px active ring for pills and toggles */
+      }
+
+      * {
+          box-sizing: border-box;
+      }
+
+      html,
+      body {
+          margin: 0;
+          background: var(--bg);
+          color: var(--fg);
+          font: 14px/1.5 system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Ubuntu,
+          Cantarell,
+          'Helvetica Neue',
+          Arial,
+          'Noto Sans';
+      }
+
+      .wrap {
+          max-width: 1100px;
+          margin: 0 auto;
+          padding: 16px 20px;
+      }
+
+      header {
+          position: sticky;
+          top: 0;
+          backdrop-filter: blur(6px);
+          background: color-mix(in srgb, var(--bg) 84%, transparent);
+          border-bottom: 1px solid var(--border);
+          z-index: 10;
+      }
+
+      h1 {
+          font-size: 20px;
+          margin: 0 0 6px;
+      }
+
+      .summary {
+          display: flex;
+          gap: 12px;
+          flex-wrap: wrap;
+          align-items: center;
+      }
+
+      /* Top filter pills */
+      .filter-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 6px 12px;
+          border: 1px solid var(--border);
+          border-radius: 999px;
+          background: var(--panel);
+          text-decoration: none;
+          cursor: pointer;
+          user-select: none;
+          color: var(--fg);
+      }
+
+      .filter-pill.ok {
+          color: #b9f6ca;
+          border-color: color-mix(in srgb, var(--ok) 55%, var(--border));
+          background: color-mix(in srgb, var(--ok) 18%, #000);
+      }
+
+      .filter-pill.info {
+          color: #b3d9ff;
+          border-color: color-mix(in srgb, var(--info) 55%, var(--border));
+          background: var(--info-bg);
+      }
+
+      .filter-pill.err {
+          color: #ff9aa0;
+          border-color: color-mix(in srgb, var(--err) 55%, var(--border));
+          background: var(--err-bg);
+      }
+
+      .filter-pill.all {
+          color: #d7dbe0;
+          border-color: var(--border);
+          background: var(--panel);
+      }
+
+      .filter-pill[aria-disabled='true'] {
+          cursor: default;
+          text-decoration: none;
+      }
+
+      .filter-pill:focus,
+      .filter-pill:active {
+          outline: none;
+          box-shadow: none;
+      }
+
+      /* Selected top pill ring via :target */
+      #filter-all:target ~ header .filter-pill[data-k='all'],
+      #filter-errors:target ~ header .filter-pill[data-k='errors'],
+      #filter-infos:target ~ header .filter-pill[data-k='infos'],
+      #filter-story-errors:target ~ header .filter-pill[data-k='story-errors'],
+      #filter-story-warnings:target ~ header .filter-pill[data-k='story-warnings'],
+      #filter-no-api:target ~ header .filter-pill[data-k='no-api'],
+      #filter-doc-errors:target ~ header .filter-pill[data-k='docs'],
+      #filter-docs:target ~ header .filter-pill[data-k='docs'] {
+          box-shadow: 0 0 0 var(--active-ring) currentColor;
+          border-color: currentColor;
+      }
+
+      /* Hidden targets for filtering */
+      #filter-all,
+      #filter-errors,
+      #filter-infos,
+      #filter-story-errors,
+      #filter-story-warnings,
+      #filter-no-api,
+      #filter-doc-errors,
+      #filter-docs {
+          display: none;
+      }
+
+      main {
+          padding: 36px 0 40px;
+      }
+
+      .grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 18px;
+      }
+
+      /* one card per row */
+
+      .card {
+          border: 1px solid var(--border);
+          background: var(--panel);
+          border-radius: 14px;
+          padding: 14px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          /* Keep a deep-linked card clear of the sticky header when scrolled into view */
+          scroll-margin-top: 110px;
+      }
+
+      /* Highlight the card deep-linked via components.html#<manifest-id> */
+      .card:target {
+          box-shadow: 0 0 0 2px var(--info);
+          border-color: var(--info);
+      }
+
+      .head {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+      }
+
+      .title {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+      }
+
+      .title h2 {
+          font-size: 16px;
+          margin: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+      }
+
+      .meta {
+          font-size: 12px;
+          color: var(--muted);
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+      }
+
+      .kv {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+      }
+
+      .chip {
+          font-size: 12px;
+          padding: 4px 8px;
+          border-radius: 999px;
+          background: var(--chip);
+          border: 1px solid var(--border);
+      }
+
+      .hint {
+          color: var(--muted);
+          font-size: 12px;
+      }
+
+      .badges {
+          display: flex;
+          gap: 8px;
+          flex-wrap: wrap;
+      }
+
+      /* Per-card badges: labels become toggles when clickable */
+      .badge {
+          font-size: 12px;
+          padding: 3px 8px;
+          border-radius: 999px;
+          border: 1px solid var(--border);
+          background: var(--chip);
+          color: #d7dbe0;
+      }
+
+      .badge.ok {
+          color: #b9f6ca;
+          border-color: color-mix(in srgb, var(--ok) 55%, var(--border));
+      }
+
+      .badge.info {
+          color: #b3d9ff;
+          border-color: color-mix(in srgb, var(--info) 55%, var(--border));
+      }
+
+      .badge.err {
+          color: #ff9aa0;
+          border-color: color-mix(in srgb, var(--err) 55%, var(--border));
+      }
+
+      .snippet-warning {
+          margin-top: 8px;
+          padding: 8px 10px;
+          border-radius: 8px;
+          border: 1px solid color-mix(in srgb, var(--info) 45%, var(--border));
+          background: var(--info-bg);
+          color: #b3d9ff;
+          font-size: 12px;
+      }
+
+      .as-toggle {
+          cursor: pointer;
+      }
+
+      /* 1px ring on active toggle */
+      .tg-err:checked + label.as-toggle,
+      .tg-info:checked + label.as-toggle,
+      .tg-stories:checked + label.as-toggle,
+      .tg-docs:checked + label.as-toggle,
+      .tg-subcomponents:checked + label.as-toggle,
+      .tg-content:checked + label.as-toggle,
+      .tg-props:checked + label.as-toggle {
+          box-shadow: 0 0 0 var(--active-ring) currentColor;
+          border-color: currentColor;
+      }
+
+      /* Panels: hidden by default, shown when respective toggle checked */
+      .panels {
+          display: grid;
+          gap: 10px;
+      }
+
+      .panel {
+          display: none;
+      }
+
+      .tg-err:checked ~ .panels .panel-err {
+          display: grid;
+      }
+
+      .tg-info:checked ~ .panels .panel-info {
+          display: grid;
+          gap: 8px;
+      }
+
+      .tg-stories:checked ~ .panels .panel-stories {
+          display: grid;
+          gap: 8px;
+      }
+
+      .tg-docs:checked ~ .panels .panel-docs {
+          display: grid;
+          gap: 8px;
+      }
+
+      .tg-subcomponents:checked ~ .panels .panel-subcomponents {
+          display: grid;
+          gap: 8px;
+      }
+
+      .tg-content:checked ~ .panels .panel-content {
+          display: grid;
+          gap: 8px;
+      }
+
+      .tg-props:checked ~ .panels .panel-props {
+          display: grid;
+      }
+
+      /* Colored notes for API error + info */
+      .note {
+          padding: 12px;
+          border: 1px solid var(--border);
+          border-radius: 10px;
+      }
+
+      .note.err {
+          border-color: color-mix(in srgb, var(--err) 55%, var(--border));
+          background: var(--err-bg);
+          color: #ffd1d4;
+      }
+
+      .note.info {
+          border-color: color-mix(in srgb, var(--info) 55%, var(--border));
+          background: var(--info-bg);
+          color: #d6e8ff;
+      }
+
+      .note.ok {
+          border-color: color-mix(in srgb, var(--ok) 55%, var(--border));
+          background: var(--ok-bg);
+          color: var(--fg);
+      }
+
+      .note-title {
+          font-weight: 600;
+          margin-bottom: 6px;
+      }
+
+      .note-body {
+          white-space: normal;
+      }
+
+      /* Story error cards */
+      .ex {
+          padding: 10px;
+          border: 1px solid var(--border);
+          border-radius: 10px;
+          background: #0f131b;
+      }
+
+      .ex.err {
+          border-color: color-mix(in srgb, var(--err) 55%, var(--border));
+      }
+
+      .row {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          flex-wrap: wrap;
+      }
+
+      .status-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          display: inline-block;
+      }
+
+      .dot-ok {
+          background: var(--ok);
+      }
+
+      .dot-err {
+          background: var(--err);
+      }
+
+      .ex-name {
+          font-weight: 600;
+      }
+
+      /* Error groups (visible in errors filter) */
+      .error-groups {
+          display: none;
+          margin-bottom: 16px;
+      }
+
+      .group {
+          border: 1px solid var(--border);
+          background: var(--panel);
+          border-radius: 14px;
+          overflow: hidden;
+      }
+
+      .group + .group {
+          margin-top: 12px;
+      }
+
+      .group-header {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 12px 14px;
+          cursor: pointer;
+          border-bottom: 1px solid var(--border);
+      }
+
+      .group-header:hover {
+          background: #141722;
+      }
+
+      .group-title {
+          font-weight: 600;
+          flex: 1;
+      }
+
+      .group-count {
+          font-size: 12px;
+          color: var(--muted);
+      }
+
+      .group-cards {
+          display: none;
+          padding: 12px;
+      }
+
+      .group .card {
+          margin: 12px 0;
+      }
+
+      .group .card:first-child {
+          margin-top: 0;
+      }
+
+      .group .card:last-child {
+          margin-bottom: 0;
+      }
+
+      /* caret rotation */
+      .group-tg:checked + label .caret {
+          transform: rotate(90deg);
+      }
+
+      .caret {
+          transition: transform 0.15s ease;
+      }
+
+      /* toggle body */
+      .group-tg:checked ~ .group-cards {
+          display: block;
+      }
+
+      /* CSS-only filtering of cards via top pills */
+      #filter-errors:target ~ main .card:not(.has-error):not(.has-story-error) {
+          display: none;
+      }
+
+      #filter-infos:target ~ main .card:not(.has-info) {
+          display: none;
+      }
+
+      #filter-story-errors:target ~ main .card:not(.has-story-error) {
+          display: none;
+      }
+
+      #filter-story-warnings:target ~ main .card:not(.has-story-warning) {
+          display: none;
+      }
+
+      #filter-no-api:target ~ main .card:not(.missing-api) {
+          display: none;
+      }
+
+      #filter-doc-errors:target ~ main .card:not(.has-doc-error) {
+          display: none;
+      }
+
+      #filter-docs:target ~ main .card:has(> .tg-docs),
+      #filter-docs:target ~ main .card.is-doc {
+          display: block;
+      }
+
+      #filter-docs:target ~ main .card:not(:has(> .tg-docs)):not(.is-doc) {
+          display: none;
+      }
+
+      #filter-all:target ~ main .card {
+          display: block;
+      }
+
+      /* In errors view, hide standalone component-error cards in the regular grid (they will appear in groups) */
+      #filter-errors:target ~ main .grid .card.has-error {
+          display: none;
+      }
+
+      /* Show grouped section only in errors view */
+      #filter-errors:target ~ main .error-groups {
+          display: block;
+      }
+
+      /* Section titles */
+      .section-title {
+          font-size: 16px;
+          font-weight: 600;
+          color: var(--muted);
+          margin: 24px 0 12px;
+          padding-bottom: 8px;
+          border-bottom: 1px solid var(--border);
+      }
+      .section-title:first-child {
+          margin-top: 0;
+      }
+
+      /* When a toggle is checked, show the corresponding panel */
+      .card > .tg-err:checked ~ .panels .panel-err {
+          display: grid;
+      }
+      
+      .card > .tg-info:checked ~ .panels .panel-info {
+          display: grid;
+      }
+      
+      .card > .tg-stories:checked ~ .panels .panel-stories {
+          display: grid;
+      }
+
+      .card > .tg-docs:checked ~ .panels .panel-docs {
+          display: grid;
+      }
+
+      .card > .tg-subcomponents:checked ~ .panels .panel-subcomponents {
+          display: grid;
+      }
+
+      .card > .tg-content:checked ~ .panels .panel-content {
+          display: grid;
+      }
+
+      /* Add vertical spacing around panels only when any panel is visible */
+      .card > .tg-err:checked ~ .panels,
+      .card > .tg-info:checked ~ .panels,
+      .card > .tg-stories:checked ~ .panels,
+      .card > .tg-docs:checked ~ .panels,
+      .card > .tg-subcomponents:checked ~ .panels,
+      .card > .tg-content:checked ~ .panels,
+      .card > .tg-props:checked ~ .panels {
+          margin: 10px 0;
+      }
+
+      /* Optional: a subtle 1px ring on the active badge, using :has() if available */
+      @supports selector(.card:has(.tg-err:checked)) {
+          .card:has(.tg-err:checked) label[for$='-err'],
+          .card:has(.tg-info:checked) label[for$='-info'],
+          .card:has(.tg-stories:checked) label[for$='-stories'],
+          .card:has(.tg-docs:checked) label[for$='-docs'],
+          .card:has(.tg-subcomponents:checked) label[for$='-subcomponents'],
+          .card:has(.tg-content:checked) label[for$='-content'],
+          .card:has(.tg-props:checked) label[for$='-props'] {
+              box-shadow: 0 0 0 1px currentColor;
+              border-color: currentColor;
+          }
+      }
+
+      /* Wrap long lines in code blocks at ~120 characters */
+      pre, code {
+          font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      }
+      pre {
+          white-space: pre-wrap;
+          overflow-wrap: anywhere;
+          word-break: break-word;
+          overflow-x: auto; /* fallback for extremely long tokens */
+          margin: 8px 0 0;
+      }
+      pre > code {
+          display: block;
+          white-space: inherit;
+          overflow-wrap: inherit;
+          word-break: inherit;
+          inline-size: min(100%, 120ch);
+      }
+
+      /* MDX content container for docs */
+      .mdx-content {
+          background: #0f131b;
+          border: 1px solid var(--border);
+          border-radius: 10px;
+          padding: 12px;
+          max-height: 400px;
+          overflow-y: auto;
+          margin-top: 8px;
+      }
+  </style>
+</head>
+<body>
+<!-- Hidden targets for the top-level filters -->
+<span id="filter-all"></span>
+<span id="filter-errors"></span>
+<span id="filter-infos"></span>
+<span id="filter-story-errors"></span>
+<span id="filter-story-warnings"></span>
+<span id="filter-no-api"></span>
+<span id="filter-doc-errors"></span>
+<span id="filter-docs"></span>
+<header>
+  <div class="wrap">
+    <h1>Manifest Debugger</h1>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">4/11 API errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">11/11 infos</a><a class="filter-pill" data-k="no-api" href="#filter-no-api">4/11 without API description</a><span class="filter-pill ok" aria-disabled="true">39 stories ok</span></div>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+    <div class="note info" style="margin-bottom: 16px;">
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>0.3s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <pre><code>typescript: {
+  reactDocgen: 'react-docgen-typescript',
+}</code></pre>
+            Note: <code>react-docgen-typescript</code> can be slower. If performance is acceptable for your project, it generally produces better results.
+            <a href="https://storybook.js.org/docs/api/main-config/main-config-typescript#reactdocgen" target="_blank">Learn more</a>
+          </div>
+    <h2 class="section-title">Components</h2>
+    <div class="grid" role="list">
+      
+<article
+  id="onboarding-button"
+  class="card 
+  no-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="Button">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> Button</h2>
+      <div class="badges">
+        <label for="c-0-onboarding-button-props" class="badge ok as-toggle">5 prop types</label>
+        <label for="c-0-onboarding-button-info" class="badge info as-toggle">1 info</label>
+        <label for="c-0-onboarding-button-stories" class="badge ok as-toggle">6 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/button.stories.tsx">onboarding-button · ./src/stories/button.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-0-onboarding-button-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-0-onboarding-button-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-0-onboarding-button-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">5 prop types</span>
+            </div>
+            <pre><code>Component: src/components/ui/button.tsx::Button</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>leadingIcon?: React.ReactNode
+
+size?: any = &quot;xs&quot;
+
+state?: any = &quot;default&quot;
+
+trailingIcon?: React.ReactNode
+
+variant?: any = &quot;primary&quot;</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { Button } from 'onboarding';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Primary</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Primary = () =&gt; &lt;VariantMatrix variant=&quot;primary&quot; /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Secondary</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Secondary = () =&gt; &lt;VariantMatrix variant=&quot;secondary&quot; /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Tertiary</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Tertiary = () =&gt; &lt;VariantMatrix variant=&quot;tertiary&quot; /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Secondary Brand</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const SecondaryBrand = () =&gt; &lt;VariantMatrix variant=&quot;secondary-brand&quot; /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Tertiary Brand</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const TertiaryBrand = () =&gt; &lt;VariantMatrix variant=&quot;tertiary-brand&quot; /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">All</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const All = () =&gt; (
+  &lt;div className=&quot;flex flex-col gap-10 bg-white p-8&quot;&gt;
+    {variants.map((variant) =&gt; (
+      &lt;section key={variant} className=&quot;flex flex-col gap-4&quot;&gt;
+        &lt;h2 className=&quot;font-sans text-sm font-semibold text-[#0f172a]&quot;&gt;{variantLabels[variant]}&lt;/h2&gt;
+        &lt;VariantMatrix variant={variant} /&gt;
+      &lt;/section&gt;
+    ))}
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  id="foundations-color"
+  class="card 
+  has-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="Color">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> Color</h2>
+      <div class="badges">
+        <label for="c-1-foundations-color-err" class="badge err as-toggle">API error</label>
+        <label for="c-1-foundations-color-info" class="badge info as-toggle">2 infos</label>
+        <label for="c-1-foundations-color-stories" class="badge ok as-toggle">11 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/foundations.stories.tsx">foundations-color · ./src/stories/foundations.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-1-foundations-color-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-1-foundations-color-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-1-foundations-color-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">API error</div>
+      <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
+  111 | }
+  112 |
+&gt; 113 | const meta = {
+      | ^
+  114 |   title: &quot;Foundations/Color&quot;,
+  115 |   parameters: { layout: &quot;fullscreen&quot; },
+  116 | } satisfies Meta;
+
+./src/stories/foundations.stories.tsx:
+import type { Meta, StoryObj } from &quot;@storybook/nextjs-vite&quot;;
+
+type Token = {
+  name: string;
+  variable: string;
+  value: string;
+  usage: string;
+  kind?: &quot;color&quot; | &quot;measure&quot;;
+};
+
+const brand: Token[] = [
+  { name: &quot;brand.primary&quot;, variable: &quot;--brand-primary&quot;, value: &quot;#2563EB&quot;, usage: &quot;Primary actions, links, active states, key data&quot; },
+  { name: &quot;brand.primary-hover&quot;, variable: &quot;--brand-primary-hover&quot;, value: &quot;#1D4ED8&quot;, usage: &quot;Hover state&quot; },
+  { name: &quot;brand.primary-active&quot;, variable: &quot;--brand-primary-active&quot;, value: &quot;#1E40AF&quot;, usage: &quot;Pressed state&quot; },
+  { name: &quot;brand.primary-subtle&quot;, variable: &quot;--brand-primary-subtle&quot;, value: &quot;#EFF6FF&quot;, usage: &quot;Selected fills, accent badges&quot; },
+  { name: &quot;brand.on-primary&quot;, variable: &quot;--brand-on-primary&quot;, value: &quot;#FFFFFF&quot;, usage: &quot;Text and icons on primary fills&quot; },
+];
+
+const semantic: Token[] = [
+  { name: &quot;semantic.success&quot;, variable: &quot;--semantic-success&quot;, value: &quot;#16A34A&quot;, usage: &quot;Positive confirmation, valid states&quot; },
+  { name: &quot;semantic.success-subtle&quot;, variable: &quot;--semantic-success-subtle&quot;, value: &quot;#E8F7EE&quot;, usage: &quot;Success alert background&quot; },
+  { name: &quot;semantic.danger&quot;, variable: &quot;--semantic-danger&quot;, value: &quot;#DC2626&quot;, usage: &quot;Errors, destructive actions&quot; },
+  { name: &quot;semantic.danger-subtle&quot;, variable: &quot;--semantic-danger-subtle&quot;, value: &quot;#FDECEC&quot;, usage: &quot;Danger alert background&quot; },
+  { name: &quot;semantic.warning&quot;, variable: &quot;--semantic-warning&quot;, value: &quot;#D97706&quot;, usage: &quot;Caution states, risk indicators&quot; },
+  { name: &quot;semantic.warning-subtle&quot;, variable: &quot;--semantic-warning-subtle&quot;, value: &quot;#FDF3E3&quot;, usage: &quot;Warning alert background&quot; },
+  { name: &quot;semantic.info&quot;, variable: &quot;--semantic-info&quot;, value: &quot;#0284C7&quot;, usage: &quot;Informational states, help text&quot; },
+  { name: &quot;semantic.info-subtle&quot;, variable: &quot;--semantic-info-subtle&quot;, value: &quot;#E6F4FB&quot;, usage: &quot;Info alert background&quot; },
+];
+
+const financial: Token[] = [
+  { name: &quot;data.positive&quot;, variable: &quot;--data-positive&quot;, value: &quot;#16A34A&quot;, usage: &quot;Gains, income — always pair with ▲ or +&quot; },
+  { name: &quot;data.negative&quot;, variable: &quot;--data-negative&quot;, value: &quot;#DC2626&quot;, usage: &quot;Losses, outflows — always pair with ▼ or −&quot; },
+  { name: &quot;data.neutral&quot;, variable: &quot;--data-neutral&quot;, value: &quot;#737373&quot;, usage: &quot;Unchanged, baseline values&quot; },
+];
+
+const chart: Token[] = [
+  { name: &quot;data.chart.1&quot;, variable: &quot;--data-chart-1&quot;, value: &quot;#6C2BD9&quot;, usage: &quot;Series 1 — the only branded series&quot; },
+  { name: &quot;data.chart.2&quot;, variable: &quot;--data-chart-2&quot;, value: &quot;#0284C7&quot;, usage: &quot;Series 2 — platform-locked&quot; },
+  { name: &quot;data.chart.3&quot;, variable: &quot;--data-chart-3&quot;, value: &quot;#0D9488&quot;, usage: &quot;Series 3 — platform-locked&quot; },
+  { name: &quot;data.chart.4&quot;, variable: &quot;--data-chart-4&quot;, value: &quot;#D97706&quot;, usage: &quot;Series 4 — platform-locked&quot; },
+  { name: &quot;data.chart.5&quot;, variable: &quot;--data-chart-5&quot;, value: &quot;#DB2777&quot;, usage: &quot;Series 5 — platform-locked&quot; },
+  { name: &quot;data.chart.6&quot;, variable: &quot;--data-chart-6&quot;, value: &quot;#6366F1&quot;, usage: &quot;Series 6 — platform-locked&quot; },
+];
+
+const backgrounds: Token[] = [
+  { name: &quot;theme.bg-app&quot;, variable: &quot;--theme-bg-app&quot;, value: &quot;#FCFCFC&quot;, usage: &quot;App canvas — dark mode: #0A0A0A&quot; },
+  { name: &quot;theme.bg-surface&quot;, variable: &quot;--theme-bg-surface&quot;, value: &quot;#FFFFFF&quot;, usage: &quot;Cards, tables, topbars — dark: #141414&quot; },
+  { name: &quot;state.hover-overlay&quot;, variable: &quot;--state-hover-overlay&quot;, value: &quot;rgb(0 0 0 / 0.04)&quot;, usage: &quot;Transparent overlay, not a solid fill&quot; },
+  { name: &quot;state.selected-bg&quot;, variable: &quot;--state-selected-bg&quot;, value: &quot;#F3EFFF&quot;, usage: &quot;Flat brand.primary-subtle, no edge stroke&quot; },
+  { name: &quot;state.disabled-bg&quot;, variable: &quot;--state-disabled-bg&quot;, value: &quot;#F5F5F5&quot;, usage: &quot;Disabled element background (neutral.100)&quot; },
+  { name: &quot;skeleton.base&quot;, variable: &quot;--skeleton-base&quot;, value: &quot;#F5F5F5&quot;, usage: &quot;Skeleton loading shimmer base (neutral.100)&quot; },
+];
+
+const borders: Token[] = [
+  { name: &quot;theme.border&quot;, variable: &quot;--theme-border&quot;, value: &quot;#EBEBEB&quot;, usage: &quot;All borders and dividers — dark: #262626&quot; },
+  { name: &quot;stroke.thin&quot;, variable: &quot;--stroke-thin&quot;, value: &quot;1px&quot;, usage: &quot;Standard border width&quot;, kind: &quot;measure&quot; },
+];
+
+const strokes: Token[] = [
+  { name: &quot;state.focus-ring&quot;, variable: &quot;--state-focus-ring&quot;, value: &quot;rgb(108 43 217 / 0.35)&quot;, usage: &quot;primary@35% — 3px ring on every focusable element&quot; },
+  { name: &quot;stroke.thick&quot;, variable: &quot;--stroke-thick&quot;, value: &quot;2px&quot;, usage: &quot;Icons, chart lines, underlines&quot;, kind: &quot;measure&quot; },
+];
+
+const shadow: Token[] = [
+  { name: &quot;Shadow/Light 2&quot;, variable: &quot;--shadow-light-2&quot;, value: &quot;0 2px 4px #0000000F&quot;, usage: &quot;Drop shadow, offset (0, 2), radius 4, spread 0&quot;, kind: &quot;measure&quot; },
+];
+
+function Swatch({ token }: { token: Token }) {
+  if (token.kind === &quot;measure&quot;) {
+    return (
+      &lt;div
+        className=&quot;size-9 shrink-0 rounded-lg border border-theme-border bg-theme-bg-surface&quot;
+        style={token.name === &quot;Shadow/Light 2&quot; ? { boxShadow: `var(${token.variable})` } : undefined}
+      &gt;
+        {token.name.startsWith(&quot;stroke&quot;) ? (
+          &lt;div className=&quot;flex h-full items-center px-1&quot;&gt;
+            &lt;div className=&quot;w-full bg-data-neutral&quot; style={{ height: `var(${token.variable})` }} /&gt;
+          &lt;/div&gt;
+        ) : null}
+      &lt;/div&gt;
+    );
+  }
+
+  return (
+    &lt;div className=&quot;size-9 shrink-0 rounded-lg border border-theme-border&quot; style={{ background: `var(${token.variable})` }} /&gt;
+  );
+}
+
+function TokenList({ tokens }: { tokens: Token[] }) {
+  return (
+    &lt;ul className=&quot;flex flex-col&quot;&gt;
+      {tokens.map((token) =&gt; (
+        &lt;li key={token.name} className=&quot;flex h-14 items-center gap-5 px-4&quot;&gt;
+          &lt;Swatch token={token} /&gt;
+          &lt;p className=&quot;w-[220px] font-sans text-sm font-medium text-black/85&quot;&gt;{token.name}&lt;/p&gt;
+          &lt;p className=&quot;w-[150px] font-sans text-[13px] text-black/40&quot;&gt;{token.value}&lt;/p&gt;
+          &lt;p className=&quot;font-sans text-[13px] text-black/35&quot;&gt;{token.usage}&lt;/p&gt;
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+function Group({ title, tokens }: { title: string; tokens: Token[] }) {
+  return (
+    &lt;section className=&quot;flex flex-col gap-3&quot;&gt;
+      &lt;h2 className=&quot;font-sans text-[13px] font-medium tracking-[0.8px] text-black/35 uppercase&quot;&gt;{title}&lt;/h2&gt;
+      &lt;TokenList tokens={tokens} /&gt;
+    &lt;/section&gt;
+  );
+}
+
+const meta = {
+  title: &quot;Foundations/Color&quot;,
+  parameters: { layout: &quot;fullscreen&quot; },
+} satisfies Meta;
+
+export default meta;
+
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const BrandAndSemantic: Story = {
+  name: &quot;Brand and semantic&quot;,
+  render: () =&gt; (
+    &lt;div className=&quot;flex flex-col gap-10 bg-theme-bg-surface p-8&quot;&gt;
+      &lt;Group title=&quot;Brand palette&quot; tokens={brand} /&gt;
+      &lt;Group title=&quot;Semantic — status colors&quot; tokens={semantic} /&gt;
+    &lt;/div&gt;
+  ),
+};
+
+export const DataAndVisualization: Story = {
+  name: &quot;Data and visualization&quot;,
+  render: () =&gt; (
+    &lt;div className=&quot;flex flex-col gap-10 bg-theme-bg-surface p-8&quot;&gt;
+      &lt;Group title=&quot;Financial indicators&quot; tokens={financial} /&gt;
+      &lt;Group title=&quot;Chart series&quot; tokens={chart} /&gt;
+    &lt;/div&gt;
+  ),
+};
+
+export const SurfacesBordersStrokes: Story = {
+  name: &quot;Surfaces, borders, and strokes&quot;,
+  render: () =&gt; (
+    &lt;div className=&quot;flex flex-col gap-10 bg-theme-bg-surface p-8&quot;&gt;
+      &lt;Group title=&quot;Backgrounds&quot; tokens={backgrounds} /&gt;
+      &lt;Group title=&quot;Borders&quot; tokens={borders} /&gt;
+      &lt;Group title=&quot;Strokes&quot; tokens={strokes} /&gt;
+      &lt;Group title=&quot;Shadow&quot; tokens={shadow} /&gt;
+    &lt;/div&gt;
+  ),
+};
+
+function TokenBrowser({ title, tokens }: { title: string; tokens: Token[] }) {
+  return (
+    &lt;div className=&quot;min-h-screen bg-theme-bg-surface p-8&quot;&gt;
+      &lt;Group title={title} tokens={tokens} /&gt;
+    &lt;/div&gt;
+  );
+}
+
+export const BrandTokens: Story = {
+  name: &quot;Brand&quot;,
+  render: () =&gt; &lt;TokenBrowser title=&quot;Brand palette&quot; tokens={brand} /&gt;,
+};
+
+export const SemanticTokens: Story = {
+  name: &quot;Semantic&quot;,
+  render: () =&gt; &lt;TokenBrowser title=&quot;Semantic — status colors&quot; tokens={semantic} /&gt;,
+};
+
+export const FinancialTokens: Story = {
+  name: &quot;Financial indicators&quot;,
+  render: () =&gt; &lt;TokenBrowser title=&quot;Financial indicators&quot; tokens={financial} /&gt;,
+};
+
+export const ChartTokens: Story = {
+  name: &quot;Chart series&quot;,
+  render: () =&gt; &lt;TokenBrowser title=&quot;Chart series&quot; tokens={chart} /&gt;,
+};
+
+export const BackgroundTokens: Story = {
+  name: &quot;Backgrounds&quot;,
+  render: () =&gt; &lt;TokenBrowser title=&quot;Backgrounds&quot; tokens={backgrounds} /&gt;,
+};
+
+export const BorderTokens: Story = {
+  name: &quot;Borders&quot;,
+  render: () =&gt; &lt;TokenBrowser title=&quot;Borders&quot; tokens={borders} /&gt;,
+};
+
+export const StrokeTokens: Story = {
+  name: &quot;Strokes&quot;,
+  render: () =&gt; &lt;TokenBrowser title=&quot;Strokes&quot; tokens={strokes} /&gt;,
+};
+
+export const ShadowTokens: Story = {
+  name: &quot;Shadow&quot;,
+  render: () =&gt; &lt;TokenBrowser title=&quot;Shadow&quot; tokens={shadow} /&gt;,
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">Specify an @import jsdoc tag on your component or your stories meta such as @import import { Color } from &#39;my-design-system&#39;;</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Brand and semantic</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const BrandAndSemantic = () =&gt; (
+  &lt;div className=&quot;flex flex-col gap-10 bg-theme-bg-surface p-8&quot;&gt;
+    &lt;Group title=&quot;Brand palette&quot; tokens={brand} /&gt;
+    &lt;Group title=&quot;Semantic — status colors&quot; tokens={semantic} /&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Data and visualization</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const DataAndVisualization = () =&gt; (
+  &lt;div className=&quot;flex flex-col gap-10 bg-theme-bg-surface p-8&quot;&gt;
+    &lt;Group title=&quot;Financial indicators&quot; tokens={financial} /&gt;
+    &lt;Group title=&quot;Chart series&quot; tokens={chart} /&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Surfaces, borders, and strokes</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const SurfacesBordersStrokes = () =&gt; (
+  &lt;div className=&quot;flex flex-col gap-10 bg-theme-bg-surface p-8&quot;&gt;
+    &lt;Group title=&quot;Backgrounds&quot; tokens={backgrounds} /&gt;
+    &lt;Group title=&quot;Borders&quot; tokens={borders} /&gt;
+    &lt;Group title=&quot;Strokes&quot; tokens={strokes} /&gt;
+    &lt;Group title=&quot;Shadow&quot; tokens={shadow} /&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Brand</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const BrandTokens = () =&gt; &lt;TokenBrowser title=&quot;Brand palette&quot; tokens={brand} /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Semantic</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const SemanticTokens = () =&gt; &lt;TokenBrowser title=&quot;Semantic — status colors&quot; tokens={semantic} /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Financial indicators</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const FinancialTokens = () =&gt; &lt;TokenBrowser title=&quot;Financial indicators&quot; tokens={financial} /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Chart series</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const ChartTokens = () =&gt; &lt;TokenBrowser title=&quot;Chart series&quot; tokens={chart} /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Backgrounds</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const BackgroundTokens = () =&gt; &lt;TokenBrowser title=&quot;Backgrounds&quot; tokens={backgrounds} /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Borders</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const BorderTokens = () =&gt; &lt;TokenBrowser title=&quot;Borders&quot; tokens={borders} /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Strokes</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const StrokeTokens = () =&gt; &lt;TokenBrowser title=&quot;Strokes&quot; tokens={strokes} /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Shadow</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const ShadowTokens = () =&gt; &lt;TokenBrowser title=&quot;Shadow&quot; tokens={shadow} /&gt;;</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  id="onboarding-eye-icon"
+  class="card 
+  no-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="EyeIcon">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> EyeIcon</h2>
+      <div class="badges">
+        <label for="c-2-onboarding-eye-icon-props" class="badge ok as-toggle">1 prop type</label>
+        <label for="c-2-onboarding-eye-icon-info" class="badge info as-toggle">1 info</label>
+        <label for="c-2-onboarding-eye-icon-stories" class="badge ok as-toggle">2 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/eye-icon.stories.tsx">onboarding-eye-icon · ./src/stories/eye-icon.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-2-onboarding-eye-icon-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-2-onboarding-eye-icon-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-2-onboarding-eye-icon-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">1 prop type</span>
+            </div>
+            <pre><code>Component: src/components/onboarding/eye-icon.tsx::EyeIcon</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>slashed?: boolean = true</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { EyeIcon } from 'onboarding';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Slashed</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Slashed = () =&gt; &lt;EyeIcon slashed /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Open</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Open = () =&gt; &lt;EyeIcon slashed={false} /&gt;;</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  id="onboarding-form-field"
+  class="card 
+  no-error
+  has-info
+  no-story-error
+  no-story-warning
+  missing-api
+  no-doc-error"
+  role="listitem"
+  aria-label="Input">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> Input</h2>
+      <div class="badges">
+        <span class="badge">no API description</span>
+        <label for="c-3-onboarding-form-field-info" class="badge info as-toggle">1 info</label>
+        <label for="c-3-onboarding-form-field-stories" class="badge ok as-toggle">2 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/form-field.stories.tsx">onboarding-form-field · ./src/stories/form-field.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-3-onboarding-form-field-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-3-onboarding-form-field-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { Button, EyeIcon, Input, Label } from 'onboarding';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">First Name</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const FirstName = () =&gt; (
+  &lt;div className=&quot;flex w-[420px] flex-col gap-2 bg-white p-6&quot;&gt;
+    &lt;Label htmlFor=&quot;first-name&quot; className=&quot;text-sm leading-5 font-semibold text-[#111827]&quot;&gt;
+      First Name
+    &lt;/Label&gt;
+    &lt;Input
+      id=&quot;first-name&quot;
+      name=&quot;firstName&quot;
+      autoComplete=&quot;given-name&quot;
+      placeholder=&quot;Enter first name&quot;
+      className={inputClassName}
+    /&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Social Security Number</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const SocialSecurityNumber = () =&gt; (
+  &lt;div className=&quot;flex w-[420px] flex-col gap-1.5 bg-white p-6&quot;&gt;
+    &lt;Label htmlFor=&quot;ssn&quot; className=&quot;text-[13px] leading-normal font-normal text-[#111827]&quot;&gt;
+      SSN
+    &lt;/Label&gt;
+    &lt;div className=&quot;relative&quot;&gt;
+      &lt;Input
+        id=&quot;ssn&quot;
+        name=&quot;ssn&quot;
+        inputMode=&quot;numeric&quot;
+        autoComplete=&quot;off&quot;
+        placeholder=&quot;Enter SSN (XXX-XX-XXXX)&quot;
+        className=&quot;h-12 rounded-[6px] border-[#d1d5db] bg-white px-3 pr-10 text-sm leading-normal font-normal text-[#111827] shadow-none placeholder:text-[#9ca3af] focus-visible:border-[#2563eb] focus-visible:ring-0 md:text-sm&quot;
+      /&gt;
+      &lt;Button
+        type=&quot;button&quot;
+        className=&quot;absolute top-1/2 right-3 size-5 -translate-y-1/2 rounded-none border-0 bg-transparent p-0 shadow-none hover:bg-transparent&quot;
+        aria-label=&quot;Show SSN&quot;
+      &gt;
+        &lt;EyeIcon slashed /&gt;
+      &lt;/Button&gt;
+    &lt;/div&gt;
+    &lt;p className=&quot;text-xs leading-normal text-[#6b7280]&quot;&gt;Format: XXX-XX-XXXX&lt;/p&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  id="design-system-input"
+  class="card 
+  no-error
+  has-info
+  no-story-error
+  no-story-warning
+  missing-api
+  no-doc-error"
+  role="listitem"
+  aria-label="Input">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> Input</h2>
+      <div class="badges">
+        <span class="badge">no API description</span>
+        <label for="c-4-design-system-input-info" class="badge info as-toggle">1 info</label>
+        <label for="c-4-design-system-input-stories" class="badge ok as-toggle">2 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/input.stories.tsx">design-system-input · ./src/stories/input.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-4-design-system-input-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-4-design-system-input-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { Input } from 'onboarding';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; &lt;Input placeholder=&quot;Enter text...&quot; /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Disabled</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Disabled = () =&gt; &lt;Input placeholder=&quot;Enter text...&quot; disabled defaultValue=&quot;Disabled&quot; /&gt;;</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  id="design-system-label"
+  class="card 
+  no-error
+  has-info
+  no-story-error
+  no-story-warning
+  missing-api
+  no-doc-error"
+  role="listitem"
+  aria-label="Label">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> Label</h2>
+      <div class="badges">
+        <span class="badge">no API description</span>
+        <label for="c-5-design-system-label-info" class="badge info as-toggle">1 info</label>
+        <label for="c-5-design-system-label-stories" class="badge ok as-toggle">1 story</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/label.stories.tsx">design-system-label · ./src/stories/label.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-5-design-system-label-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-5-design-system-label-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { Label } from 'onboarding';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; &lt;Label&gt;First Name&lt;/Label&gt;;</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  id="foundations-motion"
+  class="card 
+  has-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="Motion">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> Motion</h2>
+      <div class="badges">
+        <label for="c-6-foundations-motion-err" class="badge err as-toggle">API error</label>
+        <label for="c-6-foundations-motion-info" class="badge info as-toggle">1 info</label>
+        <label for="c-6-foundations-motion-stories" class="badge ok as-toggle">1 story</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/motion.stories.tsx">foundations-motion · ./src/stories/motion.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-6-foundations-motion-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-6-foundations-motion-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-6-foundations-motion-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">API error</div>
+      <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
+  113 | }
+  114 |
+&gt; 115 | const meta = {
+      | ^
+  116 |   title: &quot;Foundations/Motion&quot;,
+  117 |   parameters: { layout: &quot;fullscreen&quot; },
+  118 | } satisfies Meta;
+
+./src/stories/motion.stories.tsx:
+import type { Meta, StoryObj } from &quot;@storybook/nextjs-vite&quot;;
+import { useState } from &quot;react&quot;;
+import { motion } from &quot;motion/react&quot;;
+import { Button } from &quot;@/components/ui/button&quot;;
+import { panelTransition, settleSpring } from &quot;@/lib/motion&quot;;
+
+type Token = {
+  name: string;
+  variable: string;
+  value: string;
+  usage: string;
+};
+
+const hover: Token[] = [
+  {
+    name: &quot;motion.hover-duration&quot;,
+    variable: &quot;--motion-hover-duration&quot;,
+    value: &quot;150ms&quot;,
+    usage: &quot;Color and opacity hovers&quot;,
+  },
+  {
+    name: &quot;motion.hover-ease&quot;,
+    variable: &quot;--motion-hover-ease&quot;,
+    value: &quot;cubic-bezier(0, 0, 0.2, 1)&quot;,
+    usage: &quot;Ease-out for hovers&quot;,
+  },
+];
+
+const panel: Token[] = [
+  {
+    name: &quot;motion.panel-duration&quot;,
+    variable: &quot;--motion-panel-duration&quot;,
+    value: &quot;280ms&quot;,
+    usage: &quot;Panels and step changes&quot;,
+  },
+  {
+    name: &quot;motion.panel-ease&quot;,
+    variable: &quot;--motion-panel-ease&quot;,
+    value: &quot;cubic-bezier(0, 0, 0.2, 1)&quot;,
+    usage: &quot;Ease-out for panels and steps&quot;,
+  },
+];
+
+const spring: Token[] = [
+  {
+    name: &quot;motion.spring-duration&quot;,
+    variable: &quot;--motion-spring-duration&quot;,
+    value: &quot;450ms&quot;,
+    usage: &quot;Settle spring duration&quot;,
+  },
+  {
+    name: &quot;motion.spring-bounce&quot;,
+    variable: &quot;--motion-spring-bounce&quot;,
+    value: &quot;0.18&quot;,
+    usage: &quot;Settle spring bounce. Button press travels 2px, then rests.&quot;,
+  },
+];
+
+function TokenList({ tokens }: { tokens: Token[] }) {
+  return (
+    &lt;ul className=&quot;flex flex-col&quot;&gt;
+      {tokens.map((token) =&gt; (
+        &lt;li key={token.name} className=&quot;flex h-14 items-center gap-5 px-4&quot;&gt;
+          &lt;div
+            className=&quot;h-2 w-16 shrink-0 rounded-full bg-brand-primary&quot;
+            style={
+              token.value.endsWith(&quot;ms&quot;)
+                ? {
+                    transformOrigin: &quot;left center&quot;,
+                    animation: `motion-demo var(${token.variable}) var(--motion-hover-ease) infinite alternate`,
+                  }
+                : undefined
+            }
+          /&gt;
+          &lt;p className=&quot;w-[240px] font-sans text-sm font-medium text-black/85&quot;&gt;{token.name}&lt;/p&gt;
+          &lt;p className=&quot;w-[220px] font-sans text-[13px] text-black/40&quot;&gt;{token.value}&lt;/p&gt;
+          &lt;p className=&quot;font-sans text-[13px] text-black/35&quot;&gt;{token.usage}&lt;/p&gt;
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+function Group({ title, tokens }: { title: string; tokens: Token[] }) {
+  return (
+    &lt;section className=&quot;flex flex-col gap-3&quot;&gt;
+      &lt;h2 className=&quot;font-sans text-[13px] font-medium tracking-[0.8px] text-black/35 uppercase&quot;&gt;{title}&lt;/h2&gt;
+      &lt;TokenList tokens={tokens} /&gt;
+    &lt;/section&gt;
+  );
+}
+
+function StepSample() {
+  const [play, setPlay] = useState(0);
+
+  return (
+    &lt;div className=&quot;flex flex-col gap-4&quot;&gt;
+      &lt;motion.div
+        key={play}
+        className=&quot;w-[280px] rounded-xl border border-theme-border bg-theme-bg-surface p-6 shadow-[var(--shadow-light-2)]&quot;
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={panelTransition}
+      &gt;
+        &lt;p className=&quot;font-sans text-sm font-medium&quot;&gt;Step change&lt;/p&gt;
+        &lt;p className=&quot;mt-1 font-sans text-[13px] text-black/45&quot;&gt;280ms ease-out, 12px of travel&lt;/p&gt;
+      &lt;/motion.div&gt;
+      &lt;Button type=&quot;button&quot; size=&quot;md&quot; onClick={() =&gt; setPlay((value) =&gt; value + 1)}&gt;
+        Replay step
+      &lt;/Button&gt;
+    &lt;/div&gt;
+  );
+}
+
+const meta = {
+  title: &quot;Foundations/Motion&quot;,
+  parameters: { layout: &quot;fullscreen&quot; },
+} satisfies Meta;
+
+export default meta;
+
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const Tokens: Story = {
+  name: &quot;Tokens&quot;,
+  render: () =&gt; (
+    &lt;div className=&quot;flex min-h-screen flex-col gap-10 bg-theme-bg-surface p-8&quot;&gt;
+      &lt;style&gt;{`@keyframes motion-demo { from { transform: scaleX(0.35); } to { transform: scaleX(1); } }`}&lt;/style&gt;
+      &lt;Group title=&quot;Hover&quot; tokens={hover} /&gt;
+      &lt;Group title=&quot;Panel and step&quot; tokens={panel} /&gt;
+      &lt;Group title=&quot;Settle spring&quot; tokens={spring} /&gt;
+      &lt;section className=&quot;flex flex-col gap-4&quot;&gt;
+        &lt;h2 className=&quot;font-sans text-[13px] font-medium tracking-[0.8px] text-black/35 uppercase&quot;&gt;Press&lt;/h2&gt;
+        &lt;p className=&quot;font-sans text-[13px] text-black/45&quot;&gt;
+          Spring {settleSpring.duration}s, bounce {settleSpring.bounce}. Reduced motion skips the travel and still completes the press.
+        &lt;/p&gt;
+        &lt;div&gt;
+          &lt;Button size=&quot;lg&quot;&gt;Press me&lt;/Button&gt;
+        &lt;/div&gt;
+        &lt;StepSample /&gt;
+      &lt;/section&gt;
+    &lt;/div&gt;
+  ),
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { Button } from 'onboarding';
+import { motion } from 'motion/react';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Tokens</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Tokens = () =&gt; (
+  &lt;div className=&quot;flex min-h-screen flex-col gap-10 bg-theme-bg-surface p-8&quot;&gt;
+    &lt;style&gt;{`@keyframes motion-demo { from { transform: scaleX(0.35); } to { transform: scaleX(1); } }`}&lt;/style&gt;
+    &lt;Group title=&quot;Hover&quot; tokens={hover} /&gt;
+    &lt;Group title=&quot;Panel and step&quot; tokens={panel} /&gt;
+    &lt;Group title=&quot;Settle spring&quot; tokens={spring} /&gt;
+    &lt;section className=&quot;flex flex-col gap-4&quot;&gt;
+      &lt;h2 className=&quot;font-sans text-[13px] font-medium tracking-[0.8px] text-black/35 uppercase&quot;&gt;Press&lt;/h2&gt;
+      &lt;p className=&quot;font-sans text-[13px] text-black/45&quot;&gt;
+        Spring {settleSpring.duration}s, bounce {settleSpring.bounce}. Reduced motion skips the travel and still completes the press.
+      &lt;/p&gt;
+      &lt;div&gt;
+        &lt;Button size=&quot;lg&quot;&gt;Press me&lt;/Button&gt;
+      &lt;/div&gt;
+      &lt;StepSample /&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  id="onboarding-header"
+  class="card 
+  no-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="OnboardingHeader">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> OnboardingHeader</h2>
+      <div class="badges">
+        <label for="c-7-onboarding-header-props" class="badge ok as-toggle">2 prop types</label>
+        <label for="c-7-onboarding-header-info" class="badge info as-toggle">1 info</label>
+        <label for="c-7-onboarding-header-stories" class="badge ok as-toggle">3 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/onboarding-header.stories.tsx">onboarding-header · ./src/stories/onboarding-header.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-7-onboarding-header-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-7-onboarding-header-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-7-onboarding-header-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">2 prop types</span>
+            </div>
+            <pre><code>Component: src/components/onboarding/onboarding-header.tsx::OnboardingHeader</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>progress: string
+
+steps: OnboardingStep[]</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { OnboardingHeader } from 'onboarding';
+import { identitySteps, loginSteps, flowSteps } from '@/components/onboarding/onboarding-header';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Identity</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const IdentityStepper = () =&gt; &lt;OnboardingHeader steps={identitySteps} progress=&quot;w-1/6&quot; /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Login</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const LoginStepper = () =&gt; &lt;OnboardingHeader steps={loginSteps} progress=&quot;w-1/3&quot; /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Flow</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const FlowStepper = () =&gt; &lt;OnboardingHeader steps={flowSteps(4)} progress=&quot;w-2/3&quot; /&gt;;</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  id="onboarding-panel"
+  class="card 
+  has-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="Panel">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> Panel</h2>
+      <div class="badges">
+        <label for="c-8-onboarding-panel-err" class="badge err as-toggle">API error</label>
+        <label for="c-8-onboarding-panel-info" class="badge info as-toggle">1 info</label>
+        <label for="c-8-onboarding-panel-stories" class="badge ok as-toggle">2 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/onboarding-panel.stories.tsx">onboarding-panel · ./src/stories/onboarding-panel.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-8-onboarding-panel-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-8-onboarding-panel-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-8-onboarding-panel-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">API error</div>
+      <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
+  3 | import { Button } from &quot;@/components/ui/button&quot;;
+  4 |
+&gt; 5 | const meta = {
+    | ^
+  6 |   title: &quot;Onboarding/Panel&quot;,
+  7 |   parameters: { layout: &quot;fullscreen&quot; },
+  8 | } satisfies Meta;
+
+./src/stories/onboarding-panel.stories.tsx:
+import type { Meta, StoryObj } from &quot;@storybook/nextjs-vite&quot;;
+import { OnboardingActions, OnboardingBack, OnboardingData } from &quot;@/components/onboarding/onboarding-panel&quot;;
+import { Button } from &quot;@/components/ui/button&quot;;
+
+const meta = {
+  title: &quot;Onboarding/Panel&quot;,
+  parameters: { layout: &quot;fullscreen&quot; },
+} satisfies Meta;
+
+export default meta;
+
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const BackLink: Story = {
+  name: &quot;Back&quot;,
+  render: () =&gt; (
+    &lt;div className=&quot;relative h-40 bg-white&quot;&gt;
+      &lt;OnboardingBack href=&quot;/&quot; /&gt;
+    &lt;/div&gt;
+  ),
+};
+
+export const FormColumn: Story = {
+  name: &quot;Data and actions&quot;,
+  render: () =&gt; (
+    &lt;div className=&quot;relative min-h-screen bg-white&quot;&gt;
+      &lt;OnboardingData insetClassName=&quot;lg:px-12&quot;&gt;
+        &lt;OnboardingBack href=&quot;/&quot; /&gt;
+        &lt;h1 className=&quot;text-[28px] leading-8 font-semibold tracking-[-0.7px]&quot;&gt;Create your login&lt;/h1&gt;
+      &lt;/OnboardingData&gt;
+      &lt;OnboardingActions panelClassName=&quot;lg:w-1/2&quot; insetClassName=&quot;lg:px-12&quot;&gt;
+        &lt;Button className=&quot;h-12 w-full rounded-[7px] bg-[#2563eb] px-6 text-base font-semibold text-white hover:bg-[#1d4ed8]&quot;&gt;
+          Continue
+        &lt;/Button&gt;
+      &lt;/OnboardingActions&gt;
+    &lt;/div&gt;
+  ),
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { Button, OnboardingActions, OnboardingBack, OnboardingData } from 'onboarding';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Back</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const BackLink = () =&gt; (
+  &lt;div className=&quot;relative h-40 bg-white&quot;&gt;
+    &lt;OnboardingBack href=&quot;/&quot; /&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Data and actions</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const FormColumn = () =&gt; (
+  &lt;div className=&quot;relative min-h-screen bg-white&quot;&gt;
+    &lt;OnboardingData insetClassName=&quot;lg:px-12&quot;&gt;
+      &lt;OnboardingBack href=&quot;/&quot; /&gt;
+      &lt;h1 className=&quot;text-[28px] leading-8 font-semibold tracking-[-0.7px]&quot;&gt;Create your login&lt;/h1&gt;
+    &lt;/OnboardingData&gt;
+    &lt;OnboardingActions panelClassName=&quot;lg:w-1/2&quot; insetClassName=&quot;lg:px-12&quot;&gt;
+      &lt;Button className=&quot;h-12 w-full rounded-[7px] bg-[#2563eb] px-6 text-base font-semibold text-white hover:bg-[#1d4ed8]&quot;&gt;
+        Continue
+      &lt;/Button&gt;
+    &lt;/OnboardingActions&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  id="onboarding-screens"
+  class="card 
+  has-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="Screens">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> Screens</h2>
+      <div class="badges">
+        <label for="c-9-onboarding-screens-err" class="badge err as-toggle">API error</label>
+        <label for="c-9-onboarding-screens-info" class="badge info as-toggle">1 info</label>
+        <label for="c-9-onboarding-screens-stories" class="badge ok as-toggle">8 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/screens.stories.tsx">onboarding-screens · ./src/stories/screens.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-9-onboarding-screens-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-9-onboarding-screens-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-9-onboarding-screens-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">API error</div>
+      <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
+   8 | import { StrategyStep } from &quot;@/components/onboarding/strategy-step&quot;;
+   9 |
+&gt; 10 | const meta = {
+     | ^
+  11 |   title: &quot;Onboarding/Screens&quot;,
+  12 |   parameters: { layout: &quot;fullscreen&quot; },
+  13 | } satisfies Meta;
+
+./src/stories/screens.stories.tsx:
+import type { Meta, StoryObj } from &quot;@storybook/nextjs-vite&quot;;
+import { BankStep, BanksConnectedStep } from &quot;@/components/onboarding/bank-step&quot;;
+import { BeneficiariesStep } from &quot;@/components/onboarding/beneficiaries-step&quot;;
+import { ContributionStep } from &quot;@/components/onboarding/contribution-step&quot;;
+import { CreateLogin } from &quot;@/components/onboarding/create-login&quot;;
+import { ReviewStep } from &quot;@/components/onboarding/review-step&quot;;
+import { SignatureStep } from &quot;@/components/onboarding/signature-step&quot;;
+import { StrategyStep } from &quot;@/components/onboarding/strategy-step&quot;;
+
+const meta = {
+  title: &quot;Onboarding/Screens&quot;,
+  parameters: { layout: &quot;fullscreen&quot; },
+} satisfies Meta;
+
+export default meta;
+
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const CreateYourLogin: Story = {
+  name: &quot;Create your login&quot;,
+  render: () =&gt; &lt;CreateLogin /&gt;,
+};
+
+export const Contribution: Story = {
+  name: &quot;Contribution&quot;,
+  render: () =&gt; &lt;ContributionStep /&gt;,
+};
+
+export const Bank: Story = {
+  name: &quot;Bank&quot;,
+  render: () =&gt; &lt;BankStep /&gt;,
+};
+
+export const BanksConnected: Story = {
+  name: &quot;Banks connected&quot;,
+  render: () =&gt; &lt;BanksConnectedStep /&gt;,
+};
+
+export const Strategy: Story = {
+  name: &quot;Strategy&quot;,
+  render: () =&gt; &lt;StrategyStep /&gt;,
+};
+
+export const Beneficiaries: Story = {
+  name: &quot;Beneficiaries&quot;,
+  render: () =&gt; &lt;BeneficiariesStep /&gt;,
+};
+
+export const Signature: Story = {
+  name: &quot;Signature&quot;,
+  render: () =&gt; &lt;SignatureStep /&gt;,
+};
+
+export const Review: Story = {
+  name: &quot;Review&quot;,
+  render: () =&gt; &lt;ReviewStep /&gt;,
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import {
+  BanksConnectedStep,
+  BankStep,
+  BeneficiariesStep,
+  ContributionStep,
+  CreateLogin,
+  ReviewStep,
+  SignatureStep,
+  StrategyStep,
+} from 'onboarding';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Create your login</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const CreateYourLogin = () =&gt; &lt;CreateLogin /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Contribution</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Contribution = () =&gt; &lt;ContributionStep /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Bank</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Bank = () =&gt; &lt;BankStep /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Banks connected</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const BanksConnected = () =&gt; &lt;BanksConnectedStep /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Strategy</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Strategy = () =&gt; &lt;StrategyStep /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Beneficiaries</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Beneficiaries = () =&gt; &lt;BeneficiariesStep /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Signature</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Signature = () =&gt; &lt;SignatureStep /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Review</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Review = () =&gt; &lt;ReviewStep /&gt;;</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  id="onboarding-verify-account"
+  class="card 
+  no-error
+  has-info
+  no-story-error
+  no-story-warning
+  missing-api
+  no-doc-error"
+  role="listitem"
+  aria-label="VerifyAccount">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> VerifyAccount</h2>
+      <div class="badges">
+        <span class="badge">no API description</span>
+        <label for="c-10-onboarding-verify-account-info" class="badge info as-toggle">1 info</label>
+        <label for="c-10-onboarding-verify-account-stories" class="badge ok as-toggle">1 story</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/verify-account.stories.tsx">onboarding-verify-account · ./src/stories/verify-account.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-10-onboarding-verify-account-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-10-onboarding-verify-account-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { VerifyAccount } from 'onboarding';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Identity Step</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const IdentityStep = () =&gt; &lt;VerifyAccount /&gt;;</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+    </div>
+    <div class="error-groups" role="region" aria-label="API error groups">
+        <section class="group">
+          <input id="no-component-found-toggle" class="group-tg" type="checkbox" hidden />
+          <label for="no-component-found-toggle" class="group-header">
+            <span class="caret">▸</span>
+            <span class="group-title">No component found</span>
+            <span class="group-count">4</span>
+          </label>
+          <div class="group-cards">
+<article
+  
+  class="card 
+  has-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="Color">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> Color</h2>
+      <div class="badges">
+        <label for="c-error-0-foundations-color-err" class="badge err as-toggle">API error</label>
+        <label for="c-error-0-foundations-color-info" class="badge info as-toggle">2 infos</label>
+        <label for="c-error-0-foundations-color-stories" class="badge ok as-toggle">11 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/foundations.stories.tsx">foundations-color · ./src/stories/foundations.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-error-0-foundations-color-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-0-foundations-color-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-0-foundations-color-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">API error</div>
+      <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
+  111 | }
+  112 |
+&gt; 113 | const meta = {
+      | ^
+  114 |   title: &quot;Foundations/Color&quot;,
+  115 |   parameters: { layout: &quot;fullscreen&quot; },
+  116 | } satisfies Meta;
+
+./src/stories/foundations.stories.tsx:
+import type { Meta, StoryObj } from &quot;@storybook/nextjs-vite&quot;;
+
+type Token = {
+  name: string;
+  variable: string;
+  value: string;
+  usage: string;
+  kind?: &quot;color&quot; | &quot;measure&quot;;
+};
+
+const brand: Token[] = [
+  { name: &quot;brand.primary&quot;, variable: &quot;--brand-primary&quot;, value: &quot;#2563EB&quot;, usage: &quot;Primary actions, links, active states, key data&quot; },
+  { name: &quot;brand.primary-hover&quot;, variable: &quot;--brand-primary-hover&quot;, value: &quot;#1D4ED8&quot;, usage: &quot;Hover state&quot; },
+  { name: &quot;brand.primary-active&quot;, variable: &quot;--brand-primary-active&quot;, value: &quot;#1E40AF&quot;, usage: &quot;Pressed state&quot; },
+  { name: &quot;brand.primary-subtle&quot;, variable: &quot;--brand-primary-subtle&quot;, value: &quot;#EFF6FF&quot;, usage: &quot;Selected fills, accent badges&quot; },
+  { name: &quot;brand.on-primary&quot;, variable: &quot;--brand-on-primary&quot;, value: &quot;#FFFFFF&quot;, usage: &quot;Text and icons on primary fills&quot; },
+];
+
+const semantic: Token[] = [
+  { name: &quot;semantic.success&quot;, variable: &quot;--semantic-success&quot;, value: &quot;#16A34A&quot;, usage: &quot;Positive confirmation, valid states&quot; },
+  { name: &quot;semantic.success-subtle&quot;, variable: &quot;--semantic-success-subtle&quot;, value: &quot;#E8F7EE&quot;, usage: &quot;Success alert background&quot; },
+  { name: &quot;semantic.danger&quot;, variable: &quot;--semantic-danger&quot;, value: &quot;#DC2626&quot;, usage: &quot;Errors, destructive actions&quot; },
+  { name: &quot;semantic.danger-subtle&quot;, variable: &quot;--semantic-danger-subtle&quot;, value: &quot;#FDECEC&quot;, usage: &quot;Danger alert background&quot; },
+  { name: &quot;semantic.warning&quot;, variable: &quot;--semantic-warning&quot;, value: &quot;#D97706&quot;, usage: &quot;Caution states, risk indicators&quot; },
+  { name: &quot;semantic.warning-subtle&quot;, variable: &quot;--semantic-warning-subtle&quot;, value: &quot;#FDF3E3&quot;, usage: &quot;Warning alert background&quot; },
+  { name: &quot;semantic.info&quot;, variable: &quot;--semantic-info&quot;, value: &quot;#0284C7&quot;, usage: &quot;Informational states, help text&quot; },
+  { name: &quot;semantic.info-subtle&quot;, variable: &quot;--semantic-info-subtle&quot;, value: &quot;#E6F4FB&quot;, usage: &quot;Info alert background&quot; },
+];
+
+const financial: Token[] = [
+  { name: &quot;data.positive&quot;, variable: &quot;--data-positive&quot;, value: &quot;#16A34A&quot;, usage: &quot;Gains, income — always pair with ▲ or +&quot; },
+  { name: &quot;data.negative&quot;, variable: &quot;--data-negative&quot;, value: &quot;#DC2626&quot;, usage: &quot;Losses, outflows — always pair with ▼ or −&quot; },
+  { name: &quot;data.neutral&quot;, variable: &quot;--data-neutral&quot;, value: &quot;#737373&quot;, usage: &quot;Unchanged, baseline values&quot; },
+];
+
+const chart: Token[] = [
+  { name: &quot;data.chart.1&quot;, variable: &quot;--data-chart-1&quot;, value: &quot;#6C2BD9&quot;, usage: &quot;Series 1 — the only branded series&quot; },
+  { name: &quot;data.chart.2&quot;, variable: &quot;--data-chart-2&quot;, value: &quot;#0284C7&quot;, usage: &quot;Series 2 — platform-locked&quot; },
+  { name: &quot;data.chart.3&quot;, variable: &quot;--data-chart-3&quot;, value: &quot;#0D9488&quot;, usage: &quot;Series 3 — platform-locked&quot; },
+  { name: &quot;data.chart.4&quot;, variable: &quot;--data-chart-4&quot;, value: &quot;#D97706&quot;, usage: &quot;Series 4 — platform-locked&quot; },
+  { name: &quot;data.chart.5&quot;, variable: &quot;--data-chart-5&quot;, value: &quot;#DB2777&quot;, usage: &quot;Series 5 — platform-locked&quot; },
+  { name: &quot;data.chart.6&quot;, variable: &quot;--data-chart-6&quot;, value: &quot;#6366F1&quot;, usage: &quot;Series 6 — platform-locked&quot; },
+];
+
+const backgrounds: Token[] = [
+  { name: &quot;theme.bg-app&quot;, variable: &quot;--theme-bg-app&quot;, value: &quot;#FCFCFC&quot;, usage: &quot;App canvas — dark mode: #0A0A0A&quot; },
+  { name: &quot;theme.bg-surface&quot;, variable: &quot;--theme-bg-surface&quot;, value: &quot;#FFFFFF&quot;, usage: &quot;Cards, tables, topbars — dark: #141414&quot; },
+  { name: &quot;state.hover-overlay&quot;, variable: &quot;--state-hover-overlay&quot;, value: &quot;rgb(0 0 0 / 0.04)&quot;, usage: &quot;Transparent overlay, not a solid fill&quot; },
+  { name: &quot;state.selected-bg&quot;, variable: &quot;--state-selected-bg&quot;, value: &quot;#F3EFFF&quot;, usage: &quot;Flat brand.primary-subtle, no edge stroke&quot; },
+  { name: &quot;state.disabled-bg&quot;, variable: &quot;--state-disabled-bg&quot;, value: &quot;#F5F5F5&quot;, usage: &quot;Disabled element background (neutral.100)&quot; },
+  { name: &quot;skeleton.base&quot;, variable: &quot;--skeleton-base&quot;, value: &quot;#F5F5F5&quot;, usage: &quot;Skeleton loading shimmer base (neutral.100)&quot; },
+];
+
+const borders: Token[] = [
+  { name: &quot;theme.border&quot;, variable: &quot;--theme-border&quot;, value: &quot;#EBEBEB&quot;, usage: &quot;All borders and dividers — dark: #262626&quot; },
+  { name: &quot;stroke.thin&quot;, variable: &quot;--stroke-thin&quot;, value: &quot;1px&quot;, usage: &quot;Standard border width&quot;, kind: &quot;measure&quot; },
+];
+
+const strokes: Token[] = [
+  { name: &quot;state.focus-ring&quot;, variable: &quot;--state-focus-ring&quot;, value: &quot;rgb(108 43 217 / 0.35)&quot;, usage: &quot;primary@35% — 3px ring on every focusable element&quot; },
+  { name: &quot;stroke.thick&quot;, variable: &quot;--stroke-thick&quot;, value: &quot;2px&quot;, usage: &quot;Icons, chart lines, underlines&quot;, kind: &quot;measure&quot; },
+];
+
+const shadow: Token[] = [
+  { name: &quot;Shadow/Light 2&quot;, variable: &quot;--shadow-light-2&quot;, value: &quot;0 2px 4px #0000000F&quot;, usage: &quot;Drop shadow, offset (0, 2), radius 4, spread 0&quot;, kind: &quot;measure&quot; },
+];
+
+function Swatch({ token }: { token: Token }) {
+  if (token.kind === &quot;measure&quot;) {
+    return (
+      &lt;div
+        className=&quot;size-9 shrink-0 rounded-lg border border-theme-border bg-theme-bg-surface&quot;
+        style={token.name === &quot;Shadow/Light 2&quot; ? { boxShadow: `var(${token.variable})` } : undefined}
+      &gt;
+        {token.name.startsWith(&quot;stroke&quot;) ? (
+          &lt;div className=&quot;flex h-full items-center px-1&quot;&gt;
+            &lt;div className=&quot;w-full bg-data-neutral&quot; style={{ height: `var(${token.variable})` }} /&gt;
+          &lt;/div&gt;
+        ) : null}
+      &lt;/div&gt;
+    );
+  }
+
+  return (
+    &lt;div className=&quot;size-9 shrink-0 rounded-lg border border-theme-border&quot; style={{ background: `var(${token.variable})` }} /&gt;
+  );
+}
+
+function TokenList({ tokens }: { tokens: Token[] }) {
+  return (
+    &lt;ul className=&quot;flex flex-col&quot;&gt;
+      {tokens.map((token) =&gt; (
+        &lt;li key={token.name} className=&quot;flex h-14 items-center gap-5 px-4&quot;&gt;
+          &lt;Swatch token={token} /&gt;
+          &lt;p className=&quot;w-[220px] font-sans text-sm font-medium text-black/85&quot;&gt;{token.name}&lt;/p&gt;
+          &lt;p className=&quot;w-[150px] font-sans text-[13px] text-black/40&quot;&gt;{token.value}&lt;/p&gt;
+          &lt;p className=&quot;font-sans text-[13px] text-black/35&quot;&gt;{token.usage}&lt;/p&gt;
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+function Group({ title, tokens }: { title: string; tokens: Token[] }) {
+  return (
+    &lt;section className=&quot;flex flex-col gap-3&quot;&gt;
+      &lt;h2 className=&quot;font-sans text-[13px] font-medium tracking-[0.8px] text-black/35 uppercase&quot;&gt;{title}&lt;/h2&gt;
+      &lt;TokenList tokens={tokens} /&gt;
+    &lt;/section&gt;
+  );
+}
+
+const meta = {
+  title: &quot;Foundations/Color&quot;,
+  parameters: { layout: &quot;fullscreen&quot; },
+} satisfies Meta;
+
+export default meta;
+
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const BrandAndSemantic: Story = {
+  name: &quot;Brand and semantic&quot;,
+  render: () =&gt; (
+    &lt;div className=&quot;flex flex-col gap-10 bg-theme-bg-surface p-8&quot;&gt;
+      &lt;Group title=&quot;Brand palette&quot; tokens={brand} /&gt;
+      &lt;Group title=&quot;Semantic — status colors&quot; tokens={semantic} /&gt;
+    &lt;/div&gt;
+  ),
+};
+
+export const DataAndVisualization: Story = {
+  name: &quot;Data and visualization&quot;,
+  render: () =&gt; (
+    &lt;div className=&quot;flex flex-col gap-10 bg-theme-bg-surface p-8&quot;&gt;
+      &lt;Group title=&quot;Financial indicators&quot; tokens={financial} /&gt;
+      &lt;Group title=&quot;Chart series&quot; tokens={chart} /&gt;
+    &lt;/div&gt;
+  ),
+};
+
+export const SurfacesBordersStrokes: Story = {
+  name: &quot;Surfaces, borders, and strokes&quot;,
+  render: () =&gt; (
+    &lt;div className=&quot;flex flex-col gap-10 bg-theme-bg-surface p-8&quot;&gt;
+      &lt;Group title=&quot;Backgrounds&quot; tokens={backgrounds} /&gt;
+      &lt;Group title=&quot;Borders&quot; tokens={borders} /&gt;
+      &lt;Group title=&quot;Strokes&quot; tokens={strokes} /&gt;
+      &lt;Group title=&quot;Shadow&quot; tokens={shadow} /&gt;
+    &lt;/div&gt;
+  ),
+};
+
+function TokenBrowser({ title, tokens }: { title: string; tokens: Token[] }) {
+  return (
+    &lt;div className=&quot;min-h-screen bg-theme-bg-surface p-8&quot;&gt;
+      &lt;Group title={title} tokens={tokens} /&gt;
+    &lt;/div&gt;
+  );
+}
+
+export const BrandTokens: Story = {
+  name: &quot;Brand&quot;,
+  render: () =&gt; &lt;TokenBrowser title=&quot;Brand palette&quot; tokens={brand} /&gt;,
+};
+
+export const SemanticTokens: Story = {
+  name: &quot;Semantic&quot;,
+  render: () =&gt; &lt;TokenBrowser title=&quot;Semantic — status colors&quot; tokens={semantic} /&gt;,
+};
+
+export const FinancialTokens: Story = {
+  name: &quot;Financial indicators&quot;,
+  render: () =&gt; &lt;TokenBrowser title=&quot;Financial indicators&quot; tokens={financial} /&gt;,
+};
+
+export const ChartTokens: Story = {
+  name: &quot;Chart series&quot;,
+  render: () =&gt; &lt;TokenBrowser title=&quot;Chart series&quot; tokens={chart} /&gt;,
+};
+
+export const BackgroundTokens: Story = {
+  name: &quot;Backgrounds&quot;,
+  render: () =&gt; &lt;TokenBrowser title=&quot;Backgrounds&quot; tokens={backgrounds} /&gt;,
+};
+
+export const BorderTokens: Story = {
+  name: &quot;Borders&quot;,
+  render: () =&gt; &lt;TokenBrowser title=&quot;Borders&quot; tokens={borders} /&gt;,
+};
+
+export const StrokeTokens: Story = {
+  name: &quot;Strokes&quot;,
+  render: () =&gt; &lt;TokenBrowser title=&quot;Strokes&quot; tokens={strokes} /&gt;,
+};
+
+export const ShadowTokens: Story = {
+  name: &quot;Shadow&quot;,
+  render: () =&gt; &lt;TokenBrowser title=&quot;Shadow&quot; tokens={shadow} /&gt;,
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">Specify an @import jsdoc tag on your component or your stories meta such as @import import { Color } from &#39;my-design-system&#39;;</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Brand and semantic</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const BrandAndSemantic = () =&gt; (
+  &lt;div className=&quot;flex flex-col gap-10 bg-theme-bg-surface p-8&quot;&gt;
+    &lt;Group title=&quot;Brand palette&quot; tokens={brand} /&gt;
+    &lt;Group title=&quot;Semantic — status colors&quot; tokens={semantic} /&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Data and visualization</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const DataAndVisualization = () =&gt; (
+  &lt;div className=&quot;flex flex-col gap-10 bg-theme-bg-surface p-8&quot;&gt;
+    &lt;Group title=&quot;Financial indicators&quot; tokens={financial} /&gt;
+    &lt;Group title=&quot;Chart series&quot; tokens={chart} /&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Surfaces, borders, and strokes</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const SurfacesBordersStrokes = () =&gt; (
+  &lt;div className=&quot;flex flex-col gap-10 bg-theme-bg-surface p-8&quot;&gt;
+    &lt;Group title=&quot;Backgrounds&quot; tokens={backgrounds} /&gt;
+    &lt;Group title=&quot;Borders&quot; tokens={borders} /&gt;
+    &lt;Group title=&quot;Strokes&quot; tokens={strokes} /&gt;
+    &lt;Group title=&quot;Shadow&quot; tokens={shadow} /&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Brand</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const BrandTokens = () =&gt; &lt;TokenBrowser title=&quot;Brand palette&quot; tokens={brand} /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Semantic</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const SemanticTokens = () =&gt; &lt;TokenBrowser title=&quot;Semantic — status colors&quot; tokens={semantic} /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Financial indicators</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const FinancialTokens = () =&gt; &lt;TokenBrowser title=&quot;Financial indicators&quot; tokens={financial} /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Chart series</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const ChartTokens = () =&gt; &lt;TokenBrowser title=&quot;Chart series&quot; tokens={chart} /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Backgrounds</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const BackgroundTokens = () =&gt; &lt;TokenBrowser title=&quot;Backgrounds&quot; tokens={backgrounds} /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Borders</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const BorderTokens = () =&gt; &lt;TokenBrowser title=&quot;Borders&quot; tokens={borders} /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Strokes</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const StrokeTokens = () =&gt; &lt;TokenBrowser title=&quot;Strokes&quot; tokens={strokes} /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Shadow</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const ShadowTokens = () =&gt; &lt;TokenBrowser title=&quot;Shadow&quot; tokens={shadow} /&gt;;</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  
+  class="card 
+  has-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="Motion">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> Motion</h2>
+      <div class="badges">
+        <label for="c-error-1-foundations-motion-err" class="badge err as-toggle">API error</label>
+        <label for="c-error-1-foundations-motion-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-1-foundations-motion-stories" class="badge ok as-toggle">1 story</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/motion.stories.tsx">foundations-motion · ./src/stories/motion.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-error-1-foundations-motion-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-1-foundations-motion-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-1-foundations-motion-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">API error</div>
+      <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
+  113 | }
+  114 |
+&gt; 115 | const meta = {
+      | ^
+  116 |   title: &quot;Foundations/Motion&quot;,
+  117 |   parameters: { layout: &quot;fullscreen&quot; },
+  118 | } satisfies Meta;
+
+./src/stories/motion.stories.tsx:
+import type { Meta, StoryObj } from &quot;@storybook/nextjs-vite&quot;;
+import { useState } from &quot;react&quot;;
+import { motion } from &quot;motion/react&quot;;
+import { Button } from &quot;@/components/ui/button&quot;;
+import { panelTransition, settleSpring } from &quot;@/lib/motion&quot;;
+
+type Token = {
+  name: string;
+  variable: string;
+  value: string;
+  usage: string;
+};
+
+const hover: Token[] = [
+  {
+    name: &quot;motion.hover-duration&quot;,
+    variable: &quot;--motion-hover-duration&quot;,
+    value: &quot;150ms&quot;,
+    usage: &quot;Color and opacity hovers&quot;,
+  },
+  {
+    name: &quot;motion.hover-ease&quot;,
+    variable: &quot;--motion-hover-ease&quot;,
+    value: &quot;cubic-bezier(0, 0, 0.2, 1)&quot;,
+    usage: &quot;Ease-out for hovers&quot;,
+  },
+];
+
+const panel: Token[] = [
+  {
+    name: &quot;motion.panel-duration&quot;,
+    variable: &quot;--motion-panel-duration&quot;,
+    value: &quot;280ms&quot;,
+    usage: &quot;Panels and step changes&quot;,
+  },
+  {
+    name: &quot;motion.panel-ease&quot;,
+    variable: &quot;--motion-panel-ease&quot;,
+    value: &quot;cubic-bezier(0, 0, 0.2, 1)&quot;,
+    usage: &quot;Ease-out for panels and steps&quot;,
+  },
+];
+
+const spring: Token[] = [
+  {
+    name: &quot;motion.spring-duration&quot;,
+    variable: &quot;--motion-spring-duration&quot;,
+    value: &quot;450ms&quot;,
+    usage: &quot;Settle spring duration&quot;,
+  },
+  {
+    name: &quot;motion.spring-bounce&quot;,
+    variable: &quot;--motion-spring-bounce&quot;,
+    value: &quot;0.18&quot;,
+    usage: &quot;Settle spring bounce. Button press travels 2px, then rests.&quot;,
+  },
+];
+
+function TokenList({ tokens }: { tokens: Token[] }) {
+  return (
+    &lt;ul className=&quot;flex flex-col&quot;&gt;
+      {tokens.map((token) =&gt; (
+        &lt;li key={token.name} className=&quot;flex h-14 items-center gap-5 px-4&quot;&gt;
+          &lt;div
+            className=&quot;h-2 w-16 shrink-0 rounded-full bg-brand-primary&quot;
+            style={
+              token.value.endsWith(&quot;ms&quot;)
+                ? {
+                    transformOrigin: &quot;left center&quot;,
+                    animation: `motion-demo var(${token.variable}) var(--motion-hover-ease) infinite alternate`,
+                  }
+                : undefined
+            }
+          /&gt;
+          &lt;p className=&quot;w-[240px] font-sans text-sm font-medium text-black/85&quot;&gt;{token.name}&lt;/p&gt;
+          &lt;p className=&quot;w-[220px] font-sans text-[13px] text-black/40&quot;&gt;{token.value}&lt;/p&gt;
+          &lt;p className=&quot;font-sans text-[13px] text-black/35&quot;&gt;{token.usage}&lt;/p&gt;
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+function Group({ title, tokens }: { title: string; tokens: Token[] }) {
+  return (
+    &lt;section className=&quot;flex flex-col gap-3&quot;&gt;
+      &lt;h2 className=&quot;font-sans text-[13px] font-medium tracking-[0.8px] text-black/35 uppercase&quot;&gt;{title}&lt;/h2&gt;
+      &lt;TokenList tokens={tokens} /&gt;
+    &lt;/section&gt;
+  );
+}
+
+function StepSample() {
+  const [play, setPlay] = useState(0);
+
+  return (
+    &lt;div className=&quot;flex flex-col gap-4&quot;&gt;
+      &lt;motion.div
+        key={play}
+        className=&quot;w-[280px] rounded-xl border border-theme-border bg-theme-bg-surface p-6 shadow-[var(--shadow-light-2)]&quot;
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={panelTransition}
+      &gt;
+        &lt;p className=&quot;font-sans text-sm font-medium&quot;&gt;Step change&lt;/p&gt;
+        &lt;p className=&quot;mt-1 font-sans text-[13px] text-black/45&quot;&gt;280ms ease-out, 12px of travel&lt;/p&gt;
+      &lt;/motion.div&gt;
+      &lt;Button type=&quot;button&quot; size=&quot;md&quot; onClick={() =&gt; setPlay((value) =&gt; value + 1)}&gt;
+        Replay step
+      &lt;/Button&gt;
+    &lt;/div&gt;
+  );
+}
+
+const meta = {
+  title: &quot;Foundations/Motion&quot;,
+  parameters: { layout: &quot;fullscreen&quot; },
+} satisfies Meta;
+
+export default meta;
+
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const Tokens: Story = {
+  name: &quot;Tokens&quot;,
+  render: () =&gt; (
+    &lt;div className=&quot;flex min-h-screen flex-col gap-10 bg-theme-bg-surface p-8&quot;&gt;
+      &lt;style&gt;{`@keyframes motion-demo { from { transform: scaleX(0.35); } to { transform: scaleX(1); } }`}&lt;/style&gt;
+      &lt;Group title=&quot;Hover&quot; tokens={hover} /&gt;
+      &lt;Group title=&quot;Panel and step&quot; tokens={panel} /&gt;
+      &lt;Group title=&quot;Settle spring&quot; tokens={spring} /&gt;
+      &lt;section className=&quot;flex flex-col gap-4&quot;&gt;
+        &lt;h2 className=&quot;font-sans text-[13px] font-medium tracking-[0.8px] text-black/35 uppercase&quot;&gt;Press&lt;/h2&gt;
+        &lt;p className=&quot;font-sans text-[13px] text-black/45&quot;&gt;
+          Spring {settleSpring.duration}s, bounce {settleSpring.bounce}. Reduced motion skips the travel and still completes the press.
+        &lt;/p&gt;
+        &lt;div&gt;
+          &lt;Button size=&quot;lg&quot;&gt;Press me&lt;/Button&gt;
+        &lt;/div&gt;
+        &lt;StepSample /&gt;
+      &lt;/section&gt;
+    &lt;/div&gt;
+  ),
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { Button } from 'onboarding';
+import { motion } from 'motion/react';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Tokens</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Tokens = () =&gt; (
+  &lt;div className=&quot;flex min-h-screen flex-col gap-10 bg-theme-bg-surface p-8&quot;&gt;
+    &lt;style&gt;{`@keyframes motion-demo { from { transform: scaleX(0.35); } to { transform: scaleX(1); } }`}&lt;/style&gt;
+    &lt;Group title=&quot;Hover&quot; tokens={hover} /&gt;
+    &lt;Group title=&quot;Panel and step&quot; tokens={panel} /&gt;
+    &lt;Group title=&quot;Settle spring&quot; tokens={spring} /&gt;
+    &lt;section className=&quot;flex flex-col gap-4&quot;&gt;
+      &lt;h2 className=&quot;font-sans text-[13px] font-medium tracking-[0.8px] text-black/35 uppercase&quot;&gt;Press&lt;/h2&gt;
+      &lt;p className=&quot;font-sans text-[13px] text-black/45&quot;&gt;
+        Spring {settleSpring.duration}s, bounce {settleSpring.bounce}. Reduced motion skips the travel and still completes the press.
+      &lt;/p&gt;
+      &lt;div&gt;
+        &lt;Button size=&quot;lg&quot;&gt;Press me&lt;/Button&gt;
+      &lt;/div&gt;
+      &lt;StepSample /&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  
+  class="card 
+  has-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="Panel">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> Panel</h2>
+      <div class="badges">
+        <label for="c-error-2-onboarding-panel-err" class="badge err as-toggle">API error</label>
+        <label for="c-error-2-onboarding-panel-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-2-onboarding-panel-stories" class="badge ok as-toggle">2 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/onboarding-panel.stories.tsx">onboarding-panel · ./src/stories/onboarding-panel.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-error-2-onboarding-panel-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-2-onboarding-panel-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-2-onboarding-panel-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">API error</div>
+      <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
+  3 | import { Button } from &quot;@/components/ui/button&quot;;
+  4 |
+&gt; 5 | const meta = {
+    | ^
+  6 |   title: &quot;Onboarding/Panel&quot;,
+  7 |   parameters: { layout: &quot;fullscreen&quot; },
+  8 | } satisfies Meta;
+
+./src/stories/onboarding-panel.stories.tsx:
+import type { Meta, StoryObj } from &quot;@storybook/nextjs-vite&quot;;
+import { OnboardingActions, OnboardingBack, OnboardingData } from &quot;@/components/onboarding/onboarding-panel&quot;;
+import { Button } from &quot;@/components/ui/button&quot;;
+
+const meta = {
+  title: &quot;Onboarding/Panel&quot;,
+  parameters: { layout: &quot;fullscreen&quot; },
+} satisfies Meta;
+
+export default meta;
+
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const BackLink: Story = {
+  name: &quot;Back&quot;,
+  render: () =&gt; (
+    &lt;div className=&quot;relative h-40 bg-white&quot;&gt;
+      &lt;OnboardingBack href=&quot;/&quot; /&gt;
+    &lt;/div&gt;
+  ),
+};
+
+export const FormColumn: Story = {
+  name: &quot;Data and actions&quot;,
+  render: () =&gt; (
+    &lt;div className=&quot;relative min-h-screen bg-white&quot;&gt;
+      &lt;OnboardingData insetClassName=&quot;lg:px-12&quot;&gt;
+        &lt;OnboardingBack href=&quot;/&quot; /&gt;
+        &lt;h1 className=&quot;text-[28px] leading-8 font-semibold tracking-[-0.7px]&quot;&gt;Create your login&lt;/h1&gt;
+      &lt;/OnboardingData&gt;
+      &lt;OnboardingActions panelClassName=&quot;lg:w-1/2&quot; insetClassName=&quot;lg:px-12&quot;&gt;
+        &lt;Button className=&quot;h-12 w-full rounded-[7px] bg-[#2563eb] px-6 text-base font-semibold text-white hover:bg-[#1d4ed8]&quot;&gt;
+          Continue
+        &lt;/Button&gt;
+      &lt;/OnboardingActions&gt;
+    &lt;/div&gt;
+  ),
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { Button, OnboardingActions, OnboardingBack, OnboardingData } from 'onboarding';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Back</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const BackLink = () =&gt; (
+  &lt;div className=&quot;relative h-40 bg-white&quot;&gt;
+    &lt;OnboardingBack href=&quot;/&quot; /&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Data and actions</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const FormColumn = () =&gt; (
+  &lt;div className=&quot;relative min-h-screen bg-white&quot;&gt;
+    &lt;OnboardingData insetClassName=&quot;lg:px-12&quot;&gt;
+      &lt;OnboardingBack href=&quot;/&quot; /&gt;
+      &lt;h1 className=&quot;text-[28px] leading-8 font-semibold tracking-[-0.7px]&quot;&gt;Create your login&lt;/h1&gt;
+    &lt;/OnboardingData&gt;
+    &lt;OnboardingActions panelClassName=&quot;lg:w-1/2&quot; insetClassName=&quot;lg:px-12&quot;&gt;
+      &lt;Button className=&quot;h-12 w-full rounded-[7px] bg-[#2563eb] px-6 text-base font-semibold text-white hover:bg-[#1d4ed8]&quot;&gt;
+        Continue
+      &lt;/Button&gt;
+    &lt;/OnboardingActions&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  
+  class="card 
+  has-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="Screens">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> Screens</h2>
+      <div class="badges">
+        <label for="c-error-3-onboarding-screens-err" class="badge err as-toggle">API error</label>
+        <label for="c-error-3-onboarding-screens-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-3-onboarding-screens-stories" class="badge ok as-toggle">8 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/screens.stories.tsx">onboarding-screens · ./src/stories/screens.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-error-3-onboarding-screens-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-3-onboarding-screens-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-3-onboarding-screens-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">API error</div>
+      <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
+   8 | import { StrategyStep } from &quot;@/components/onboarding/strategy-step&quot;;
+   9 |
+&gt; 10 | const meta = {
+     | ^
+  11 |   title: &quot;Onboarding/Screens&quot;,
+  12 |   parameters: { layout: &quot;fullscreen&quot; },
+  13 | } satisfies Meta;
+
+./src/stories/screens.stories.tsx:
+import type { Meta, StoryObj } from &quot;@storybook/nextjs-vite&quot;;
+import { BankStep, BanksConnectedStep } from &quot;@/components/onboarding/bank-step&quot;;
+import { BeneficiariesStep } from &quot;@/components/onboarding/beneficiaries-step&quot;;
+import { ContributionStep } from &quot;@/components/onboarding/contribution-step&quot;;
+import { CreateLogin } from &quot;@/components/onboarding/create-login&quot;;
+import { ReviewStep } from &quot;@/components/onboarding/review-step&quot;;
+import { SignatureStep } from &quot;@/components/onboarding/signature-step&quot;;
+import { StrategyStep } from &quot;@/components/onboarding/strategy-step&quot;;
+
+const meta = {
+  title: &quot;Onboarding/Screens&quot;,
+  parameters: { layout: &quot;fullscreen&quot; },
+} satisfies Meta;
+
+export default meta;
+
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const CreateYourLogin: Story = {
+  name: &quot;Create your login&quot;,
+  render: () =&gt; &lt;CreateLogin /&gt;,
+};
+
+export const Contribution: Story = {
+  name: &quot;Contribution&quot;,
+  render: () =&gt; &lt;ContributionStep /&gt;,
+};
+
+export const Bank: Story = {
+  name: &quot;Bank&quot;,
+  render: () =&gt; &lt;BankStep /&gt;,
+};
+
+export const BanksConnected: Story = {
+  name: &quot;Banks connected&quot;,
+  render: () =&gt; &lt;BanksConnectedStep /&gt;,
+};
+
+export const Strategy: Story = {
+  name: &quot;Strategy&quot;,
+  render: () =&gt; &lt;StrategyStep /&gt;,
+};
+
+export const Beneficiaries: Story = {
+  name: &quot;Beneficiaries&quot;,
+  render: () =&gt; &lt;BeneficiariesStep /&gt;,
+};
+
+export const Signature: Story = {
+  name: &quot;Signature&quot;,
+  render: () =&gt; &lt;SignatureStep /&gt;,
+};
+
+export const Review: Story = {
+  name: &quot;Review&quot;,
+  render: () =&gt; &lt;ReviewStep /&gt;,
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import {
+  BanksConnectedStep,
+  BankStep,
+  BeneficiariesStep,
+  ContributionStep,
+  CreateLogin,
+  ReviewStep,
+  SignatureStep,
+  StrategyStep,
+} from 'onboarding';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Create your login</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const CreateYourLogin = () =&gt; &lt;CreateLogin /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Contribution</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Contribution = () =&gt; &lt;ContributionStep /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Bank</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Bank = () =&gt; &lt;BankStep /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Banks connected</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const BanksConnected = () =&gt; &lt;BanksConnectedStep /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Strategy</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Strategy = () =&gt; &lt;StrategyStep /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Beneficiaries</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Beneficiaries = () =&gt; &lt;BeneficiariesStep /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Signature</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Signature = () =&gt; &lt;SignatureStep /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Review</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Review = () =&gt; &lt;ReviewStep /&gt;;</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article></div>
+        </section>
+      </div>
+    
+    
+  </div>
+</main>
+</body>
+</html>  

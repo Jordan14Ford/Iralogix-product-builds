@@ -1,0 +1,483 @@
+{
+  "v": 0,
+  "components": {
+    "onboarding-button": {
+      "id": "onboarding-button",
+      "name": "Button",
+      "path": "./src/stories/button.stories.tsx",
+      "jsDocTags": {},
+      "reactDocgen": {
+        "description": "",
+        "methods": [],
+        "displayName": "Button",
+        "definedInFile": "/workspace/src/components/ui/button.tsx",
+        "actualName": "Button",
+        "exportName": "Button",
+        "props": {
+          "leadingIcon": {
+            "required": false,
+            "tsType": {
+              "name": "ReactReactNode",
+              "raw": "React.ReactNode"
+            },
+            "description": ""
+          },
+          "trailingIcon": {
+            "required": false,
+            "tsType": {
+              "name": "ReactReactNode",
+              "raw": "React.ReactNode"
+            },
+            "description": ""
+          },
+          "variant": {
+            "defaultValue": {
+              "value": "\"primary\"",
+              "computed": false
+            },
+            "required": false
+          },
+          "size": {
+            "defaultValue": {
+              "value": "\"xs\"",
+              "computed": false
+            },
+            "required": false
+          },
+          "state": {
+            "defaultValue": {
+              "value": "\"default\"",
+              "computed": false
+            },
+            "required": false
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "onboarding-button--primary",
+          "name": "Primary",
+          "snippet": "const Primary = () => <VariantMatrix variant=\"primary\" />;"
+        },
+        {
+          "id": "onboarding-button--secondary",
+          "name": "Secondary",
+          "snippet": "const Secondary = () => <VariantMatrix variant=\"secondary\" />;"
+        },
+        {
+          "id": "onboarding-button--tertiary",
+          "name": "Tertiary",
+          "snippet": "const Tertiary = () => <VariantMatrix variant=\"tertiary\" />;"
+        },
+        {
+          "id": "onboarding-button--secondary-brand",
+          "name": "Secondary Brand",
+          "snippet": "const SecondaryBrand = () => <VariantMatrix variant=\"secondary-brand\" />;"
+        },
+        {
+          "id": "onboarding-button--tertiary-brand",
+          "name": "Tertiary Brand",
+          "snippet": "const TertiaryBrand = () => <VariantMatrix variant=\"tertiary-brand\" />;"
+        },
+        {
+          "id": "onboarding-button--all",
+          "name": "All",
+          "snippet": "const All = () => (\n  <div className=\"flex flex-col gap-10 bg-white p-8\">\n    {variants.map((variant) => (\n      <section key={variant} className=\"flex flex-col gap-4\">\n        <h2 className=\"font-sans text-sm font-semibold text-[#0f172a]\">{variantLabels[variant]}</h2>\n        <VariantMatrix variant={variant} />\n      </section>\n    ))}\n  </div>\n);"
+        }
+      ],
+      "import": "import { Button } from 'onboarding';"
+    },
+    "onboarding-eye-icon": {
+      "id": "onboarding-eye-icon",
+      "name": "EyeIcon",
+      "path": "./src/stories/eye-icon.stories.tsx",
+      "jsDocTags": {},
+      "reactDocgen": {
+        "description": "",
+        "methods": [],
+        "displayName": "EyeIcon",
+        "definedInFile": "/workspace/src/components/onboarding/eye-icon.tsx",
+        "actualName": "EyeIcon",
+        "exportName": "EyeIcon",
+        "props": {
+          "slashed": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "true",
+              "computed": false
+            }
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "onboarding-eye-icon--slashed",
+          "name": "Slashed",
+          "snippet": "const Slashed = () => <EyeIcon slashed />;"
+        },
+        {
+          "id": "onboarding-eye-icon--open",
+          "name": "Open",
+          "snippet": "const Open = () => <EyeIcon slashed={false} />;"
+        }
+      ],
+      "import": "import { EyeIcon } from 'onboarding';"
+    },
+    "onboarding-form-field": {
+      "id": "onboarding-form-field",
+      "name": "Input",
+      "path": "./src/stories/form-field.stories.tsx",
+      "jsDocTags": {},
+      "reactDocgen": {
+        "description": "",
+        "methods": [],
+        "displayName": "Input",
+        "definedInFile": "/workspace/src/components/ui/input.tsx",
+        "actualName": "Input",
+        "exportName": "Input"
+      },
+      "stories": [
+        {
+          "id": "onboarding-form-field--first-name",
+          "name": "First Name",
+          "snippet": "const FirstName = () => (\n  <div className=\"flex w-[420px] flex-col gap-2 bg-white p-6\">\n    <Label htmlFor=\"first-name\" className=\"text-sm leading-5 font-semibold text-[#111827]\">\n      First Name\n    </Label>\n    <Input\n      id=\"first-name\"\n      name=\"firstName\"\n      autoComplete=\"given-name\"\n      placeholder=\"Enter first name\"\n      className={inputClassName}\n    />\n  </div>\n);"
+        },
+        {
+          "id": "onboarding-form-field--social-security-number",
+          "name": "Social Security Number",
+          "snippet": "const SocialSecurityNumber = () => (\n  <div className=\"flex w-[420px] flex-col gap-1.5 bg-white p-6\">\n    <Label htmlFor=\"ssn\" className=\"text-[13px] leading-normal font-normal text-[#111827]\">\n      SSN\n    </Label>\n    <div className=\"relative\">\n      <Input\n        id=\"ssn\"\n        name=\"ssn\"\n        inputMode=\"numeric\"\n        autoComplete=\"off\"\n        placeholder=\"Enter SSN (XXX-XX-XXXX)\"\n        className=\"h-12 rounded-[6px] border-[#d1d5db] bg-white px-3 pr-10 text-sm leading-normal font-normal text-[#111827] shadow-none placeholder:text-[#9ca3af] focus-visible:border-[#2563eb] focus-visible:ring-0 md:text-sm\"\n      />\n      <Button\n        type=\"button\"\n        className=\"absolute top-1/2 right-3 size-5 -translate-y-1/2 rounded-none border-0 bg-transparent p-0 shadow-none hover:bg-transparent\"\n        aria-label=\"Show SSN\"\n      >\n        <EyeIcon slashed />\n      </Button>\n    </div>\n    <p className=\"text-xs leading-normal text-[#6b7280]\">Format: XXX-XX-XXXX</p>\n  </div>\n);"
+        }
+      ],
+      "import": "import { Button, EyeIcon, Input, Label } from 'onboarding';"
+    },
+    "foundations-color": {
+      "id": "foundations-color",
+      "name": "Color",
+      "path": "./src/stories/foundations.stories.tsx",
+      "jsDocTags": {},
+      "error": {
+        "name": "No component found",
+        "message": "We could not detect the component from your story file. Specify meta.component.\n  111 | }\n  112 |\n> 113 | const meta = {\n      | ^\n  114 |   title: \"Foundations/Color\",\n  115 |   parameters: { layout: \"fullscreen\" },\n  116 | } satisfies Meta;\n\n./src/stories/foundations.stories.tsx:\nimport type { Meta, StoryObj } from \"@storybook/nextjs-vite\";\n\ntype Token = {\n  name: string;\n  variable: string;\n  value: string;\n  usage: string;\n  kind?: \"color\" | \"measure\";\n};\n\nconst brand: Token[] = [\n  { name: \"brand.primary\", variable: \"--brand-primary\", value: \"#2563EB\", usage: \"Primary actions, links, active states, key data\" },\n  { name: \"brand.primary-hover\", variable: \"--brand-primary-hover\", value: \"#1D4ED8\", usage: \"Hover state\" },\n  { name: \"brand.primary-active\", variable: \"--brand-primary-active\", value: \"#1E40AF\", usage: \"Pressed state\" },\n  { name: \"brand.primary-subtle\", variable: \"--brand-primary-subtle\", value: \"#EFF6FF\", usage: \"Selected fills, accent badges\" },\n  { name: \"brand.on-primary\", variable: \"--brand-on-primary\", value: \"#FFFFFF\", usage: \"Text and icons on primary fills\" },\n];\n\nconst semantic: Token[] = [\n  { name: \"semantic.success\", variable: \"--semantic-success\", value: \"#16A34A\", usage: \"Positive confirmation, valid states\" },\n  { name: \"semantic.success-subtle\", variable: \"--semantic-success-subtle\", value: \"#E8F7EE\", usage: \"Success alert background\" },\n  { name: \"semantic.danger\", variable: \"--semantic-danger\", value: \"#DC2626\", usage: \"Errors, destructive actions\" },\n  { name: \"semantic.danger-subtle\", variable: \"--semantic-danger-subtle\", value: \"#FDECEC\", usage: \"Danger alert background\" },\n  { name: \"semantic.warning\", variable: \"--semantic-warning\", value: \"#D97706\", usage: \"Caution states, risk indicators\" },\n  { name: \"semantic.warning-subtle\", variable: \"--semantic-warning-subtle\", value: \"#FDF3E3\", usage: \"Warning alert background\" },\n  { name: \"semantic.info\", variable: \"--semantic-info\", value: \"#0284C7\", usage: \"Informational states, help text\" },\n  { name: \"semantic.info-subtle\", variable: \"--semantic-info-subtle\", value: \"#E6F4FB\", usage: \"Info alert background\" },\n];\n\nconst financial: Token[] = [\n  { name: \"data.positive\", variable: \"--data-positive\", value: \"#16A34A\", usage: \"Gains, income — always pair with ▲ or +\" },\n  { name: \"data.negative\", variable: \"--data-negative\", value: \"#DC2626\", usage: \"Losses, outflows — always pair with ▼ or −\" },\n  { name: \"data.neutral\", variable: \"--data-neutral\", value: \"#737373\", usage: \"Unchanged, baseline values\" },\n];\n\nconst chart: Token[] = [\n  { name: \"data.chart.1\", variable: \"--data-chart-1\", value: \"#6C2BD9\", usage: \"Series 1 — the only branded series\" },\n  { name: \"data.chart.2\", variable: \"--data-chart-2\", value: \"#0284C7\", usage: \"Series 2 — platform-locked\" },\n  { name: \"data.chart.3\", variable: \"--data-chart-3\", value: \"#0D9488\", usage: \"Series 3 — platform-locked\" },\n  { name: \"data.chart.4\", variable: \"--data-chart-4\", value: \"#D97706\", usage: \"Series 4 — platform-locked\" },\n  { name: \"data.chart.5\", variable: \"--data-chart-5\", value: \"#DB2777\", usage: \"Series 5 — platform-locked\" },\n  { name: \"data.chart.6\", variable: \"--data-chart-6\", value: \"#6366F1\", usage: \"Series 6 — platform-locked\" },\n];\n\nconst backgrounds: Token[] = [\n  { name: \"theme.bg-app\", variable: \"--theme-bg-app\", value: \"#FCFCFC\", usage: \"App canvas — dark mode: #0A0A0A\" },\n  { name: \"theme.bg-surface\", variable: \"--theme-bg-surface\", value: \"#FFFFFF\", usage: \"Cards, tables, topbars — dark: #141414\" },\n  { name: \"state.hover-overlay\", variable: \"--state-hover-overlay\", value: \"rgb(0 0 0 / 0.04)\", usage: \"Transparent overlay, not a solid fill\" },\n  { name: \"state.selected-bg\", variable: \"--state-selected-bg\", value: \"#F3EFFF\", usage: \"Flat brand.primary-subtle, no edge stroke\" },\n  { name: \"state.disabled-bg\", variable: \"--state-disabled-bg\", value: \"#F5F5F5\", usage: \"Disabled element background (neutral.100)\" },\n  { name: \"skeleton.base\", variable: \"--skeleton-base\", value: \"#F5F5F5\", usage: \"Skeleton loading shimmer base (neutral.100)\" },\n];\n\nconst borders: Token[] = [\n  { name: \"theme.border\", variable: \"--theme-border\", value: \"#EBEBEB\", usage: \"All borders and dividers — dark: #262626\" },\n  { name: \"stroke.thin\", variable: \"--stroke-thin\", value: \"1px\", usage: \"Standard border width\", kind: \"measure\" },\n];\n\nconst strokes: Token[] = [\n  { name: \"state.focus-ring\", variable: \"--state-focus-ring\", value: \"rgb(108 43 217 / 0.35)\", usage: \"primary@35% — 3px ring on every focusable element\" },\n  { name: \"stroke.thick\", variable: \"--stroke-thick\", value: \"2px\", usage: \"Icons, chart lines, underlines\", kind: \"measure\" },\n];\n\nconst shadow: Token[] = [\n  { name: \"Shadow/Light 2\", variable: \"--shadow-light-2\", value: \"0 2px 4px #0000000F\", usage: \"Drop shadow, offset (0, 2), radius 4, spread 0\", kind: \"measure\" },\n];\n\nfunction Swatch({ token }: { token: Token }) {\n  if (token.kind === \"measure\") {\n    return (\n      <div\n        className=\"size-9 shrink-0 rounded-lg border border-theme-border bg-theme-bg-surface\"\n        style={token.name === \"Shadow/Light 2\" ? { boxShadow: `var(${token.variable})` } : undefined}\n      >\n        {token.name.startsWith(\"stroke\") ? (\n          <div className=\"flex h-full items-center px-1\">\n            <div className=\"w-full bg-data-neutral\" style={{ height: `var(${token.variable})` }} />\n          </div>\n        ) : null}\n      </div>\n    );\n  }\n\n  return (\n    <div className=\"size-9 shrink-0 rounded-lg border border-theme-border\" style={{ background: `var(${token.variable})` }} />\n  );\n}\n\nfunction TokenList({ tokens }: { tokens: Token[] }) {\n  return (\n    <ul className=\"flex flex-col\">\n      {tokens.map((token) => (\n        <li key={token.name} className=\"flex h-14 items-center gap-5 px-4\">\n          <Swatch token={token} />\n          <p className=\"w-[220px] font-sans text-sm font-medium text-black/85\">{token.name}</p>\n          <p className=\"w-[150px] font-sans text-[13px] text-black/40\">{token.value}</p>\n          <p className=\"font-sans text-[13px] text-black/35\">{token.usage}</p>\n        </li>\n      ))}\n    </ul>\n  );\n}\n\nfunction Group({ title, tokens }: { title: string; tokens: Token[] }) {\n  return (\n    <section className=\"flex flex-col gap-3\">\n      <h2 className=\"font-sans text-[13px] font-medium tracking-[0.8px] text-black/35 uppercase\">{title}</h2>\n      <TokenList tokens={tokens} />\n    </section>\n  );\n}\n\nconst meta = {\n  title: \"Foundations/Color\",\n  parameters: { layout: \"fullscreen\" },\n} satisfies Meta;\n\nexport default meta;\n\ntype Story = StoryObj<typeof meta>;\n\nexport const BrandAndSemantic: Story = {\n  name: \"Brand and semantic\",\n  render: () => (\n    <div className=\"flex flex-col gap-10 bg-theme-bg-surface p-8\">\n      <Group title=\"Brand palette\" tokens={brand} />\n      <Group title=\"Semantic — status colors\" tokens={semantic} />\n    </div>\n  ),\n};\n\nexport const DataAndVisualization: Story = {\n  name: \"Data and visualization\",\n  render: () => (\n    <div className=\"flex flex-col gap-10 bg-theme-bg-surface p-8\">\n      <Group title=\"Financial indicators\" tokens={financial} />\n      <Group title=\"Chart series\" tokens={chart} />\n    </div>\n  ),\n};\n\nexport const SurfacesBordersStrokes: Story = {\n  name: \"Surfaces, borders, and strokes\",\n  render: () => (\n    <div className=\"flex flex-col gap-10 bg-theme-bg-surface p-8\">\n      <Group title=\"Backgrounds\" tokens={backgrounds} />\n      <Group title=\"Borders\" tokens={borders} />\n      <Group title=\"Strokes\" tokens={strokes} />\n      <Group title=\"Shadow\" tokens={shadow} />\n    </div>\n  ),\n};\n\nfunction TokenBrowser({ title, tokens }: { title: string; tokens: Token[] }) {\n  return (\n    <div className=\"min-h-screen bg-theme-bg-surface p-8\">\n      <Group title={title} tokens={tokens} />\n    </div>\n  );\n}\n\nexport const BrandTokens: Story = {\n  name: \"Brand\",\n  render: () => <TokenBrowser title=\"Brand palette\" tokens={brand} />,\n};\n\nexport const SemanticTokens: Story = {\n  name: \"Semantic\",\n  render: () => <TokenBrowser title=\"Semantic — status colors\" tokens={semantic} />,\n};\n\nexport const FinancialTokens: Story = {\n  name: \"Financial indicators\",\n  render: () => <TokenBrowser title=\"Financial indicators\" tokens={financial} />,\n};\n\nexport const ChartTokens: Story = {\n  name: \"Chart series\",\n  render: () => <TokenBrowser title=\"Chart series\" tokens={chart} />,\n};\n\nexport const BackgroundTokens: Story = {\n  name: \"Backgrounds\",\n  render: () => <TokenBrowser title=\"Backgrounds\" tokens={backgrounds} />,\n};\n\nexport const BorderTokens: Story = {\n  name: \"Borders\",\n  render: () => <TokenBrowser title=\"Borders\" tokens={borders} />,\n};\n\nexport const StrokeTokens: Story = {\n  name: \"Strokes\",\n  render: () => <TokenBrowser title=\"Strokes\" tokens={strokes} />,\n};\n\nexport const ShadowTokens: Story = {\n  name: \"Shadow\",\n  render: () => <TokenBrowser title=\"Shadow\" tokens={shadow} />,\n};\n"
+      },
+      "stories": [
+        {
+          "id": "foundations-color--brand-and-semantic",
+          "name": "Brand and semantic",
+          "snippet": "const BrandAndSemantic = () => (\n  <div className=\"flex flex-col gap-10 bg-theme-bg-surface p-8\">\n    <Group title=\"Brand palette\" tokens={brand} />\n    <Group title=\"Semantic — status colors\" tokens={semantic} />\n  </div>\n);"
+        },
+        {
+          "id": "foundations-color--data-and-visualization",
+          "name": "Data and visualization",
+          "snippet": "const DataAndVisualization = () => (\n  <div className=\"flex flex-col gap-10 bg-theme-bg-surface p-8\">\n    <Group title=\"Financial indicators\" tokens={financial} />\n    <Group title=\"Chart series\" tokens={chart} />\n  </div>\n);"
+        },
+        {
+          "id": "foundations-color--surfaces-borders-strokes",
+          "name": "Surfaces, borders, and strokes",
+          "snippet": "const SurfacesBordersStrokes = () => (\n  <div className=\"flex flex-col gap-10 bg-theme-bg-surface p-8\">\n    <Group title=\"Backgrounds\" tokens={backgrounds} />\n    <Group title=\"Borders\" tokens={borders} />\n    <Group title=\"Strokes\" tokens={strokes} />\n    <Group title=\"Shadow\" tokens={shadow} />\n  </div>\n);"
+        },
+        {
+          "id": "foundations-color--brand-tokens",
+          "name": "Brand",
+          "snippet": "const BrandTokens = () => <TokenBrowser title=\"Brand palette\" tokens={brand} />;"
+        },
+        {
+          "id": "foundations-color--semantic-tokens",
+          "name": "Semantic",
+          "snippet": "const SemanticTokens = () => <TokenBrowser title=\"Semantic — status colors\" tokens={semantic} />;"
+        },
+        {
+          "id": "foundations-color--financial-tokens",
+          "name": "Financial indicators",
+          "snippet": "const FinancialTokens = () => <TokenBrowser title=\"Financial indicators\" tokens={financial} />;"
+        },
+        {
+          "id": "foundations-color--chart-tokens",
+          "name": "Chart series",
+          "snippet": "const ChartTokens = () => <TokenBrowser title=\"Chart series\" tokens={chart} />;"
+        },
+        {
+          "id": "foundations-color--background-tokens",
+          "name": "Backgrounds",
+          "snippet": "const BackgroundTokens = () => <TokenBrowser title=\"Backgrounds\" tokens={backgrounds} />;"
+        },
+        {
+          "id": "foundations-color--border-tokens",
+          "name": "Borders",
+          "snippet": "const BorderTokens = () => <TokenBrowser title=\"Borders\" tokens={borders} />;"
+        },
+        {
+          "id": "foundations-color--stroke-tokens",
+          "name": "Strokes",
+          "snippet": "const StrokeTokens = () => <TokenBrowser title=\"Strokes\" tokens={strokes} />;"
+        },
+        {
+          "id": "foundations-color--shadow-tokens",
+          "name": "Shadow",
+          "snippet": "const ShadowTokens = () => <TokenBrowser title=\"Shadow\" tokens={shadow} />;"
+        }
+      ]
+    },
+    "design-system-input": {
+      "id": "design-system-input",
+      "name": "Input",
+      "path": "./src/stories/input.stories.tsx",
+      "jsDocTags": {},
+      "reactDocgen": {
+        "description": "",
+        "methods": [],
+        "displayName": "Input",
+        "definedInFile": "/workspace/src/components/ui/input.tsx",
+        "actualName": "Input",
+        "exportName": "Input"
+      },
+      "stories": [
+        {
+          "id": "design-system-input--default",
+          "name": "Default",
+          "snippet": "const Default = () => <Input placeholder=\"Enter text...\" />;"
+        },
+        {
+          "id": "design-system-input--disabled",
+          "name": "Disabled",
+          "snippet": "const Disabled = () => <Input placeholder=\"Enter text...\" disabled defaultValue=\"Disabled\" />;"
+        }
+      ],
+      "import": "import { Input } from 'onboarding';"
+    },
+    "design-system-label": {
+      "id": "design-system-label",
+      "name": "Label",
+      "path": "./src/stories/label.stories.tsx",
+      "jsDocTags": {},
+      "reactDocgen": {
+        "description": "",
+        "methods": [],
+        "displayName": "Label",
+        "definedInFile": "/workspace/src/components/ui/label.tsx",
+        "actualName": "Label",
+        "exportName": "Label"
+      },
+      "stories": [
+        {
+          "id": "design-system-label--default",
+          "name": "Default",
+          "snippet": "const Default = () => <Label>First Name</Label>;"
+        }
+      ],
+      "import": "import { Label } from 'onboarding';"
+    },
+    "foundations-motion": {
+      "id": "foundations-motion",
+      "name": "Motion",
+      "path": "./src/stories/motion.stories.tsx",
+      "jsDocTags": {},
+      "error": {
+        "name": "No component found",
+        "message": "We could not detect the component from your story file. Specify meta.component.\n  113 | }\n  114 |\n> 115 | const meta = {\n      | ^\n  116 |   title: \"Foundations/Motion\",\n  117 |   parameters: { layout: \"fullscreen\" },\n  118 | } satisfies Meta;\n\n./src/stories/motion.stories.tsx:\nimport type { Meta, StoryObj } from \"@storybook/nextjs-vite\";\nimport { useState } from \"react\";\nimport { motion } from \"motion/react\";\nimport { Button } from \"@/components/ui/button\";\nimport { panelTransition, settleSpring } from \"@/lib/motion\";\n\ntype Token = {\n  name: string;\n  variable: string;\n  value: string;\n  usage: string;\n};\n\nconst hover: Token[] = [\n  {\n    name: \"motion.hover-duration\",\n    variable: \"--motion-hover-duration\",\n    value: \"150ms\",\n    usage: \"Color and opacity hovers\",\n  },\n  {\n    name: \"motion.hover-ease\",\n    variable: \"--motion-hover-ease\",\n    value: \"cubic-bezier(0, 0, 0.2, 1)\",\n    usage: \"Ease-out for hovers\",\n  },\n];\n\nconst panel: Token[] = [\n  {\n    name: \"motion.panel-duration\",\n    variable: \"--motion-panel-duration\",\n    value: \"280ms\",\n    usage: \"Panels and step changes\",\n  },\n  {\n    name: \"motion.panel-ease\",\n    variable: \"--motion-panel-ease\",\n    value: \"cubic-bezier(0, 0, 0.2, 1)\",\n    usage: \"Ease-out for panels and steps\",\n  },\n];\n\nconst spring: Token[] = [\n  {\n    name: \"motion.spring-duration\",\n    variable: \"--motion-spring-duration\",\n    value: \"450ms\",\n    usage: \"Settle spring duration\",\n  },\n  {\n    name: \"motion.spring-bounce\",\n    variable: \"--motion-spring-bounce\",\n    value: \"0.18\",\n    usage: \"Settle spring bounce. Button press travels 2px, then rests.\",\n  },\n];\n\nfunction TokenList({ tokens }: { tokens: Token[] }) {\n  return (\n    <ul className=\"flex flex-col\">\n      {tokens.map((token) => (\n        <li key={token.name} className=\"flex h-14 items-center gap-5 px-4\">\n          <div\n            className=\"h-2 w-16 shrink-0 rounded-full bg-brand-primary\"\n            style={\n              token.value.endsWith(\"ms\")\n                ? {\n                    transformOrigin: \"left center\",\n                    animation: `motion-demo var(${token.variable}) var(--motion-hover-ease) infinite alternate`,\n                  }\n                : undefined\n            }\n          />\n          <p className=\"w-[240px] font-sans text-sm font-medium text-black/85\">{token.name}</p>\n          <p className=\"w-[220px] font-sans text-[13px] text-black/40\">{token.value}</p>\n          <p className=\"font-sans text-[13px] text-black/35\">{token.usage}</p>\n        </li>\n      ))}\n    </ul>\n  );\n}\n\nfunction Group({ title, tokens }: { title: string; tokens: Token[] }) {\n  return (\n    <section className=\"flex flex-col gap-3\">\n      <h2 className=\"font-sans text-[13px] font-medium tracking-[0.8px] text-black/35 uppercase\">{title}</h2>\n      <TokenList tokens={tokens} />\n    </section>\n  );\n}\n\nfunction StepSample() {\n  const [play, setPlay] = useState(0);\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <motion.div\n        key={play}\n        className=\"w-[280px] rounded-xl border border-theme-border bg-theme-bg-surface p-6 shadow-[var(--shadow-light-2)]\"\n        initial={{ opacity: 0, y: 12 }}\n        animate={{ opacity: 1, y: 0 }}\n        transition={panelTransition}\n      >\n        <p className=\"font-sans text-sm font-medium\">Step change</p>\n        <p className=\"mt-1 font-sans text-[13px] text-black/45\">280ms ease-out, 12px of travel</p>\n      </motion.div>\n      <Button type=\"button\" size=\"md\" onClick={() => setPlay((value) => value + 1)}>\n        Replay step\n      </Button>\n    </div>\n  );\n}\n\nconst meta = {\n  title: \"Foundations/Motion\",\n  parameters: { layout: \"fullscreen\" },\n} satisfies Meta;\n\nexport default meta;\n\ntype Story = StoryObj<typeof meta>;\n\nexport const Tokens: Story = {\n  name: \"Tokens\",\n  render: () => (\n    <div className=\"flex min-h-screen flex-col gap-10 bg-theme-bg-surface p-8\">\n      <style>{`@keyframes motion-demo { from { transform: scaleX(0.35); } to { transform: scaleX(1); } }`}</style>\n      <Group title=\"Hover\" tokens={hover} />\n      <Group title=\"Panel and step\" tokens={panel} />\n      <Group title=\"Settle spring\" tokens={spring} />\n      <section className=\"flex flex-col gap-4\">\n        <h2 className=\"font-sans text-[13px] font-medium tracking-[0.8px] text-black/35 uppercase\">Press</h2>\n        <p className=\"font-sans text-[13px] text-black/45\">\n          Spring {settleSpring.duration}s, bounce {settleSpring.bounce}. Reduced motion skips the travel and still completes the press.\n        </p>\n        <div>\n          <Button size=\"lg\">Press me</Button>\n        </div>\n        <StepSample />\n      </section>\n    </div>\n  ),\n};\n"
+      },
+      "stories": [
+        {
+          "id": "foundations-motion--tokens",
+          "name": "Tokens",
+          "snippet": "const Tokens = () => (\n  <div className=\"flex min-h-screen flex-col gap-10 bg-theme-bg-surface p-8\">\n    <style>{`@keyframes motion-demo { from { transform: scaleX(0.35); } to { transform: scaleX(1); } }`}</style>\n    <Group title=\"Hover\" tokens={hover} />\n    <Group title=\"Panel and step\" tokens={panel} />\n    <Group title=\"Settle spring\" tokens={spring} />\n    <section className=\"flex flex-col gap-4\">\n      <h2 className=\"font-sans text-[13px] font-medium tracking-[0.8px] text-black/35 uppercase\">Press</h2>\n      <p className=\"font-sans text-[13px] text-black/45\">\n        Spring {settleSpring.duration}s, bounce {settleSpring.bounce}. Reduced motion skips the travel and still completes the press.\n      </p>\n      <div>\n        <Button size=\"lg\">Press me</Button>\n      </div>\n      <StepSample />\n    </section>\n  </div>\n);"
+        }
+      ],
+      "import": "import { Button } from 'onboarding';\nimport { motion } from 'motion/react';"
+    },
+    "onboarding-header": {
+      "id": "onboarding-header",
+      "name": "OnboardingHeader",
+      "path": "./src/stories/onboarding-header.stories.tsx",
+      "jsDocTags": {},
+      "reactDocgen": {
+        "description": "",
+        "methods": [],
+        "displayName": "OnboardingHeader",
+        "definedInFile": "/workspace/src/components/onboarding/onboarding-header.tsx",
+        "actualName": "OnboardingHeader",
+        "exportName": "OnboardingHeader",
+        "props": {
+          "steps": {
+            "required": true,
+            "tsType": {
+              "name": "Array",
+              "elements": [
+                {
+                  "name": "signature",
+                  "type": "object",
+                  "raw": "{\n  state: OnboardingStepState;\n  label?: string;\n}",
+                  "signature": {
+                    "properties": [
+                      {
+                        "key": "state",
+                        "value": {
+                          "name": "union",
+                          "raw": "\"current\" | \"complete\" | \"upcoming\"",
+                          "elements": [
+                            {
+                              "name": "literal",
+                              "value": "\"current\""
+                            },
+                            {
+                              "name": "literal",
+                              "value": "\"complete\""
+                            },
+                            {
+                              "name": "literal",
+                              "value": "\"upcoming\""
+                            }
+                          ],
+                          "required": true
+                        }
+                      },
+                      {
+                        "key": "label",
+                        "value": {
+                          "name": "string",
+                          "required": false
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "raw": "OnboardingStep[]"
+            },
+            "description": ""
+          },
+          "progress": {
+            "required": true,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "onboarding-header--identity-stepper",
+          "name": "Identity",
+          "snippet": "const IdentityStepper = () => <OnboardingHeader steps={identitySteps} progress=\"w-1/6\" />;"
+        },
+        {
+          "id": "onboarding-header--login-stepper",
+          "name": "Login",
+          "snippet": "const LoginStepper = () => <OnboardingHeader steps={loginSteps} progress=\"w-1/3\" />;"
+        },
+        {
+          "id": "onboarding-header--flow-stepper",
+          "name": "Flow",
+          "snippet": "const FlowStepper = () => <OnboardingHeader steps={flowSteps(4)} progress=\"w-2/3\" />;"
+        }
+      ],
+      "import": "import { OnboardingHeader } from 'onboarding';\nimport { identitySteps, loginSteps, flowSteps } from '@/components/onboarding/onboarding-header';"
+    },
+    "onboarding-panel": {
+      "id": "onboarding-panel",
+      "name": "Panel",
+      "path": "./src/stories/onboarding-panel.stories.tsx",
+      "jsDocTags": {},
+      "error": {
+        "name": "No component found",
+        "message": "We could not detect the component from your story file. Specify meta.component.\n  3 | import { Button } from \"@/components/ui/button\";\n  4 |\n> 5 | const meta = {\n    | ^\n  6 |   title: \"Onboarding/Panel\",\n  7 |   parameters: { layout: \"fullscreen\" },\n  8 | } satisfies Meta;\n\n./src/stories/onboarding-panel.stories.tsx:\nimport type { Meta, StoryObj } from \"@storybook/nextjs-vite\";\nimport { OnboardingActions, OnboardingBack, OnboardingData } from \"@/components/onboarding/onboarding-panel\";\nimport { Button } from \"@/components/ui/button\";\n\nconst meta = {\n  title: \"Onboarding/Panel\",\n  parameters: { layout: \"fullscreen\" },\n} satisfies Meta;\n\nexport default meta;\n\ntype Story = StoryObj<typeof meta>;\n\nexport const BackLink: Story = {\n  name: \"Back\",\n  render: () => (\n    <div className=\"relative h-40 bg-white\">\n      <OnboardingBack href=\"/\" />\n    </div>\n  ),\n};\n\nexport const FormColumn: Story = {\n  name: \"Data and actions\",\n  render: () => (\n    <div className=\"relative min-h-screen bg-white\">\n      <OnboardingData insetClassName=\"lg:px-12\">\n        <OnboardingBack href=\"/\" />\n        <h1 className=\"text-[28px] leading-8 font-semibold tracking-[-0.7px]\">Create your login</h1>\n      </OnboardingData>\n      <OnboardingActions panelClassName=\"lg:w-1/2\" insetClassName=\"lg:px-12\">\n        <Button className=\"h-12 w-full rounded-[7px] bg-[#2563eb] px-6 text-base font-semibold text-white hover:bg-[#1d4ed8]\">\n          Continue\n        </Button>\n      </OnboardingActions>\n    </div>\n  ),\n};\n"
+      },
+      "stories": [
+        {
+          "id": "onboarding-panel--back-link",
+          "name": "Back",
+          "snippet": "const BackLink = () => (\n  <div className=\"relative h-40 bg-white\">\n    <OnboardingBack href=\"/\" />\n  </div>\n);"
+        },
+        {
+          "id": "onboarding-panel--form-column",
+          "name": "Data and actions",
+          "snippet": "const FormColumn = () => (\n  <div className=\"relative min-h-screen bg-white\">\n    <OnboardingData insetClassName=\"lg:px-12\">\n      <OnboardingBack href=\"/\" />\n      <h1 className=\"text-[28px] leading-8 font-semibold tracking-[-0.7px]\">Create your login</h1>\n    </OnboardingData>\n    <OnboardingActions panelClassName=\"lg:w-1/2\" insetClassName=\"lg:px-12\">\n      <Button className=\"h-12 w-full rounded-[7px] bg-[#2563eb] px-6 text-base font-semibold text-white hover:bg-[#1d4ed8]\">\n        Continue\n      </Button>\n    </OnboardingActions>\n  </div>\n);"
+        }
+      ],
+      "import": "import { Button, OnboardingActions, OnboardingBack, OnboardingData } from 'onboarding';"
+    },
+    "onboarding-screens": {
+      "id": "onboarding-screens",
+      "name": "Screens",
+      "path": "./src/stories/screens.stories.tsx",
+      "jsDocTags": {},
+      "error": {
+        "name": "No component found",
+        "message": "We could not detect the component from your story file. Specify meta.component.\n   8 | import { StrategyStep } from \"@/components/onboarding/strategy-step\";\n   9 |\n> 10 | const meta = {\n     | ^\n  11 |   title: \"Onboarding/Screens\",\n  12 |   parameters: { layout: \"fullscreen\" },\n  13 | } satisfies Meta;\n\n./src/stories/screens.stories.tsx:\nimport type { Meta, StoryObj } from \"@storybook/nextjs-vite\";\nimport { BankStep, BanksConnectedStep } from \"@/components/onboarding/bank-step\";\nimport { BeneficiariesStep } from \"@/components/onboarding/beneficiaries-step\";\nimport { ContributionStep } from \"@/components/onboarding/contribution-step\";\nimport { CreateLogin } from \"@/components/onboarding/create-login\";\nimport { ReviewStep } from \"@/components/onboarding/review-step\";\nimport { SignatureStep } from \"@/components/onboarding/signature-step\";\nimport { StrategyStep } from \"@/components/onboarding/strategy-step\";\n\nconst meta = {\n  title: \"Onboarding/Screens\",\n  parameters: { layout: \"fullscreen\" },\n} satisfies Meta;\n\nexport default meta;\n\ntype Story = StoryObj<typeof meta>;\n\nexport const CreateYourLogin: Story = {\n  name: \"Create your login\",\n  render: () => <CreateLogin />,\n};\n\nexport const Contribution: Story = {\n  name: \"Contribution\",\n  render: () => <ContributionStep />,\n};\n\nexport const Bank: Story = {\n  name: \"Bank\",\n  render: () => <BankStep />,\n};\n\nexport const BanksConnected: Story = {\n  name: \"Banks connected\",\n  render: () => <BanksConnectedStep />,\n};\n\nexport const Strategy: Story = {\n  name: \"Strategy\",\n  render: () => <StrategyStep />,\n};\n\nexport const Beneficiaries: Story = {\n  name: \"Beneficiaries\",\n  render: () => <BeneficiariesStep />,\n};\n\nexport const Signature: Story = {\n  name: \"Signature\",\n  render: () => <SignatureStep />,\n};\n\nexport const Review: Story = {\n  name: \"Review\",\n  render: () => <ReviewStep />,\n};\n"
+      },
+      "stories": [
+        {
+          "id": "onboarding-screens--create-your-login",
+          "name": "Create your login",
+          "snippet": "const CreateYourLogin = () => <CreateLogin />;"
+        },
+        {
+          "id": "onboarding-screens--contribution",
+          "name": "Contribution",
+          "snippet": "const Contribution = () => <ContributionStep />;"
+        },
+        {
+          "id": "onboarding-screens--bank",
+          "name": "Bank",
+          "snippet": "const Bank = () => <BankStep />;"
+        },
+        {
+          "id": "onboarding-screens--banks-connected",
+          "name": "Banks connected",
+          "snippet": "const BanksConnected = () => <BanksConnectedStep />;"
+        },
+        {
+          "id": "onboarding-screens--strategy",
+          "name": "Strategy",
+          "snippet": "const Strategy = () => <StrategyStep />;"
+        },
+        {
+          "id": "onboarding-screens--beneficiaries",
+          "name": "Beneficiaries",
+          "snippet": "const Beneficiaries = () => <BeneficiariesStep />;"
+        },
+        {
+          "id": "onboarding-screens--signature",
+          "name": "Signature",
+          "snippet": "const Signature = () => <SignatureStep />;"
+        },
+        {
+          "id": "onboarding-screens--review",
+          "name": "Review",
+          "snippet": "const Review = () => <ReviewStep />;"
+        }
+      ],
+      "import": "import {\n  BanksConnectedStep,\n  BankStep,\n  BeneficiariesStep,\n  ContributionStep,\n  CreateLogin,\n  ReviewStep,\n  SignatureStep,\n  StrategyStep,\n} from 'onboarding';"
+    },
+    "onboarding-verify-account": {
+      "id": "onboarding-verify-account",
+      "name": "VerifyAccount",
+      "path": "./src/stories/verify-account.stories.tsx",
+      "jsDocTags": {},
+      "reactDocgen": {
+        "description": "",
+        "methods": [],
+        "displayName": "VerifyAccount",
+        "definedInFile": "/workspace/src/components/onboarding/verify-account.tsx",
+        "actualName": "VerifyAccount",
+        "exportName": "VerifyAccount"
+      },
+      "stories": [
+        {
+          "id": "onboarding-verify-account--identity-step",
+          "name": "Identity Step",
+          "snippet": "const IdentityStep = () => <VerifyAccount />;"
+        }
+      ],
+      "import": "import { VerifyAccount } from 'onboarding';"
+    }
+  },
+  "meta": {
+    "docgen": "react-docgen",
+    "durationMs": 264
+  }
+}

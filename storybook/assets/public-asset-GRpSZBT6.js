@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-CsOFd3vK.js";function t(e){let t={}.NEXT_PUBLIC_BASE_PATH??``;return e.startsWith(`/`)?`${t}${e}`:e}function n(){return(n=e((()=>{})))()}export{n,t};
