@@ -679,33 +679,6 @@
         }
       ]
     },
-    "design-system-input": {
-      "id": "design-system-input",
-      "name": "Input",
-      "path": "./src/stories/input.stories.tsx",
-      "jsDocTags": {},
-      "reactDocgen": {
-        "description": "",
-        "methods": [],
-        "displayName": "Input",
-        "definedInFile": "/workspace/src/components/ui/input.tsx",
-        "actualName": "Input",
-        "exportName": "Input"
-      },
-      "stories": [
-        {
-          "id": "design-system-input--default",
-          "name": "Default",
-          "snippet": "const Default = () => <Input placeholder=\"Enter text...\" />;"
-        },
-        {
-          "id": "design-system-input--disabled",
-          "name": "Disabled",
-          "snippet": "const Disabled = () => <Input placeholder=\"Enter text...\" disabled defaultValue=\"Disabled\" />;"
-        }
-      ],
-      "import": "import { Input } from 'onboarding';"
-    },
     "design-system-label": {
       "id": "design-system-label",
       "name": "Label",
@@ -1453,6 +1426,119 @@
       ],
       "import": "import {\n  BanksConnectedStep,\n  BankStep,\n  BeneficiariesStep,\n  ContributionStep,\n  CreateLogin,\n  ReviewStep,\n  SignatureStep,\n  StrategyStep,\n} from 'onboarding';"
     },
+    "design-system-unified-header": {
+      "id": "design-system-unified-header",
+      "name": "UnifiedHeader",
+      "path": "./src/stories/unified-header.stories.tsx",
+      "jsDocTags": {},
+      "reactDocgen": {
+        "description": "",
+        "methods": [],
+        "displayName": "UnifiedHeader",
+        "definedInFile": "/workspace/src/components/ui/unified-header.tsx",
+        "actualName": "UnifiedHeader",
+        "exportName": "UnifiedHeader",
+        "props": {
+          "step": {
+            "required": false,
+            "tsType": {
+              "name": "unknown[number]",
+              "raw": "(typeof headerSteps)[number]"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "1",
+              "computed": false
+            }
+          },
+          "size": {
+            "required": false,
+            "tsType": {
+              "name": "unknown[number]",
+              "raw": "(typeof headerSizes)[number]"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "\"desktop\"",
+              "computed": false
+            }
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "design-system-unified-header--desktop",
+          "name": "Desktop",
+          "snippet": "const Desktop = () => <Steps size=\"desktop\" />;"
+        },
+        {
+          "id": "design-system-unified-header--mobile",
+          "name": "Mobile",
+          "snippet": "const Mobile = () => <Steps size=\"mobile\" />;"
+        },
+        {
+          "id": "design-system-unified-header--desktop-step-1",
+          "name": "Desktop / Step 1",
+          "snippet": "const DesktopStep1 = () => (\n  <div className=\"bg-white p-6\">\n    <UnifiedHeader step={1} size=\"desktop\" />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-unified-header--desktop-step-2",
+          "name": "Desktop / Step 2",
+          "snippet": "const DesktopStep2 = () => (\n  <div className=\"bg-white p-6\">\n    <UnifiedHeader step={2} size=\"desktop\" />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-unified-header--desktop-step-3",
+          "name": "Desktop / Step 3",
+          "snippet": "const DesktopStep3 = () => (\n  <div className=\"bg-white p-6\">\n    <UnifiedHeader step={3} size=\"desktop\" />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-unified-header--desktop-step-4",
+          "name": "Desktop / Step 4",
+          "snippet": "const DesktopStep4 = () => (\n  <div className=\"bg-white p-6\">\n    <UnifiedHeader step={4} size=\"desktop\" />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-unified-header--desktop-step-5",
+          "name": "Desktop / Step 5",
+          "snippet": "const DesktopStep5 = () => (\n  <div className=\"bg-white p-6\">\n    <UnifiedHeader step={5} size=\"desktop\" />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-unified-header--desktop-step-6",
+          "name": "Desktop / Step 6",
+          "snippet": "const DesktopStep6 = () => (\n  <div className=\"bg-white p-6\">\n    <UnifiedHeader step={6} size=\"desktop\" />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-unified-header--mobile-step-1",
+          "name": "Mobile / Step 1",
+          "snippet": "const MobileStep1 = () => (\n  <div className=\"bg-white p-6\">\n    <UnifiedHeader step={1} size=\"mobile\" />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-unified-header--mobile-step-2",
+          "name": "Mobile / Step 2",
+          "snippet": "const MobileStep2 = () => (\n  <div className=\"bg-white p-6\">\n    <UnifiedHeader step={2} size=\"mobile\" />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-unified-header--mobile-step-3",
+          "name": "Mobile / Step 3",
+          "snippet": "const MobileStep3 = () => (\n  <div className=\"bg-white p-6\">\n    <UnifiedHeader step={3} size=\"mobile\" />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-unified-header--mobile-step-4",
+          "name": "Mobile / Step 4",
+          "snippet": "const MobileStep4 = () => (\n  <div className=\"bg-white p-6\">\n    <UnifiedHeader step={4} size=\"mobile\" />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-unified-header--mobile-step-5",
+          "name": "Mobile / Step 5",
+          "snippet": "const MobileStep5 = () => (\n  <div className=\"bg-white p-6\">\n    <UnifiedHeader step={5} size=\"mobile\" />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-unified-header--mobile-step-6",
+          "name": "Mobile / Step 6",
+          "snippet": "const MobileStep6 = () => (\n  <div className=\"bg-white p-6\">\n    <UnifiedHeader step={6} size=\"mobile\" />\n  </div>\n);"
+        }
+      ],
+      "import": "import { UnifiedHeader } from 'onboarding';"
+    },
     "onboarding-verify-account": {
       "id": "onboarding-verify-account",
       "name": "VerifyAccount",
@@ -1478,6 +1564,6 @@
   },
   "meta": {
     "docgen": "react-docgen",
-    "durationMs": 440
+    "durationMs": 489
   }
 }
