@@ -1,6 +1,199 @@
 {
   "v": 0,
   "components": {
+    "foundations-badge-status": {
+      "id": "foundations-badge-status",
+      "name": "Badgestatus",
+      "path": "./src/stories/badge-status.stories.tsx",
+      "jsDocTags": {},
+      "error": {
+        "name": "No component found",
+        "message": "We could not detect the component from your story file. Specify meta.component.\n  125 | }\n  126 |\n> 127 | const meta = {\n      | ^\n  128 |   title: \"Foundations/Badge status\",\n  129 |   parameters: { layout: \"fullscreen\" },\n  130 | } satisfies Meta;\n\n./src/stories/badge-status.stories.tsx:\nimport type { Meta, StoryObj } from \"@storybook/nextjs-vite\";\n\ntype Token = {\n  name: string;\n  variable: string;\n  value: string;\n};\n\nconst success: Token[] = [\n  { name: \"success/soft-fill\", variable: \"--status-success-soft-fill\", value: \"#ECFDF3\" },\n  { name: \"success/soft-border\", variable: \"--status-success-soft-border\", value: \"#A6F4C5\" },\n  { name: \"success/outline-border\", variable: \"--status-success-outline-border\", value: \"#75E0A7\" },\n  { name: \"success/text\", variable: \"--status-success-text\", value: \"#027A48\" },\n  { name: \"success/icon\", variable: \"--status-success-icon\", value: \"#039855\" },\n  { name: \"success/solid-fill\", variable: \"--status-success-solid-fill\", value: \"#027A48\" },\n  { name: \"success/on-solid\", variable: \"--status-success-on-solid\", value: \"#FFFFFF\" },\n  { name: \"success/soft-hover\", variable: \"--status-success-soft-hover\", value: \"#DEFAEA\" },\n  { name: \"success/soft-pressed\", variable: \"--status-success-soft-pressed\", value: \"#CFF6E1\" },\n  { name: \"success/solid-hover\", variable: \"--status-success-solid-hover\", value: \"#026E41\" },\n  { name: \"success/solid-pressed\", variable: \"--status-success-solid-pressed\", value: \"#02623A\" },\n];\n\nconst info: Token[] = [\n  { name: \"info/soft-fill\", variable: \"--status-info-soft-fill\", value: \"#F0F9FF\" },\n  { name: \"info/soft-border\", variable: \"--status-info-soft-border\", value: \"#B9E6FE\" },\n  { name: \"info/outline-border\", variable: \"--status-info-outline-border\", value: \"#84CAFF\" },\n  { name: \"info/text\", variable: \"--status-info-text\", value: \"#026AA2\" },\n  { name: \"info/icon\", variable: \"--status-info-icon\", value: \"#0284C7\" },\n  { name: \"info/solid-fill\", variable: \"--status-info-solid-fill\", value: \"#026AA2\" },\n  { name: \"info/on-solid\", variable: \"--status-info-on-solid\", value: \"#FFFFFF\" },\n  { name: \"info/soft-hover\", variable: \"--status-info-soft-hover\", value: \"#E3F3FF\" },\n  { name: \"info/soft-pressed\", variable: \"--status-info-soft-pressed\", value: \"#D6EEFF\" },\n  { name: \"info/solid-hover\", variable: \"--status-info-solid-hover\", value: \"#025F92\" },\n  { name: \"info/solid-pressed\", variable: \"--status-info-solid-pressed\", value: \"#025582\" },\n];\n\nconst warning: Token[] = [\n  { name: \"warning/soft-fill\", variable: \"--status-warning-soft-fill\", value: \"#FFFAEB\" },\n  { name: \"warning/soft-border\", variable: \"--status-warning-soft-border\", value: \"#FEDF89\" },\n  { name: \"warning/outline-border\", variable: \"--status-warning-outline-border\", value: \"#FEC84B\" },\n  { name: \"warning/text\", variable: \"--status-warning-text\", value: \"#B54708\" },\n  { name: \"warning/icon\", variable: \"--status-warning-icon\", value: \"#D97706\" },\n  { name: \"warning/solid-fill\", variable: \"--status-warning-solid-fill\", value: \"#F79009\" },\n  { name: \"warning/on-solid\", variable: \"--status-warning-on-solid\", value: \"#101828\" },\n  { name: \"warning/soft-hover\", variable: \"--status-warning-soft-hover\", value: \"#FFF4D8\" },\n  { name: \"warning/soft-pressed\", variable: \"--status-warning-soft-pressed\", value: \"#FFEEC5\" },\n  { name: \"warning/solid-hover\", variable: \"--status-warning-solid-hover\", value: \"#F89B22\" },\n  { name: \"warning/solid-pressed\", variable: \"--status-warning-solid-pressed\", value: \"#F9A63A\" },\n];\n\nconst danger: Token[] = [\n  { name: \"danger/soft-fill\", variable: \"--status-danger-soft-fill\", value: \"#FEF3F2\" },\n  { name: \"danger/soft-border\", variable: \"--status-danger-soft-border\", value: \"#FECDCA\" },\n  { name: \"danger/outline-border\", variable: \"--status-danger-outline-border\", value: \"#FDA29B\" },\n  { name: \"danger/text\", variable: \"--status-danger-text\", value: \"#B42318\" },\n  { name: \"danger/icon\", variable: \"--status-danger-icon\", value: \"#D92D20\" },\n  { name: \"danger/solid-fill\", variable: \"--status-danger-solid-fill\", value: \"#D92D20\" },\n  { name: \"danger/on-solid\", variable: \"--status-danger-on-solid\", value: \"#FFFFFF\" },\n  { name: \"danger/soft-hover\", variable: \"--status-danger-soft-hover\", value: \"#FEE9E8\" },\n  { name: \"danger/soft-pressed\", variable: \"--status-danger-soft-pressed\", value: \"#FEE0DD\" },\n  { name: \"danger/solid-hover\", variable: \"--status-danger-solid-hover\", value: \"#C3291D\" },\n  { name: \"danger/solid-pressed\", variable: \"--status-danger-solid-pressed\", value: \"#AE241A\" },\n];\n\nconst neutral: Token[] = [\n  { name: \"neutral/soft-fill\", variable: \"--status-neutral-soft-fill\", value: \"#F2F4F7\" },\n  { name: \"neutral/soft-border\", variable: \"--status-neutral-soft-border\", value: \"#D0D5DD\" },\n  { name: \"neutral/outline-border\", variable: \"--status-neutral-outline-border\", value: \"#D0D5DD\" },\n  { name: \"neutral/text\", variable: \"--status-neutral-text\", value: \"#344054\" },\n  { name: \"neutral/icon\", variable: \"--status-neutral-icon\", value: \"#667085\" },\n  { name: \"neutral/solid-fill\", variable: \"--status-neutral-solid-fill\", value: \"#475467\" },\n  { name: \"neutral/on-solid\", variable: \"--status-neutral-on-solid\", value: \"#FFFFFF\" },\n  { name: \"neutral/soft-hover\", variable: \"--status-neutral-soft-hover\", value: \"#EEF0F4\" },\n  { name: \"neutral/soft-pressed\", variable: \"--status-neutral-soft-pressed\", value: \"#EAEDF1\" },\n  { name: \"neutral/solid-hover\", variable: \"--status-neutral-solid-hover\", value: \"#404C5D\" },\n  { name: \"neutral/solid-pressed\", variable: \"--status-neutral-solid-pressed\", value: \"#394352\" },\n];\n\nconst brand: Token[] = [\n  { name: \"brand/soft-fill\", variable: \"--status-brand-soft-fill\", value: \"#EFF6FF\" },\n  { name: \"brand/soft-border\", variable: \"--status-brand-soft-border\", value: \"#B2CCFF\" },\n  { name: \"brand/outline-border\", variable: \"--status-brand-outline-border\", value: \"#84A9FF\" },\n  { name: \"brand/text\", variable: \"--status-brand-text\", value: \"#1849A9\" },\n  { name: \"brand/icon\", variable: \"--status-brand-icon\", value: \"#2563EB\" },\n  { name: \"brand/solid-fill\", variable: \"--status-brand-solid-fill\", value: \"#2563EB\" },\n  { name: \"brand/on-solid\", variable: \"--status-brand-on-solid\", value: \"#FFFFFF\" },\n  { name: \"brand/soft-hover\", variable: \"--status-brand-soft-hover\", value: \"#E2EDFF\" },\n  { name: \"brand/soft-pressed\", variable: \"--status-brand-soft-pressed\", value: \"#D5E4FF\" },\n  { name: \"brand/solid-hover\", variable: \"--status-brand-solid-hover\", value: \"#1D4ED8\" },\n  { name: \"brand/solid-pressed\", variable: \"--status-brand-solid-pressed\", value: \"#1E40AF\" },\n];\n\nconst shared: Token[] = [\n  { name: \"outline/fill\", variable: \"--status-outline-fill\", value: \"#FFFFFF\" },\n  { name: \"disabled/text\", variable: \"--status-disabled-text\", value: \"#667085\" },\n  { name: \"disabled/border\", variable: \"--status-disabled-border\", value: \"#98A2B3\" },\n  { name: \"docs/background\", variable: \"--status-docs-background\", value: \"#F8FAFC\" },\n];\n\nfunction TokenList({ tokens }: { tokens: Token[] }) {\n  return (\n    <ul className=\"flex flex-col\">\n      {tokens.map((token) => (\n        <li key={token.name} className=\"flex h-14 items-center gap-5 px-4\">\n          <div\n            className=\"size-9 shrink-0 rounded-lg border border-[#e5e7eb]\"\n            style={{ background: `var(${token.variable})` }}\n          />\n          <p className=\"w-[240px] font-sans text-sm font-medium text-black/85\">{token.name}</p>\n          <p className=\"w-[120px] font-sans text-[13px] text-black/40\">{token.value}</p>\n          <p className=\"font-sans text-[13px] text-black/35\">{token.variable}</p>\n        </li>\n      ))}\n    </ul>\n  );\n}\n\nfunction Group({ title, tokens }: { title: string; tokens: Token[] }) {\n  return (\n    <section className=\"flex flex-col gap-3\">\n      <h2 className=\"font-sans text-[13px] font-medium tracking-[0.8px] text-black/35 uppercase\">{title}</h2>\n      <TokenList tokens={tokens} />\n    </section>\n  );\n}\n\nconst meta = {\n  title: \"Foundations/Badge status\",\n  parameters: { layout: \"fullscreen\" },\n} satisfies Meta;\n\nexport default meta;\n\ntype Story = StoryObj<typeof meta>;\n\nexport const StatusFoundations: Story = {\n  name: \"Status foundations\",\n  render: () => (\n    <div className=\"flex flex-col gap-10 bg-[var(--status-docs-background)] p-8\">\n      <Group title=\"Success\" tokens={success} />\n      <Group title=\"Info\" tokens={info} />\n      <Group title=\"Warning\" tokens={warning} />\n      <Group title=\"Danger\" tokens={danger} />\n      <Group title=\"Neutral\" tokens={neutral} />\n      <Group title=\"Brand\" tokens={brand} />\n      <Group title=\"Shared\" tokens={shared} />\n    </div>\n  ),\n};\n"
+      },
+      "stories": [
+        {
+          "id": "foundations-badge-status--status-foundations",
+          "name": "Status foundations",
+          "snippet": "const StatusFoundations = () => (\n  <div className=\"flex flex-col gap-10 bg-[var(--status-docs-background)] p-8\">\n    <Group title=\"Success\" tokens={success} />\n    <Group title=\"Info\" tokens={info} />\n    <Group title=\"Warning\" tokens={warning} />\n    <Group title=\"Danger\" tokens={danger} />\n    <Group title=\"Neutral\" tokens={neutral} />\n    <Group title=\"Brand\" tokens={brand} />\n    <Group title=\"Shared\" tokens={shared} />\n  </div>\n);"
+        }
+      ]
+    },
+    "design-system-badge": {
+      "id": "design-system-badge",
+      "name": "Badge",
+      "path": "./src/stories/badge.stories.tsx",
+      "jsDocTags": {},
+      "reactDocgen": {
+        "description": "",
+        "methods": [],
+        "displayName": "Badge",
+        "definedInFile": "/workspace/src/components/ui/badge.tsx",
+        "actualName": "Badge",
+        "exportName": "Badge",
+        "props": {
+          "copy": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "\"Request Received\"",
+              "computed": false
+            }
+          },
+          "count": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "\"3\"",
+              "computed": false
+            }
+          },
+          "useCase": {
+            "required": false,
+            "tsType": {
+              "name": "unknown[number]",
+              "raw": "(typeof badgeUseCases)[number]"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "\"success\"",
+              "computed": false
+            }
+          },
+          "badgeStyle": {
+            "required": false,
+            "tsType": {
+              "name": "unknown[number]",
+              "raw": "(typeof badgeStyles)[number]"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "\"soft\"",
+              "computed": false
+            }
+          },
+          "size": {
+            "required": false,
+            "tsType": {
+              "name": "unknown[number]",
+              "raw": "(typeof badgeSizes)[number]"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "\"md\"",
+              "computed": false
+            }
+          },
+          "state": {
+            "required": false,
+            "tsType": {
+              "name": "unknown[number]",
+              "raw": "(typeof badgeStates)[number]"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "\"default\"",
+              "computed": false
+            }
+          },
+          "leading": {
+            "required": false,
+            "tsType": {
+              "name": "unknown[number]",
+              "raw": "(typeof badgeLeadings)[number]"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "\"none\"",
+              "computed": false
+            }
+          },
+          "trailing": {
+            "required": false,
+            "tsType": {
+              "name": "unknown[number]",
+              "raw": "(typeof badgeTrailings)[number]"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "\"none\"",
+              "computed": false
+            }
+          },
+          "loading": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            }
+          },
+          "onDismiss": {
+            "required": false,
+            "tsType": {
+              "name": "signature",
+              "type": "function",
+              "raw": "() => void",
+              "signature": {
+                "arguments": [],
+                "return": {
+                  "name": "void"
+                }
+              }
+            },
+            "description": ""
+          },
+          "className": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "design-system-badge--use-cases",
+          "name": "Use cases",
+          "snippet": "const UseCases = () => (\n  <div className=\"bg-[var(--status-docs-background)] p-8\">\n    <Row>\n      {badgeUseCases.map((useCase) => (\n        <Badge key={useCase} useCase={useCase} />\n      ))}\n    </Row>\n  </div>\n);"
+        },
+        {
+          "id": "design-system-badge--styles",
+          "name": "Styles",
+          "snippet": "const Styles = () => (\n  <div className=\"flex flex-col gap-4 bg-[var(--status-docs-background)] p-8\">\n    {badgeUseCases.map((useCase) => (\n      <Row key={useCase}>\n        {badgeStyles.map((badgeStyle) => (\n          <Badge key={badgeStyle} useCase={useCase} badgeStyle={badgeStyle} />\n        ))}\n      </Row>\n    ))}\n  </div>\n);"
+        },
+        {
+          "id": "design-system-badge--sizes",
+          "name": "Sizes",
+          "snippet": "const Sizes = () => (\n  <div className=\"bg-[var(--status-docs-background)] p-8\">\n    <Row>\n      {badgeSizes.map((size) => (\n        <Badge key={size} size={size} />\n      ))}\n    </Row>\n  </div>\n);"
+        },
+        {
+          "id": "design-system-badge--states",
+          "name": "States",
+          "snippet": "const States = () => (\n  <div className=\"bg-[var(--status-docs-background)] p-8\">\n    <Row>\n      {badgeStates.map((state) => (\n        <Badge key={state} state={state} />\n      ))}\n    </Row>\n  </div>\n);"
+        },
+        {
+          "id": "design-system-badge--leading-and-trailing",
+          "name": "Leading and trailing",
+          "snippet": "const LeadingAndTrailing = () => (\n  <div className=\"flex flex-col gap-4 bg-[var(--status-docs-background)] p-8\">\n    <Row>\n      {badgeLeadings.map((leading) => (\n        <Badge key={leading} leading={leading} />\n      ))}\n    </Row>\n    <Row>\n      {badgeTrailings.map((trailing) => (\n        <Badge key={trailing} trailing={trailing} />\n      ))}\n    </Row>\n  </div>\n);"
+        },
+        {
+          "id": "design-system-badge--badge-component",
+          "name": "Badge",
+          "snippet": "const BadgeComponent = () => <BadgeBoard />;"
+        }
+      ],
+      "import": "import { Badge } from 'onboarding';"
+    },
     "onboarding-button": {
       "id": "onboarding-button",
       "name": "Button",
@@ -129,30 +322,295 @@
     },
     "onboarding-form-field": {
       "id": "onboarding-form-field",
-      "name": "Input",
+      "name": "InputField",
       "path": "./src/stories/form-field.stories.tsx",
       "jsDocTags": {},
       "reactDocgen": {
         "description": "",
         "methods": [],
-        "displayName": "Input",
-        "definedInFile": "/workspace/src/components/ui/input.tsx",
-        "actualName": "Input",
-        "exportName": "Input"
+        "displayName": "InputField",
+        "definedInFile": "/workspace/src/components/onboarding/input-field.tsx",
+        "actualName": "InputField",
+        "exportName": "InputField",
+        "props": {
+          "id": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "name": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "label": {
+            "required": true,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "fieldType": {
+            "required": false,
+            "tsType": {
+              "name": "unknown[number]",
+              "raw": "(typeof piggyFieldTypes)[number]"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "\"text\"",
+              "computed": false
+            }
+          },
+          "helper": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "placeholder": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "value": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "defaultValue": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "\"\"",
+              "computed": false
+            }
+          },
+          "onValueChange": {
+            "required": false,
+            "tsType": {
+              "name": "signature",
+              "type": "function",
+              "raw": "(value: string) => void",
+              "signature": {
+                "arguments": [
+                  {
+                    "type": {
+                      "name": "string"
+                    },
+                    "name": "value"
+                  }
+                ],
+                "return": {
+                  "name": "void"
+                }
+              }
+            },
+            "description": ""
+          },
+          "required": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            }
+          },
+          "disabled": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            }
+          },
+          "state": {
+            "required": false,
+            "tsType": {
+              "name": "union",
+              "raw": "\"default\" | \"hover\" | \"filled\" | \"focused\" | \"error\" | \"disabled\"",
+              "elements": [
+                {
+                  "name": "literal",
+                  "value": "\"default\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"hover\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"filled\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"focused\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"error\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"disabled\""
+                }
+              ]
+            },
+            "description": "Preview a frame state. Live fields derive state from interaction."
+          },
+          "size": {
+            "required": false,
+            "tsType": {
+              "name": "union",
+              "raw": "\"responsive\" | \"desktop\" | \"tablet\" | \"mobile\"",
+              "elements": [
+                {
+                  "name": "literal",
+                  "value": "\"responsive\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"desktop\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"tablet\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"mobile\""
+                }
+              ]
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "\"responsive\"",
+              "computed": false
+            }
+          },
+          "masked": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            }
+          },
+          "onMaskedChange": {
+            "required": false,
+            "tsType": {
+              "name": "signature",
+              "type": "function",
+              "raw": "(masked: boolean) => void",
+              "signature": {
+                "arguments": [
+                  {
+                    "type": {
+                      "name": "boolean"
+                    },
+                    "name": "masked"
+                  }
+                ],
+                "return": {
+                  "name": "void"
+                }
+              }
+            },
+            "description": ""
+          },
+          "revealable": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "Existing SSN reveal control. Toggles the Masked overlay.",
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            }
+          },
+          "invalid": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            }
+          },
+          "errorHelper": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "minimum": {
+            "required": false,
+            "tsType": {
+              "name": "number"
+            },
+            "description": ""
+          },
+          "maximum": {
+            "required": false,
+            "tsType": {
+              "name": "number"
+            },
+            "description": ""
+          },
+          "autoComplete": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "type": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          }
+        }
       },
       "stories": [
         {
           "id": "onboarding-form-field--first-name",
           "name": "First Name",
-          "snippet": "const FirstName = () => (\n  <div className=\"flex w-[420px] flex-col gap-2 bg-white p-6\">\n    <Label htmlFor=\"first-name\" className=\"text-sm leading-5 font-semibold text-[#111827]\">\n      First Name\n    </Label>\n    <Input\n      id=\"first-name\"\n      name=\"firstName\"\n      autoComplete=\"given-name\"\n      placeholder=\"Enter first name\"\n      className={inputClassName}\n    />\n  </div>\n);"
+          "snippet": "const FirstName = () => <InputField\n    id=\"first-name\"\n    name=\"firstName\"\n    label=\"First Name\"\n    fieldType=\"name\"\n    autoComplete=\"given-name\"\n    placeholder=\"Enter first name\"\n    size=\"desktop\" />;"
         },
         {
           "id": "onboarding-form-field--social-security-number",
           "name": "Social Security Number",
-          "snippet": "const SocialSecurityNumber = () => (\n  <div className=\"flex w-[420px] flex-col gap-1.5 bg-white p-6\">\n    <Label htmlFor=\"ssn\" className=\"text-[13px] leading-normal font-normal text-[#111827]\">\n      SSN\n    </Label>\n    <div className=\"relative\">\n      <Input\n        id=\"ssn\"\n        name=\"ssn\"\n        inputMode=\"numeric\"\n        autoComplete=\"off\"\n        placeholder=\"Enter SSN (XXX-XX-XXXX)\"\n        className=\"h-12 rounded-[6px] border-[#d1d5db] bg-white px-3 pr-10 text-sm leading-normal font-normal text-[#111827] shadow-none placeholder:text-[#9ca3af] focus-visible:border-[#2563eb] focus-visible:ring-0 md:text-sm\"\n      />\n      <Button\n        type=\"button\"\n        className=\"absolute top-1/2 right-3 size-5 -translate-y-1/2 rounded-none border-0 bg-transparent p-0 shadow-none hover:bg-transparent\"\n        aria-label=\"Show SSN\"\n      >\n        <EyeIcon slashed />\n      </Button>\n    </div>\n    <p className=\"text-xs leading-normal text-[#6b7280]\">Format: XXX-XX-XXXX</p>\n  </div>\n);"
+          "snippet": "const SocialSecurityNumber = () => <InputField\n    id=\"ssn\"\n    name=\"ssn\"\n    label=\"SSN\"\n    fieldType=\"ssn\"\n    autoComplete=\"off\"\n    placeholder=\"Enter SSN (XXX-XX-XXXX)\"\n    helper=\"Format: XXX-XX-XXXX\"\n    masked\n    revealable\n    size=\"desktop\" />;"
         }
       ],
-      "import": "import { Button, EyeIcon, Input, Label } from 'onboarding';"
+      "import": "import { InputField } from 'onboarding';"
     },
     "foundations-color": {
       "id": "foundations-color",
@@ -400,6 +858,548 @@
       ],
       "import": "import { Button, OnboardingActions, OnboardingBack, OnboardingData } from 'onboarding';"
     },
+    "design-system-input-field": {
+      "id": "design-system-input-field",
+      "name": "InputField",
+      "path": "./src/stories/piggy-input-field.stories.tsx",
+      "jsDocTags": {},
+      "reactDocgen": {
+        "description": "",
+        "methods": [],
+        "displayName": "InputField",
+        "definedInFile": "/workspace/src/components/onboarding/input-field.tsx",
+        "actualName": "InputField",
+        "exportName": "InputField",
+        "props": {
+          "id": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "name": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "label": {
+            "required": true,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "fieldType": {
+            "required": false,
+            "tsType": {
+              "name": "unknown[number]",
+              "raw": "(typeof piggyFieldTypes)[number]"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "\"text\"",
+              "computed": false
+            }
+          },
+          "helper": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "placeholder": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "value": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "defaultValue": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "\"\"",
+              "computed": false
+            }
+          },
+          "onValueChange": {
+            "required": false,
+            "tsType": {
+              "name": "signature",
+              "type": "function",
+              "raw": "(value: string) => void",
+              "signature": {
+                "arguments": [
+                  {
+                    "type": {
+                      "name": "string"
+                    },
+                    "name": "value"
+                  }
+                ],
+                "return": {
+                  "name": "void"
+                }
+              }
+            },
+            "description": ""
+          },
+          "required": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            }
+          },
+          "disabled": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            }
+          },
+          "state": {
+            "required": false,
+            "tsType": {
+              "name": "union",
+              "raw": "\"default\" | \"hover\" | \"filled\" | \"focused\" | \"error\" | \"disabled\"",
+              "elements": [
+                {
+                  "name": "literal",
+                  "value": "\"default\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"hover\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"filled\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"focused\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"error\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"disabled\""
+                }
+              ]
+            },
+            "description": "Preview a frame state. Live fields derive state from interaction."
+          },
+          "size": {
+            "required": false,
+            "tsType": {
+              "name": "union",
+              "raw": "\"responsive\" | \"desktop\" | \"tablet\" | \"mobile\"",
+              "elements": [
+                {
+                  "name": "literal",
+                  "value": "\"responsive\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"desktop\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"tablet\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"mobile\""
+                }
+              ]
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "\"responsive\"",
+              "computed": false
+            }
+          },
+          "masked": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            }
+          },
+          "onMaskedChange": {
+            "required": false,
+            "tsType": {
+              "name": "signature",
+              "type": "function",
+              "raw": "(masked: boolean) => void",
+              "signature": {
+                "arguments": [
+                  {
+                    "type": {
+                      "name": "boolean"
+                    },
+                    "name": "masked"
+                  }
+                ],
+                "return": {
+                  "name": "void"
+                }
+              }
+            },
+            "description": ""
+          },
+          "revealable": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "Existing SSN reveal control. Toggles the Masked overlay.",
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            }
+          },
+          "invalid": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            }
+          },
+          "errorHelper": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "minimum": {
+            "required": false,
+            "tsType": {
+              "name": "number"
+            },
+            "description": ""
+          },
+          "maximum": {
+            "required": false,
+            "tsType": {
+              "name": "number"
+            },
+            "description": ""
+          },
+          "autoComplete": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "type": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "design-system-input-field--states",
+          "name": "States",
+          "snippet": "const States = () => (\n  <div className=\"grid gap-8 bg-white p-8 md:grid-cols-3\">\n    {states.map((state) => (\n      <InputField\n        key={state}\n        label=\"Label\"\n        placeholder=\"Placeholder\"\n        helper={state === \"error\" ? \"Helper text\" : \"Helper text\"}\n        state={state}\n        size=\"desktop\"\n        value={state === \"filled\" || state === \"focused\" || state === \"disabled\" ? \"Sample Value\" : \"\"}\n      />\n    ))}\n  </div>\n);"
+        },
+        {
+          "id": "design-system-input-field--sizes",
+          "name": "Sizes",
+          "snippet": "const Sizes = () => (\n  <div className=\"flex max-w-md flex-col gap-8 bg-white p-8\">\n    <InputField label=\"Desktop\" placeholder=\"Placeholder\" helper=\"Helper text\" size=\"desktop\" />\n    <InputField label=\"Tablet\" placeholder=\"Placeholder\" helper=\"Helper text\" size=\"tablet\" />\n    <InputField label=\"Mobile\" placeholder=\"Placeholder\" helper=\"Helper text\" size=\"mobile\" />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-input-field--field-types",
+          "name": "Field types",
+          "snippet": "const FieldTypes = () => (\n  <div className=\"grid max-w-5xl gap-8 bg-white p-8 md:grid-cols-2\">\n    {piggyFieldTypes.map((fieldType) => (\n      <InputField\n        key={fieldType}\n        label={fieldType}\n        fieldType={fieldType}\n        placeholder=\"Placeholder\"\n        helper=\"Helper text\"\n        size=\"desktop\"\n        revealable={fieldType === \"ssn\" || fieldType === \"account\"}\n        masked={fieldType === \"account\"}\n      />\n    ))}\n  </div>\n);"
+        },
+        {
+          "id": "design-system-input-field--usd-default",
+          "name": "USD denomination / Default",
+          "snippet": "const UsdDefault = () => (\n  <div className=\"bg-white p-8\">\n    <CurrencyField label=\"Amount\" helper=\"US dollars use two decimal places\" />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-input-field--usd-typing",
+          "name": "USD denomination / Typing",
+          "snippet": "const UsdTyping = () => (\n  <div className=\"flex flex-col gap-6 bg-white p-8\">\n    <CurrencyField label=\"Amount\" helper=\"Type a digit to replace $0.00\" />\n    <CurrencyField label=\"After typing\" helper=\"Thousands separators and two decimals\" value=\"$1,250.00\" />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-input-field--usd-focus",
+          "name": "USD denomination / Focus",
+          "snippet": "const UsdFocus = () => (\n  <div className=\"bg-white p-8\">\n    <CurrencyField label=\"Amount\" helper=\"Helper text\" state=\"focused\" value=\"$0.00\" />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-input-field--usd-error",
+          "name": "USD denomination / Error",
+          "snippet": "const UsdError = () => (\n  <div className=\"bg-white p-8\">\n    <CurrencyField label=\"Amount\" errorHelper=\"Enter an amount\" state=\"error\" value=\"$0.00\" />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-input-field--usd-disabled",
+          "name": "USD denomination / Disabled",
+          "snippet": "const UsdDisabled = () => (\n  <div className=\"bg-white p-8\">\n    <CurrencyField label=\"Amount\" helper=\"Helper text\" state=\"disabled\" value=\"$0.00\" />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-input-field--choice-default",
+          "name": "Currency choice / Default",
+          "snippet": "const ChoiceDefault = () => (\n  <div className=\"bg-white p-8\">\n    <CurrencyField selectable label=\"Amount\" helper=\"Change the currency to update the flag and symbol\" />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-input-field--choice-typing",
+          "name": "Currency choice / Typing",
+          "snippet": "const ChoiceTyping = () => (\n  <div className=\"bg-white p-8\">\n    <CurrencyField selectable label=\"Amount\" helper=\"Typing keeps the selected currency's format\" />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-input-field--choice-focus",
+          "name": "Currency choice / Focus",
+          "snippet": "const ChoiceFocus = () => (\n  <div className=\"bg-white p-8\">\n    <CurrencyField selectable label=\"Amount\" helper=\"Helper text\" state=\"focused\" />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-input-field--choice-error",
+          "name": "Currency choice / Error",
+          "snippet": "const ChoiceError = () => (\n  <div className=\"bg-white p-8\">\n    <CurrencyField selectable label=\"Amount\" errorHelper=\"Enter an amount\" state=\"error\" />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-input-field--choice-disabled",
+          "name": "Currency choice / Disabled",
+          "snippet": "const ChoiceDisabled = () => (\n  <div className=\"bg-white p-8\">\n    <CurrencyField selectable label=\"Amount\" helper=\"Helper text\" state=\"disabled\" />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-input-field--currency-inputs",
+          "name": "Currency inputs",
+          "snippet": "const CurrencyInputs = () => <CurrencyBoard />;"
+        },
+        {
+          "id": "design-system-input-field--masked-ssn",
+          "name": "Masked SSN",
+          "snippet": "const MaskedSsn = () => <InputField\n    label=\"SSN\"\n    placeholder=\"Enter SSN (XXX-XX-XXXX)\"\n    helper=\"Format: XXX-XX-XXXX\"\n    fieldType=\"ssn\"\n    defaultValue=\"123-45-6789\"\n    masked\n    revealable\n    size=\"desktop\" />;"
+        }
+      ],
+      "import": "import { CurrencyField, InputField } from 'onboarding';"
+    },
+    "design-system-screen": {
+      "id": "design-system-screen",
+      "name": "OnboardingScreen",
+      "path": "./src/stories/piggy-screen.stories.tsx",
+      "jsDocTags": {},
+      "reactDocgen": {
+        "description": "",
+        "methods": [],
+        "displayName": "OnboardingScreen",
+        "definedInFile": "/workspace/src/components/onboarding/step-screen.tsx",
+        "actualName": "OnboardingScreen",
+        "exportName": "OnboardingScreen",
+        "props": {
+          "steps": {
+            "required": true,
+            "tsType": {
+              "name": "Array",
+              "elements": [
+                {
+                  "name": "signature",
+                  "type": "object",
+                  "raw": "{\n  state: OnboardingStepState;\n  label?: string;\n}",
+                  "signature": {
+                    "properties": [
+                      {
+                        "key": "state",
+                        "value": {
+                          "name": "union",
+                          "raw": "\"current\" | \"complete\" | \"upcoming\"",
+                          "elements": [
+                            {
+                              "name": "literal",
+                              "value": "\"current\""
+                            },
+                            {
+                              "name": "literal",
+                              "value": "\"complete\""
+                            },
+                            {
+                              "name": "literal",
+                              "value": "\"upcoming\""
+                            }
+                          ],
+                          "required": true
+                        }
+                      },
+                      {
+                        "key": "label",
+                        "value": {
+                          "name": "string",
+                          "required": false
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "raw": "OnboardingStepModel[]"
+            },
+            "description": ""
+          },
+          "progress": {
+            "required": true,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "backHref": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "eyebrow": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "title": {
+            "required": true,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "helper": {
+            "required": true,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "primaryLabel": {
+            "required": true,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "secondaryLabel": {
+            "required": true,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "onSubmit": {
+            "required": true,
+            "tsType": {
+              "name": "signature",
+              "type": "function",
+              "raw": "(event: FormEvent<HTMLFormElement>) => void",
+              "signature": {
+                "arguments": [
+                  {
+                    "type": {
+                      "name": "FormEvent",
+                      "elements": [
+                        {
+                          "name": "HTMLFormElement"
+                        }
+                      ],
+                      "raw": "FormEvent<HTMLFormElement>"
+                    },
+                    "name": "event"
+                  }
+                ],
+                "return": {
+                  "name": "void"
+                }
+              }
+            },
+            "description": ""
+          },
+          "children": {
+            "required": true,
+            "tsType": {
+              "name": "ReactNode"
+            },
+            "description": ""
+          },
+          "aside": {
+            "required": true,
+            "tsType": {
+              "name": "ReactNode"
+            },
+            "description": ""
+          },
+          "layout": {
+            "required": false,
+            "tsType": {
+              "name": "union",
+              "raw": "\"panel\" | \"identity\"",
+              "elements": [
+                {
+                  "name": "literal",
+                  "value": "\"panel\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"identity\""
+                }
+              ]
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "\"panel\"",
+              "computed": false
+            }
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "design-system-screen--form-section",
+          "name": "Form section",
+          "snippet": "const FormSection = () => <OnboardingScreen\n    steps={flowSteps(2)}\n    progress=\"w-1/3\"\n    backHref=\"/\"\n    eyebrow=\"Step 2 of 6\"\n    title=\"Create your login\"\n    helper=\"One line of helper text directly below, muted color, explains why or what to expect never decorative.\"\n    primaryLabel=\"Continue\"\n    secondaryLabel=\"Save & Close\"\n    onSubmit={(event) => event.preventDefault()}\n    aside={(<div>\n      <h2 className=\"text-xl leading-7 font-semibold text-[#101828]\">Panel content</h2>\n      <p className=\"mt-3 text-[15px] leading-[22px] text-[#667085]\">\n        The right column keeps this card: white, 16px radius, 1px border, 28px padding.\n      </p>\n    </div>)}>(<div className=\"flex flex-col gap-6\">\n      <InputField label=\"Username\" placeholder=\"Enter text...\" helper=\"Helper text\" />\n      <InputField label=\"Email\" fieldType=\"email\" placeholder=\"name@email.com\" helper=\"Helper text\" />\n    </div>)</OnboardingScreen>;"
+        }
+      ],
+      "import": "import { InputField, OnboardingScreen } from 'onboarding';\nimport { flowSteps } from '@/components/onboarding/onboarding-header';\nimport { InputField } from '@/components/onboarding/input-field';"
+    },
     "onboarding-screens": {
       "id": "onboarding-screens",
       "name": "Screens",
@@ -478,6 +1478,6 @@
   },
   "meta": {
     "docgen": "react-docgen",
-    "durationMs": 264
+    "durationMs": 440
   }
 }

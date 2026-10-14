@@ -620,13 +620,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">4/11 API errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">11/11 infos</a><a class="filter-pill" data-k="no-api" href="#filter-no-api">4/11 without API description</a><span class="filter-pill ok" aria-disabled="true">39 stories ok</span></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">5/15 API errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">15/15 infos</a><a class="filter-pill" data-k="no-api" href="#filter-no-api">3/15 without API description</a><span class="filter-pill ok" aria-disabled="true">62 stories ok</span></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>0.3s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>0.4s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -636,6 +636,459 @@
     <h2 class="section-title">Components</h2>
     <div class="grid" role="list">
       
+<article
+  id="design-system-badge"
+  class="card 
+  no-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="Badge">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> Badge</h2>
+      <div class="badges">
+        <label for="c-0-design-system-badge-props" class="badge ok as-toggle">11 prop types</label>
+        <label for="c-0-design-system-badge-info" class="badge info as-toggle">1 info</label>
+        <label for="c-0-design-system-badge-stories" class="badge ok as-toggle">6 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/badge.stories.tsx">design-system-badge · ./src/stories/badge.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-0-design-system-badge-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-0-design-system-badge-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-0-design-system-badge-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">11 prop types</span>
+            </div>
+            <pre><code>Component: src/components/ui/badge.tsx::Badge</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>badgeStyle?: (typeof badgeStyles)[number] = &quot;soft&quot;
+
+className?: string
+
+copy?: string = &quot;Request Received&quot;
+
+count?: string = &quot;3&quot;
+
+leading?: (typeof badgeLeadings)[number] = &quot;none&quot;
+
+loading?: boolean = false
+
+onDismiss?: () =&gt; void
+
+size?: (typeof badgeSizes)[number] = &quot;md&quot;
+
+state?: (typeof badgeStates)[number] = &quot;default&quot;
+
+trailing?: (typeof badgeTrailings)[number] = &quot;none&quot;
+
+useCase?: (typeof badgeUseCases)[number] = &quot;success&quot;</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { Badge } from 'onboarding';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Use cases</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const UseCases = () =&gt; (
+  &lt;div className=&quot;bg-[var(--status-docs-background)] p-8&quot;&gt;
+    &lt;Row&gt;
+      {badgeUseCases.map((useCase) =&gt; (
+        &lt;Badge key={useCase} useCase={useCase} /&gt;
+      ))}
+    &lt;/Row&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Styles</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Styles = () =&gt; (
+  &lt;div className=&quot;flex flex-col gap-4 bg-[var(--status-docs-background)] p-8&quot;&gt;
+    {badgeUseCases.map((useCase) =&gt; (
+      &lt;Row key={useCase}&gt;
+        {badgeStyles.map((badgeStyle) =&gt; (
+          &lt;Badge key={badgeStyle} useCase={useCase} badgeStyle={badgeStyle} /&gt;
+        ))}
+      &lt;/Row&gt;
+    ))}
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Sizes</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Sizes = () =&gt; (
+  &lt;div className=&quot;bg-[var(--status-docs-background)] p-8&quot;&gt;
+    &lt;Row&gt;
+      {badgeSizes.map((size) =&gt; (
+        &lt;Badge key={size} size={size} /&gt;
+      ))}
+    &lt;/Row&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">States</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const States = () =&gt; (
+  &lt;div className=&quot;bg-[var(--status-docs-background)] p-8&quot;&gt;
+    &lt;Row&gt;
+      {badgeStates.map((state) =&gt; (
+        &lt;Badge key={state} state={state} /&gt;
+      ))}
+    &lt;/Row&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Leading and trailing</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const LeadingAndTrailing = () =&gt; (
+  &lt;div className=&quot;flex flex-col gap-4 bg-[var(--status-docs-background)] p-8&quot;&gt;
+    &lt;Row&gt;
+      {badgeLeadings.map((leading) =&gt; (
+        &lt;Badge key={leading} leading={leading} /&gt;
+      ))}
+    &lt;/Row&gt;
+    &lt;Row&gt;
+      {badgeTrailings.map((trailing) =&gt; (
+        &lt;Badge key={trailing} trailing={trailing} /&gt;
+      ))}
+    &lt;/Row&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Badge</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const BadgeComponent = () =&gt; &lt;BadgeBoard /&gt;;</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  id="foundations-badge-status"
+  class="card 
+  has-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="Badgestatus">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> Badgestatus</h2>
+      <div class="badges">
+        <label for="c-1-foundations-badge-status-err" class="badge err as-toggle">API error</label>
+        <label for="c-1-foundations-badge-status-info" class="badge info as-toggle">2 infos</label>
+        <label for="c-1-foundations-badge-status-stories" class="badge ok as-toggle">1 story</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/badge-status.stories.tsx">foundations-badge-status · ./src/stories/badge-status.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-1-foundations-badge-status-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-1-foundations-badge-status-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-1-foundations-badge-status-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">API error</div>
+      <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
+  125 | }
+  126 |
+&gt; 127 | const meta = {
+      | ^
+  128 |   title: &quot;Foundations/Badge status&quot;,
+  129 |   parameters: { layout: &quot;fullscreen&quot; },
+  130 | } satisfies Meta;
+
+./src/stories/badge-status.stories.tsx:
+import type { Meta, StoryObj } from &quot;@storybook/nextjs-vite&quot;;
+
+type Token = {
+  name: string;
+  variable: string;
+  value: string;
+};
+
+const success: Token[] = [
+  { name: &quot;success/soft-fill&quot;, variable: &quot;--status-success-soft-fill&quot;, value: &quot;#ECFDF3&quot; },
+  { name: &quot;success/soft-border&quot;, variable: &quot;--status-success-soft-border&quot;, value: &quot;#A6F4C5&quot; },
+  { name: &quot;success/outline-border&quot;, variable: &quot;--status-success-outline-border&quot;, value: &quot;#75E0A7&quot; },
+  { name: &quot;success/text&quot;, variable: &quot;--status-success-text&quot;, value: &quot;#027A48&quot; },
+  { name: &quot;success/icon&quot;, variable: &quot;--status-success-icon&quot;, value: &quot;#039855&quot; },
+  { name: &quot;success/solid-fill&quot;, variable: &quot;--status-success-solid-fill&quot;, value: &quot;#027A48&quot; },
+  { name: &quot;success/on-solid&quot;, variable: &quot;--status-success-on-solid&quot;, value: &quot;#FFFFFF&quot; },
+  { name: &quot;success/soft-hover&quot;, variable: &quot;--status-success-soft-hover&quot;, value: &quot;#DEFAEA&quot; },
+  { name: &quot;success/soft-pressed&quot;, variable: &quot;--status-success-soft-pressed&quot;, value: &quot;#CFF6E1&quot; },
+  { name: &quot;success/solid-hover&quot;, variable: &quot;--status-success-solid-hover&quot;, value: &quot;#026E41&quot; },
+  { name: &quot;success/solid-pressed&quot;, variable: &quot;--status-success-solid-pressed&quot;, value: &quot;#02623A&quot; },
+];
+
+const info: Token[] = [
+  { name: &quot;info/soft-fill&quot;, variable: &quot;--status-info-soft-fill&quot;, value: &quot;#F0F9FF&quot; },
+  { name: &quot;info/soft-border&quot;, variable: &quot;--status-info-soft-border&quot;, value: &quot;#B9E6FE&quot; },
+  { name: &quot;info/outline-border&quot;, variable: &quot;--status-info-outline-border&quot;, value: &quot;#84CAFF&quot; },
+  { name: &quot;info/text&quot;, variable: &quot;--status-info-text&quot;, value: &quot;#026AA2&quot; },
+  { name: &quot;info/icon&quot;, variable: &quot;--status-info-icon&quot;, value: &quot;#0284C7&quot; },
+  { name: &quot;info/solid-fill&quot;, variable: &quot;--status-info-solid-fill&quot;, value: &quot;#026AA2&quot; },
+  { name: &quot;info/on-solid&quot;, variable: &quot;--status-info-on-solid&quot;, value: &quot;#FFFFFF&quot; },
+  { name: &quot;info/soft-hover&quot;, variable: &quot;--status-info-soft-hover&quot;, value: &quot;#E3F3FF&quot; },
+  { name: &quot;info/soft-pressed&quot;, variable: &quot;--status-info-soft-pressed&quot;, value: &quot;#D6EEFF&quot; },
+  { name: &quot;info/solid-hover&quot;, variable: &quot;--status-info-solid-hover&quot;, value: &quot;#025F92&quot; },
+  { name: &quot;info/solid-pressed&quot;, variable: &quot;--status-info-solid-pressed&quot;, value: &quot;#025582&quot; },
+];
+
+const warning: Token[] = [
+  { name: &quot;warning/soft-fill&quot;, variable: &quot;--status-warning-soft-fill&quot;, value: &quot;#FFFAEB&quot; },
+  { name: &quot;warning/soft-border&quot;, variable: &quot;--status-warning-soft-border&quot;, value: &quot;#FEDF89&quot; },
+  { name: &quot;warning/outline-border&quot;, variable: &quot;--status-warning-outline-border&quot;, value: &quot;#FEC84B&quot; },
+  { name: &quot;warning/text&quot;, variable: &quot;--status-warning-text&quot;, value: &quot;#B54708&quot; },
+  { name: &quot;warning/icon&quot;, variable: &quot;--status-warning-icon&quot;, value: &quot;#D97706&quot; },
+  { name: &quot;warning/solid-fill&quot;, variable: &quot;--status-warning-solid-fill&quot;, value: &quot;#F79009&quot; },
+  { name: &quot;warning/on-solid&quot;, variable: &quot;--status-warning-on-solid&quot;, value: &quot;#101828&quot; },
+  { name: &quot;warning/soft-hover&quot;, variable: &quot;--status-warning-soft-hover&quot;, value: &quot;#FFF4D8&quot; },
+  { name: &quot;warning/soft-pressed&quot;, variable: &quot;--status-warning-soft-pressed&quot;, value: &quot;#FFEEC5&quot; },
+  { name: &quot;warning/solid-hover&quot;, variable: &quot;--status-warning-solid-hover&quot;, value: &quot;#F89B22&quot; },
+  { name: &quot;warning/solid-pressed&quot;, variable: &quot;--status-warning-solid-pressed&quot;, value: &quot;#F9A63A&quot; },
+];
+
+const danger: Token[] = [
+  { name: &quot;danger/soft-fill&quot;, variable: &quot;--status-danger-soft-fill&quot;, value: &quot;#FEF3F2&quot; },
+  { name: &quot;danger/soft-border&quot;, variable: &quot;--status-danger-soft-border&quot;, value: &quot;#FECDCA&quot; },
+  { name: &quot;danger/outline-border&quot;, variable: &quot;--status-danger-outline-border&quot;, value: &quot;#FDA29B&quot; },
+  { name: &quot;danger/text&quot;, variable: &quot;--status-danger-text&quot;, value: &quot;#B42318&quot; },
+  { name: &quot;danger/icon&quot;, variable: &quot;--status-danger-icon&quot;, value: &quot;#D92D20&quot; },
+  { name: &quot;danger/solid-fill&quot;, variable: &quot;--status-danger-solid-fill&quot;, value: &quot;#D92D20&quot; },
+  { name: &quot;danger/on-solid&quot;, variable: &quot;--status-danger-on-solid&quot;, value: &quot;#FFFFFF&quot; },
+  { name: &quot;danger/soft-hover&quot;, variable: &quot;--status-danger-soft-hover&quot;, value: &quot;#FEE9E8&quot; },
+  { name: &quot;danger/soft-pressed&quot;, variable: &quot;--status-danger-soft-pressed&quot;, value: &quot;#FEE0DD&quot; },
+  { name: &quot;danger/solid-hover&quot;, variable: &quot;--status-danger-solid-hover&quot;, value: &quot;#C3291D&quot; },
+  { name: &quot;danger/solid-pressed&quot;, variable: &quot;--status-danger-solid-pressed&quot;, value: &quot;#AE241A&quot; },
+];
+
+const neutral: Token[] = [
+  { name: &quot;neutral/soft-fill&quot;, variable: &quot;--status-neutral-soft-fill&quot;, value: &quot;#F2F4F7&quot; },
+  { name: &quot;neutral/soft-border&quot;, variable: &quot;--status-neutral-soft-border&quot;, value: &quot;#D0D5DD&quot; },
+  { name: &quot;neutral/outline-border&quot;, variable: &quot;--status-neutral-outline-border&quot;, value: &quot;#D0D5DD&quot; },
+  { name: &quot;neutral/text&quot;, variable: &quot;--status-neutral-text&quot;, value: &quot;#344054&quot; },
+  { name: &quot;neutral/icon&quot;, variable: &quot;--status-neutral-icon&quot;, value: &quot;#667085&quot; },
+  { name: &quot;neutral/solid-fill&quot;, variable: &quot;--status-neutral-solid-fill&quot;, value: &quot;#475467&quot; },
+  { name: &quot;neutral/on-solid&quot;, variable: &quot;--status-neutral-on-solid&quot;, value: &quot;#FFFFFF&quot; },
+  { name: &quot;neutral/soft-hover&quot;, variable: &quot;--status-neutral-soft-hover&quot;, value: &quot;#EEF0F4&quot; },
+  { name: &quot;neutral/soft-pressed&quot;, variable: &quot;--status-neutral-soft-pressed&quot;, value: &quot;#EAEDF1&quot; },
+  { name: &quot;neutral/solid-hover&quot;, variable: &quot;--status-neutral-solid-hover&quot;, value: &quot;#404C5D&quot; },
+  { name: &quot;neutral/solid-pressed&quot;, variable: &quot;--status-neutral-solid-pressed&quot;, value: &quot;#394352&quot; },
+];
+
+const brand: Token[] = [
+  { name: &quot;brand/soft-fill&quot;, variable: &quot;--status-brand-soft-fill&quot;, value: &quot;#EFF6FF&quot; },
+  { name: &quot;brand/soft-border&quot;, variable: &quot;--status-brand-soft-border&quot;, value: &quot;#B2CCFF&quot; },
+  { name: &quot;brand/outline-border&quot;, variable: &quot;--status-brand-outline-border&quot;, value: &quot;#84A9FF&quot; },
+  { name: &quot;brand/text&quot;, variable: &quot;--status-brand-text&quot;, value: &quot;#1849A9&quot; },
+  { name: &quot;brand/icon&quot;, variable: &quot;--status-brand-icon&quot;, value: &quot;#2563EB&quot; },
+  { name: &quot;brand/solid-fill&quot;, variable: &quot;--status-brand-solid-fill&quot;, value: &quot;#2563EB&quot; },
+  { name: &quot;brand/on-solid&quot;, variable: &quot;--status-brand-on-solid&quot;, value: &quot;#FFFFFF&quot; },
+  { name: &quot;brand/soft-hover&quot;, variable: &quot;--status-brand-soft-hover&quot;, value: &quot;#E2EDFF&quot; },
+  { name: &quot;brand/soft-pressed&quot;, variable: &quot;--status-brand-soft-pressed&quot;, value: &quot;#D5E4FF&quot; },
+  { name: &quot;brand/solid-hover&quot;, variable: &quot;--status-brand-solid-hover&quot;, value: &quot;#1D4ED8&quot; },
+  { name: &quot;brand/solid-pressed&quot;, variable: &quot;--status-brand-solid-pressed&quot;, value: &quot;#1E40AF&quot; },
+];
+
+const shared: Token[] = [
+  { name: &quot;outline/fill&quot;, variable: &quot;--status-outline-fill&quot;, value: &quot;#FFFFFF&quot; },
+  { name: &quot;disabled/text&quot;, variable: &quot;--status-disabled-text&quot;, value: &quot;#667085&quot; },
+  { name: &quot;disabled/border&quot;, variable: &quot;--status-disabled-border&quot;, value: &quot;#98A2B3&quot; },
+  { name: &quot;docs/background&quot;, variable: &quot;--status-docs-background&quot;, value: &quot;#F8FAFC&quot; },
+];
+
+function TokenList({ tokens }: { tokens: Token[] }) {
+  return (
+    &lt;ul className=&quot;flex flex-col&quot;&gt;
+      {tokens.map((token) =&gt; (
+        &lt;li key={token.name} className=&quot;flex h-14 items-center gap-5 px-4&quot;&gt;
+          &lt;div
+            className=&quot;size-9 shrink-0 rounded-lg border border-[#e5e7eb]&quot;
+            style={{ background: `var(${token.variable})` }}
+          /&gt;
+          &lt;p className=&quot;w-[240px] font-sans text-sm font-medium text-black/85&quot;&gt;{token.name}&lt;/p&gt;
+          &lt;p className=&quot;w-[120px] font-sans text-[13px] text-black/40&quot;&gt;{token.value}&lt;/p&gt;
+          &lt;p className=&quot;font-sans text-[13px] text-black/35&quot;&gt;{token.variable}&lt;/p&gt;
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+function Group({ title, tokens }: { title: string; tokens: Token[] }) {
+  return (
+    &lt;section className=&quot;flex flex-col gap-3&quot;&gt;
+      &lt;h2 className=&quot;font-sans text-[13px] font-medium tracking-[0.8px] text-black/35 uppercase&quot;&gt;{title}&lt;/h2&gt;
+      &lt;TokenList tokens={tokens} /&gt;
+    &lt;/section&gt;
+  );
+}
+
+const meta = {
+  title: &quot;Foundations/Badge status&quot;,
+  parameters: { layout: &quot;fullscreen&quot; },
+} satisfies Meta;
+
+export default meta;
+
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const StatusFoundations: Story = {
+  name: &quot;Status foundations&quot;,
+  render: () =&gt; (
+    &lt;div className=&quot;flex flex-col gap-10 bg-[var(--status-docs-background)] p-8&quot;&gt;
+      &lt;Group title=&quot;Success&quot; tokens={success} /&gt;
+      &lt;Group title=&quot;Info&quot; tokens={info} /&gt;
+      &lt;Group title=&quot;Warning&quot; tokens={warning} /&gt;
+      &lt;Group title=&quot;Danger&quot; tokens={danger} /&gt;
+      &lt;Group title=&quot;Neutral&quot; tokens={neutral} /&gt;
+      &lt;Group title=&quot;Brand&quot; tokens={brand} /&gt;
+      &lt;Group title=&quot;Shared&quot; tokens={shared} /&gt;
+    &lt;/div&gt;
+  ),
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">Specify an @import jsdoc tag on your component or your stories meta such as @import import { Badgestatus } from &#39;my-design-system&#39;;</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Status foundations</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const StatusFoundations = () =&gt; (
+  &lt;div className=&quot;flex flex-col gap-10 bg-[var(--status-docs-background)] p-8&quot;&gt;
+    &lt;Group title=&quot;Success&quot; tokens={success} /&gt;
+    &lt;Group title=&quot;Info&quot; tokens={info} /&gt;
+    &lt;Group title=&quot;Warning&quot; tokens={warning} /&gt;
+    &lt;Group title=&quot;Danger&quot; tokens={danger} /&gt;
+    &lt;Group title=&quot;Neutral&quot; tokens={neutral} /&gt;
+    &lt;Group title=&quot;Brand&quot; tokens={brand} /&gt;
+    &lt;Group title=&quot;Shared&quot; tokens={shared} /&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
 <article
   id="onboarding-button"
   class="card 
@@ -651,9 +1104,9 @@
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Button</h2>
       <div class="badges">
-        <label for="c-0-onboarding-button-props" class="badge ok as-toggle">5 prop types</label>
-        <label for="c-0-onboarding-button-info" class="badge info as-toggle">1 info</label>
-        <label for="c-0-onboarding-button-stories" class="badge ok as-toggle">6 stories</label>
+        <label for="c-2-onboarding-button-props" class="badge ok as-toggle">5 prop types</label>
+        <label for="c-2-onboarding-button-info" class="badge info as-toggle">1 info</label>
+        <label for="c-2-onboarding-button-stories" class="badge ok as-toggle">6 stories</label>
         
         
       </div>
@@ -666,11 +1119,11 @@
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-0-onboarding-button-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-0-onboarding-button-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-2-onboarding-button-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-2-onboarding-button-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-0-onboarding-button-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-2-onboarding-button-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -804,9 +1257,9 @@ variant?: any = &quot;primary&quot;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> Color</h2>
       <div class="badges">
-        <label for="c-1-foundations-color-err" class="badge err as-toggle">API error</label>
-        <label for="c-1-foundations-color-info" class="badge info as-toggle">2 infos</label>
-        <label for="c-1-foundations-color-stories" class="badge ok as-toggle">11 stories</label>
+        <label for="c-3-foundations-color-err" class="badge err as-toggle">API error</label>
+        <label for="c-3-foundations-color-info" class="badge info as-toggle">2 infos</label>
+        <label for="c-3-foundations-color-stories" class="badge ok as-toggle">11 stories</label>
         
         
       </div>
@@ -818,9 +1271,9 @@ variant?: any = &quot;primary&quot;</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-1-foundations-color-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-1-foundations-color-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-1-foundations-color-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-3-foundations-color-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-3-foundations-color-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-3-foundations-color-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -1212,9 +1665,9 @@ export const ShadowTokens: Story = {
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> EyeIcon</h2>
       <div class="badges">
-        <label for="c-2-onboarding-eye-icon-props" class="badge ok as-toggle">1 prop type</label>
-        <label for="c-2-onboarding-eye-icon-info" class="badge info as-toggle">1 info</label>
-        <label for="c-2-onboarding-eye-icon-stories" class="badge ok as-toggle">2 stories</label>
+        <label for="c-4-onboarding-eye-icon-props" class="badge ok as-toggle">1 prop type</label>
+        <label for="c-4-onboarding-eye-icon-info" class="badge info as-toggle">1 info</label>
+        <label for="c-4-onboarding-eye-icon-stories" class="badge ok as-toggle">2 stories</label>
         
         
       </div>
@@ -1227,11 +1680,11 @@ export const ShadowTokens: Story = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-2-onboarding-eye-icon-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-2-onboarding-eye-icon-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-4-onboarding-eye-icon-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-4-onboarding-eye-icon-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-2-onboarding-eye-icon-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-4-onboarding-eye-icon-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -1294,128 +1747,6 @@ export const ShadowTokens: Story = {
   </div>
 </article>
 <article
-  id="onboarding-form-field"
-  class="card 
-  no-error
-  has-info
-  no-story-error
-  no-story-warning
-  missing-api
-  no-doc-error"
-  role="listitem"
-  aria-label="Input">
-  <div class="head">
-    <div class="title">
-      <h2><span class="status-dot dot-ok"></span> Input</h2>
-      <div class="badges">
-        <span class="badge">no API description</span>
-        <label for="c-3-onboarding-form-field-info" class="badge info as-toggle">1 info</label>
-        <label for="c-3-onboarding-form-field-stories" class="badge ok as-toggle">2 stories</label>
-        
-        
-      </div>
-    </div>
-    <div class="meta" title="./src/stories/form-field.stories.tsx">onboarding-form-field · ./src/stories/form-field.stories.tsx</div>
-    
-    
-    
-  </div>
-
-  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  
-  <input id="c-3-onboarding-form-field-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-3-onboarding-form-field-stories" class="tg tg-stories" type="checkbox" hidden />
-  
-  
-  
-
-  <div class="panels">
-    
-    
-        <div class="panel panel-info">
-          
-    <div class="note info">
-      <div class="note-title">Info</div>
-      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
-    </div>
-        </div>
-    
-    
-        <div class="panel panel-stories">
-          
-          
-          
-          <div class="note ok">
-                <div class="row">
-                  <span class="ex-name">Imports</span>
-                </div>
-                <pre><code>import { Button, EyeIcon, Input, Label } from 'onboarding';</code></pre>
-              </div>
-          
-          
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">First Name</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const FirstName = () =&gt; (
-  &lt;div className=&quot;flex w-[420px] flex-col gap-2 bg-white p-6&quot;&gt;
-    &lt;Label htmlFor=&quot;first-name&quot; className=&quot;text-sm leading-5 font-semibold text-[#111827]&quot;&gt;
-      First Name
-    &lt;/Label&gt;
-    &lt;Input
-      id=&quot;first-name&quot;
-      name=&quot;firstName&quot;
-      autoComplete=&quot;given-name&quot;
-      placeholder=&quot;Enter first name&quot;
-      className={inputClassName}
-    /&gt;
-  &lt;/div&gt;
-);</code></pre>
-              
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Social Security Number</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const SocialSecurityNumber = () =&gt; (
-  &lt;div className=&quot;flex w-[420px] flex-col gap-1.5 bg-white p-6&quot;&gt;
-    &lt;Label htmlFor=&quot;ssn&quot; className=&quot;text-[13px] leading-normal font-normal text-[#111827]&quot;&gt;
-      SSN
-    &lt;/Label&gt;
-    &lt;div className=&quot;relative&quot;&gt;
-      &lt;Input
-        id=&quot;ssn&quot;
-        name=&quot;ssn&quot;
-        inputMode=&quot;numeric&quot;
-        autoComplete=&quot;off&quot;
-        placeholder=&quot;Enter SSN (XXX-XX-XXXX)&quot;
-        className=&quot;h-12 rounded-[6px] border-[#d1d5db] bg-white px-3 pr-10 text-sm leading-normal font-normal text-[#111827] shadow-none placeholder:text-[#9ca3af] focus-visible:border-[#2563eb] focus-visible:ring-0 md:text-sm&quot;
-      /&gt;
-      &lt;Button
-        type=&quot;button&quot;
-        className=&quot;absolute top-1/2 right-3 size-5 -translate-y-1/2 rounded-none border-0 bg-transparent p-0 shadow-none hover:bg-transparent&quot;
-        aria-label=&quot;Show SSN&quot;
-      &gt;
-        &lt;EyeIcon slashed /&gt;
-      &lt;/Button&gt;
-    &lt;/div&gt;
-    &lt;p className=&quot;text-xs leading-normal text-[#6b7280]&quot;&gt;Format: XXX-XX-XXXX&lt;/p&gt;
-  &lt;/div&gt;
-);</code></pre>
-              
-            </div>
-        </div>
-    
-    
-  </div>
-</article>
-<article
   id="design-system-input"
   class="card 
   no-error
@@ -1431,8 +1762,8 @@ export const ShadowTokens: Story = {
       <h2><span class="status-dot dot-ok"></span> Input</h2>
       <div class="badges">
         <span class="badge">no API description</span>
-        <label for="c-4-design-system-input-info" class="badge info as-toggle">1 info</label>
-        <label for="c-4-design-system-input-stories" class="badge ok as-toggle">2 stories</label>
+        <label for="c-5-design-system-input-info" class="badge info as-toggle">1 info</label>
+        <label for="c-5-design-system-input-stories" class="badge ok as-toggle">2 stories</label>
         
         
       </div>
@@ -1445,8 +1776,8 @@ export const ShadowTokens: Story = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-4-design-system-input-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-4-design-system-input-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-5-design-system-input-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-5-design-system-input-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -1501,6 +1832,525 @@ export const ShadowTokens: Story = {
   </div>
 </article>
 <article
+  id="onboarding-form-field"
+  class="card 
+  no-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="InputField">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> InputField</h2>
+      <div class="badges">
+        <label for="c-6-onboarding-form-field-props" class="badge ok as-toggle">22 prop types</label>
+        <label for="c-6-onboarding-form-field-info" class="badge info as-toggle">1 info</label>
+        <label for="c-6-onboarding-form-field-stories" class="badge ok as-toggle">2 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/form-field.stories.tsx">onboarding-form-field · ./src/stories/form-field.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-6-onboarding-form-field-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-6-onboarding-form-field-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-6-onboarding-form-field-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">22 prop types</span>
+            </div>
+            <pre><code>Component: src/components/onboarding/input-field.tsx::InputField</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>autoComplete?: string
+
+defaultValue?: string = &quot;&quot;
+
+disabled?: boolean = false
+
+errorHelper?: string
+
+fieldType?: (typeof piggyFieldTypes)[number] = &quot;text&quot;
+
+helper?: string
+
+id?: string
+
+invalid?: boolean = false
+
+label: string
+
+masked?: boolean = false
+
+maximum?: number
+
+minimum?: number
+
+name?: string
+
+onMaskedChange?: (masked: boolean) =&gt; void
+
+onValueChange?: (value: string) =&gt; void
+
+placeholder?: string
+
+required?: boolean = false
+
+/**
+ * Existing SSN reveal control. Toggles the Masked overlay.
+ */
+revealable?: boolean = false
+
+size?: &quot;responsive&quot; | &quot;desktop&quot; | &quot;tablet&quot; | &quot;mobile&quot; = &quot;responsive&quot;
+
+/**
+ * Preview a frame state. Live fields derive state from interaction.
+ */
+state?: &quot;default&quot; | &quot;hover&quot; | &quot;filled&quot; | &quot;focused&quot; | &quot;error&quot; | &quot;disabled&quot;
+
+type?: string
+
+value?: string</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { InputField } from 'onboarding';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">First Name</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const FirstName = () =&gt; &lt;InputField
+    id=&quot;first-name&quot;
+    name=&quot;firstName&quot;
+    label=&quot;First Name&quot;
+    fieldType=&quot;name&quot;
+    autoComplete=&quot;given-name&quot;
+    placeholder=&quot;Enter first name&quot;
+    size=&quot;desktop&quot; /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Social Security Number</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const SocialSecurityNumber = () =&gt; &lt;InputField
+    id=&quot;ssn&quot;
+    name=&quot;ssn&quot;
+    label=&quot;SSN&quot;
+    fieldType=&quot;ssn&quot;
+    autoComplete=&quot;off&quot;
+    placeholder=&quot;Enter SSN (XXX-XX-XXXX)&quot;
+    helper=&quot;Format: XXX-XX-XXXX&quot;
+    masked
+    revealable
+    size=&quot;desktop&quot; /&gt;;</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  id="design-system-input-field"
+  class="card 
+  no-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="InputField">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> InputField</h2>
+      <div class="badges">
+        <label for="c-7-design-system-input-field-props" class="badge ok as-toggle">22 prop types</label>
+        <label for="c-7-design-system-input-field-info" class="badge info as-toggle">1 info</label>
+        <label for="c-7-design-system-input-field-stories" class="badge ok as-toggle">15 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/piggy-input-field.stories.tsx">design-system-input-field · ./src/stories/piggy-input-field.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-7-design-system-input-field-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-7-design-system-input-field-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-7-design-system-input-field-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">22 prop types</span>
+            </div>
+            <pre><code>Component: src/components/onboarding/input-field.tsx::InputField</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>autoComplete?: string
+
+defaultValue?: string = &quot;&quot;
+
+disabled?: boolean = false
+
+errorHelper?: string
+
+fieldType?: (typeof piggyFieldTypes)[number] = &quot;text&quot;
+
+helper?: string
+
+id?: string
+
+invalid?: boolean = false
+
+label: string
+
+masked?: boolean = false
+
+maximum?: number
+
+minimum?: number
+
+name?: string
+
+onMaskedChange?: (masked: boolean) =&gt; void
+
+onValueChange?: (value: string) =&gt; void
+
+placeholder?: string
+
+required?: boolean = false
+
+/**
+ * Existing SSN reveal control. Toggles the Masked overlay.
+ */
+revealable?: boolean = false
+
+size?: &quot;responsive&quot; | &quot;desktop&quot; | &quot;tablet&quot; | &quot;mobile&quot; = &quot;responsive&quot;
+
+/**
+ * Preview a frame state. Live fields derive state from interaction.
+ */
+state?: &quot;default&quot; | &quot;hover&quot; | &quot;filled&quot; | &quot;focused&quot; | &quot;error&quot; | &quot;disabled&quot;
+
+type?: string
+
+value?: string</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { CurrencyField, InputField } from 'onboarding';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">States</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const States = () =&gt; (
+  &lt;div className=&quot;grid gap-8 bg-white p-8 md:grid-cols-3&quot;&gt;
+    {states.map((state) =&gt; (
+      &lt;InputField
+        key={state}
+        label=&quot;Label&quot;
+        placeholder=&quot;Placeholder&quot;
+        helper={state === &quot;error&quot; ? &quot;Helper text&quot; : &quot;Helper text&quot;}
+        state={state}
+        size=&quot;desktop&quot;
+        value={state === &quot;filled&quot; || state === &quot;focused&quot; || state === &quot;disabled&quot; ? &quot;Sample Value&quot; : &quot;&quot;}
+      /&gt;
+    ))}
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Sizes</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Sizes = () =&gt; (
+  &lt;div className=&quot;flex max-w-md flex-col gap-8 bg-white p-8&quot;&gt;
+    &lt;InputField label=&quot;Desktop&quot; placeholder=&quot;Placeholder&quot; helper=&quot;Helper text&quot; size=&quot;desktop&quot; /&gt;
+    &lt;InputField label=&quot;Tablet&quot; placeholder=&quot;Placeholder&quot; helper=&quot;Helper text&quot; size=&quot;tablet&quot; /&gt;
+    &lt;InputField label=&quot;Mobile&quot; placeholder=&quot;Placeholder&quot; helper=&quot;Helper text&quot; size=&quot;mobile&quot; /&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Field types</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const FieldTypes = () =&gt; (
+  &lt;div className=&quot;grid max-w-5xl gap-8 bg-white p-8 md:grid-cols-2&quot;&gt;
+    {piggyFieldTypes.map((fieldType) =&gt; (
+      &lt;InputField
+        key={fieldType}
+        label={fieldType}
+        fieldType={fieldType}
+        placeholder=&quot;Placeholder&quot;
+        helper=&quot;Helper text&quot;
+        size=&quot;desktop&quot;
+        revealable={fieldType === &quot;ssn&quot; || fieldType === &quot;account&quot;}
+        masked={fieldType === &quot;account&quot;}
+      /&gt;
+    ))}
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">USD denomination / Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const UsdDefault = () =&gt; (
+  &lt;div className=&quot;bg-white p-8&quot;&gt;
+    &lt;CurrencyField label=&quot;Amount&quot; helper=&quot;US dollars use two decimal places&quot; /&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">USD denomination / Typing</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const UsdTyping = () =&gt; (
+  &lt;div className=&quot;flex flex-col gap-6 bg-white p-8&quot;&gt;
+    &lt;CurrencyField label=&quot;Amount&quot; helper=&quot;Type a digit to replace $0.00&quot; /&gt;
+    &lt;CurrencyField label=&quot;After typing&quot; helper=&quot;Thousands separators and two decimals&quot; value=&quot;$1,250.00&quot; /&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">USD denomination / Focus</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const UsdFocus = () =&gt; (
+  &lt;div className=&quot;bg-white p-8&quot;&gt;
+    &lt;CurrencyField label=&quot;Amount&quot; helper=&quot;Helper text&quot; state=&quot;focused&quot; value=&quot;$0.00&quot; /&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">USD denomination / Error</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const UsdError = () =&gt; (
+  &lt;div className=&quot;bg-white p-8&quot;&gt;
+    &lt;CurrencyField label=&quot;Amount&quot; errorHelper=&quot;Enter an amount&quot; state=&quot;error&quot; value=&quot;$0.00&quot; /&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">USD denomination / Disabled</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const UsdDisabled = () =&gt; (
+  &lt;div className=&quot;bg-white p-8&quot;&gt;
+    &lt;CurrencyField label=&quot;Amount&quot; helper=&quot;Helper text&quot; state=&quot;disabled&quot; value=&quot;$0.00&quot; /&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Currency choice / Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const ChoiceDefault = () =&gt; (
+  &lt;div className=&quot;bg-white p-8&quot;&gt;
+    &lt;CurrencyField selectable label=&quot;Amount&quot; helper=&quot;Change the currency to update the flag and symbol&quot; /&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Currency choice / Typing</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const ChoiceTyping = () =&gt; (
+  &lt;div className=&quot;bg-white p-8&quot;&gt;
+    &lt;CurrencyField selectable label=&quot;Amount&quot; helper=&quot;Typing keeps the selected currency&#39;s format&quot; /&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Currency choice / Focus</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const ChoiceFocus = () =&gt; (
+  &lt;div className=&quot;bg-white p-8&quot;&gt;
+    &lt;CurrencyField selectable label=&quot;Amount&quot; helper=&quot;Helper text&quot; state=&quot;focused&quot; /&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Currency choice / Error</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const ChoiceError = () =&gt; (
+  &lt;div className=&quot;bg-white p-8&quot;&gt;
+    &lt;CurrencyField selectable label=&quot;Amount&quot; errorHelper=&quot;Enter an amount&quot; state=&quot;error&quot; /&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Currency choice / Disabled</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const ChoiceDisabled = () =&gt; (
+  &lt;div className=&quot;bg-white p-8&quot;&gt;
+    &lt;CurrencyField selectable label=&quot;Amount&quot; helper=&quot;Helper text&quot; state=&quot;disabled&quot; /&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Currency inputs</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const CurrencyInputs = () =&gt; &lt;CurrencyBoard /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Masked SSN</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const MaskedSsn = () =&gt; &lt;InputField
+    label=&quot;SSN&quot;
+    placeholder=&quot;Enter SSN (XXX-XX-XXXX)&quot;
+    helper=&quot;Format: XXX-XX-XXXX&quot;
+    fieldType=&quot;ssn&quot;
+    defaultValue=&quot;123-45-6789&quot;
+    masked
+    revealable
+    size=&quot;desktop&quot; /&gt;;</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
   id="design-system-label"
   class="card 
   no-error
@@ -1516,8 +2366,8 @@ export const ShadowTokens: Story = {
       <h2><span class="status-dot dot-ok"></span> Label</h2>
       <div class="badges">
         <span class="badge">no API description</span>
-        <label for="c-5-design-system-label-info" class="badge info as-toggle">1 info</label>
-        <label for="c-5-design-system-label-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-8-design-system-label-info" class="badge info as-toggle">1 info</label>
+        <label for="c-8-design-system-label-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -1530,8 +2380,8 @@ export const ShadowTokens: Story = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-5-design-system-label-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-5-design-system-label-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-8-design-system-label-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-8-design-system-label-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -1590,9 +2440,9 @@ export const ShadowTokens: Story = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> Motion</h2>
       <div class="badges">
-        <label for="c-6-foundations-motion-err" class="badge err as-toggle">API error</label>
-        <label for="c-6-foundations-motion-info" class="badge info as-toggle">1 info</label>
-        <label for="c-6-foundations-motion-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-9-foundations-motion-err" class="badge err as-toggle">API error</label>
+        <label for="c-9-foundations-motion-info" class="badge info as-toggle">1 info</label>
+        <label for="c-9-foundations-motion-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -1604,9 +2454,9 @@ export const ShadowTokens: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-6-foundations-motion-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-6-foundations-motion-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-6-foundations-motion-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-9-foundations-motion-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-9-foundations-motion-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-9-foundations-motion-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -1844,9 +2694,9 @@ import { motion } from 'motion/react';</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> OnboardingHeader</h2>
       <div class="badges">
-        <label for="c-7-onboarding-header-props" class="badge ok as-toggle">2 prop types</label>
-        <label for="c-7-onboarding-header-info" class="badge info as-toggle">1 info</label>
-        <label for="c-7-onboarding-header-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-10-onboarding-header-props" class="badge ok as-toggle">2 prop types</label>
+        <label for="c-10-onboarding-header-info" class="badge info as-toggle">1 info</label>
+        <label for="c-10-onboarding-header-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
@@ -1859,11 +2709,11 @@ import { motion } from 'motion/react';</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-7-onboarding-header-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-7-onboarding-header-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-10-onboarding-header-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-10-onboarding-header-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-7-onboarding-header-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-10-onboarding-header-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -1939,6 +2789,134 @@ import { identitySteps, loginSteps, flowSteps } from '@/components/onboarding/on
   </div>
 </article>
 <article
+  id="design-system-screen"
+  class="card 
+  no-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="OnboardingScreen">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> OnboardingScreen</h2>
+      <div class="badges">
+        <label for="c-11-design-system-screen-props" class="badge ok as-toggle">12 prop types</label>
+        <label for="c-11-design-system-screen-info" class="badge info as-toggle">1 info</label>
+        <label for="c-11-design-system-screen-stories" class="badge ok as-toggle">1 story</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/piggy-screen.stories.tsx">design-system-screen · ./src/stories/piggy-screen.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-11-design-system-screen-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-11-design-system-screen-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-11-design-system-screen-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">12 prop types</span>
+            </div>
+            <pre><code>Component: src/components/onboarding/step-screen.tsx::OnboardingScreen</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>aside: ReactNode
+
+backHref?: string
+
+children: ReactNode
+
+eyebrow?: string
+
+helper: string
+
+layout?: &quot;panel&quot; | &quot;identity&quot; = &quot;panel&quot;
+
+onSubmit: (event: FormEvent&lt;HTMLFormElement&gt;) =&gt; void
+
+primaryLabel: string
+
+progress: string
+
+secondaryLabel: string
+
+steps: OnboardingStepModel[]
+
+title: string</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { InputField, OnboardingScreen } from 'onboarding';
+import { flowSteps } from '@/components/onboarding/onboarding-header';
+import { InputField } from '@/components/onboarding/input-field';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Form section</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const FormSection = () =&gt; &lt;OnboardingScreen
+    steps={flowSteps(2)}
+    progress=&quot;w-1/3&quot;
+    backHref=&quot;/&quot;
+    eyebrow=&quot;Step 2 of 6&quot;
+    title=&quot;Create your login&quot;
+    helper=&quot;One line of helper text directly below, muted color, explains why or what to expect never decorative.&quot;
+    primaryLabel=&quot;Continue&quot;
+    secondaryLabel=&quot;Save &amp; Close&quot;
+    onSubmit={(event) =&gt; event.preventDefault()}
+    aside={(&lt;div&gt;
+      &lt;h2 className=&quot;text-xl leading-7 font-semibold text-[#101828]&quot;&gt;Panel content&lt;/h2&gt;
+      &lt;p className=&quot;mt-3 text-[15px] leading-[22px] text-[#667085]&quot;&gt;
+        The right column keeps this card: white, 16px radius, 1px border, 28px padding.
+      &lt;/p&gt;
+    &lt;/div&gt;)}&gt;(&lt;div className=&quot;flex flex-col gap-6&quot;&gt;
+      &lt;InputField label=&quot;Username&quot; placeholder=&quot;Enter text...&quot; helper=&quot;Helper text&quot; /&gt;
+      &lt;InputField label=&quot;Email&quot; fieldType=&quot;email&quot; placeholder=&quot;name@email.com&quot; helper=&quot;Helper text&quot; /&gt;
+    &lt;/div&gt;)&lt;/OnboardingScreen&gt;;</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
   id="onboarding-panel"
   class="card 
   has-error
@@ -1953,9 +2931,9 @@ import { identitySteps, loginSteps, flowSteps } from '@/components/onboarding/on
     <div class="title">
       <h2><span class="status-dot dot-err"></span> Panel</h2>
       <div class="badges">
-        <label for="c-8-onboarding-panel-err" class="badge err as-toggle">API error</label>
-        <label for="c-8-onboarding-panel-info" class="badge info as-toggle">1 info</label>
-        <label for="c-8-onboarding-panel-stories" class="badge ok as-toggle">2 stories</label>
+        <label for="c-12-onboarding-panel-err" class="badge err as-toggle">API error</label>
+        <label for="c-12-onboarding-panel-info" class="badge info as-toggle">1 info</label>
+        <label for="c-12-onboarding-panel-stories" class="badge ok as-toggle">2 stories</label>
         
         
       </div>
@@ -1967,9 +2945,9 @@ import { identitySteps, loginSteps, flowSteps } from '@/components/onboarding/on
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-8-onboarding-panel-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-8-onboarding-panel-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-8-onboarding-panel-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-12-onboarding-panel-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-12-onboarding-panel-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-12-onboarding-panel-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -2109,9 +3087,9 @@ export const FormColumn: Story = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> Screens</h2>
       <div class="badges">
-        <label for="c-9-onboarding-screens-err" class="badge err as-toggle">API error</label>
-        <label for="c-9-onboarding-screens-info" class="badge info as-toggle">1 info</label>
-        <label for="c-9-onboarding-screens-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-13-onboarding-screens-err" class="badge err as-toggle">API error</label>
+        <label for="c-13-onboarding-screens-info" class="badge info as-toggle">1 info</label>
+        <label for="c-13-onboarding-screens-stories" class="badge ok as-toggle">8 stories</label>
         
         
       </div>
@@ -2123,9 +3101,9 @@ export const FormColumn: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-9-onboarding-screens-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-9-onboarding-screens-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-9-onboarding-screens-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-13-onboarding-screens-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-13-onboarding-screens-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-13-onboarding-screens-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -2338,8 +3316,8 @@ export const Review: Story = {
       <h2><span class="status-dot dot-ok"></span> VerifyAccount</h2>
       <div class="badges">
         <span class="badge">no API description</span>
-        <label for="c-10-onboarding-verify-account-info" class="badge info as-toggle">1 info</label>
-        <label for="c-10-onboarding-verify-account-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-14-onboarding-verify-account-info" class="badge info as-toggle">1 info</label>
+        <label for="c-14-onboarding-verify-account-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -2352,8 +3330,8 @@ export const Review: Story = {
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-10-onboarding-verify-account-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-10-onboarding-verify-account-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-14-onboarding-verify-account-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-14-onboarding-verify-account-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -2404,9 +3382,259 @@ export const Review: Story = {
           <label for="no-component-found-toggle" class="group-header">
             <span class="caret">▸</span>
             <span class="group-title">No component found</span>
-            <span class="group-count">4</span>
+            <span class="group-count">5</span>
           </label>
           <div class="group-cards">
+<article
+  
+  class="card 
+  has-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="Badgestatus">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-err"></span> Badgestatus</h2>
+      <div class="badges">
+        <label for="c-error-0-foundations-badge-status-err" class="badge err as-toggle">API error</label>
+        <label for="c-error-0-foundations-badge-status-info" class="badge info as-toggle">2 infos</label>
+        <label for="c-error-0-foundations-badge-status-stories" class="badge ok as-toggle">1 story</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/badge-status.stories.tsx">foundations-badge-status · ./src/stories/badge-status.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  <input id="c-error-0-foundations-badge-status-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-0-foundations-badge-status-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-0-foundations-badge-status-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+        <div class="panel panel-err">
+          
+    <div class="note err">
+      <div class="note-title">API error</div>
+      <div class="note-body"><pre><code>We could not detect the component from your story file. Specify meta.component.
+  125 | }
+  126 |
+&gt; 127 | const meta = {
+      | ^
+  128 |   title: &quot;Foundations/Badge status&quot;,
+  129 |   parameters: { layout: &quot;fullscreen&quot; },
+  130 | } satisfies Meta;
+
+./src/stories/badge-status.stories.tsx:
+import type { Meta, StoryObj } from &quot;@storybook/nextjs-vite&quot;;
+
+type Token = {
+  name: string;
+  variable: string;
+  value: string;
+};
+
+const success: Token[] = [
+  { name: &quot;success/soft-fill&quot;, variable: &quot;--status-success-soft-fill&quot;, value: &quot;#ECFDF3&quot; },
+  { name: &quot;success/soft-border&quot;, variable: &quot;--status-success-soft-border&quot;, value: &quot;#A6F4C5&quot; },
+  { name: &quot;success/outline-border&quot;, variable: &quot;--status-success-outline-border&quot;, value: &quot;#75E0A7&quot; },
+  { name: &quot;success/text&quot;, variable: &quot;--status-success-text&quot;, value: &quot;#027A48&quot; },
+  { name: &quot;success/icon&quot;, variable: &quot;--status-success-icon&quot;, value: &quot;#039855&quot; },
+  { name: &quot;success/solid-fill&quot;, variable: &quot;--status-success-solid-fill&quot;, value: &quot;#027A48&quot; },
+  { name: &quot;success/on-solid&quot;, variable: &quot;--status-success-on-solid&quot;, value: &quot;#FFFFFF&quot; },
+  { name: &quot;success/soft-hover&quot;, variable: &quot;--status-success-soft-hover&quot;, value: &quot;#DEFAEA&quot; },
+  { name: &quot;success/soft-pressed&quot;, variable: &quot;--status-success-soft-pressed&quot;, value: &quot;#CFF6E1&quot; },
+  { name: &quot;success/solid-hover&quot;, variable: &quot;--status-success-solid-hover&quot;, value: &quot;#026E41&quot; },
+  { name: &quot;success/solid-pressed&quot;, variable: &quot;--status-success-solid-pressed&quot;, value: &quot;#02623A&quot; },
+];
+
+const info: Token[] = [
+  { name: &quot;info/soft-fill&quot;, variable: &quot;--status-info-soft-fill&quot;, value: &quot;#F0F9FF&quot; },
+  { name: &quot;info/soft-border&quot;, variable: &quot;--status-info-soft-border&quot;, value: &quot;#B9E6FE&quot; },
+  { name: &quot;info/outline-border&quot;, variable: &quot;--status-info-outline-border&quot;, value: &quot;#84CAFF&quot; },
+  { name: &quot;info/text&quot;, variable: &quot;--status-info-text&quot;, value: &quot;#026AA2&quot; },
+  { name: &quot;info/icon&quot;, variable: &quot;--status-info-icon&quot;, value: &quot;#0284C7&quot; },
+  { name: &quot;info/solid-fill&quot;, variable: &quot;--status-info-solid-fill&quot;, value: &quot;#026AA2&quot; },
+  { name: &quot;info/on-solid&quot;, variable: &quot;--status-info-on-solid&quot;, value: &quot;#FFFFFF&quot; },
+  { name: &quot;info/soft-hover&quot;, variable: &quot;--status-info-soft-hover&quot;, value: &quot;#E3F3FF&quot; },
+  { name: &quot;info/soft-pressed&quot;, variable: &quot;--status-info-soft-pressed&quot;, value: &quot;#D6EEFF&quot; },
+  { name: &quot;info/solid-hover&quot;, variable: &quot;--status-info-solid-hover&quot;, value: &quot;#025F92&quot; },
+  { name: &quot;info/solid-pressed&quot;, variable: &quot;--status-info-solid-pressed&quot;, value: &quot;#025582&quot; },
+];
+
+const warning: Token[] = [
+  { name: &quot;warning/soft-fill&quot;, variable: &quot;--status-warning-soft-fill&quot;, value: &quot;#FFFAEB&quot; },
+  { name: &quot;warning/soft-border&quot;, variable: &quot;--status-warning-soft-border&quot;, value: &quot;#FEDF89&quot; },
+  { name: &quot;warning/outline-border&quot;, variable: &quot;--status-warning-outline-border&quot;, value: &quot;#FEC84B&quot; },
+  { name: &quot;warning/text&quot;, variable: &quot;--status-warning-text&quot;, value: &quot;#B54708&quot; },
+  { name: &quot;warning/icon&quot;, variable: &quot;--status-warning-icon&quot;, value: &quot;#D97706&quot; },
+  { name: &quot;warning/solid-fill&quot;, variable: &quot;--status-warning-solid-fill&quot;, value: &quot;#F79009&quot; },
+  { name: &quot;warning/on-solid&quot;, variable: &quot;--status-warning-on-solid&quot;, value: &quot;#101828&quot; },
+  { name: &quot;warning/soft-hover&quot;, variable: &quot;--status-warning-soft-hover&quot;, value: &quot;#FFF4D8&quot; },
+  { name: &quot;warning/soft-pressed&quot;, variable: &quot;--status-warning-soft-pressed&quot;, value: &quot;#FFEEC5&quot; },
+  { name: &quot;warning/solid-hover&quot;, variable: &quot;--status-warning-solid-hover&quot;, value: &quot;#F89B22&quot; },
+  { name: &quot;warning/solid-pressed&quot;, variable: &quot;--status-warning-solid-pressed&quot;, value: &quot;#F9A63A&quot; },
+];
+
+const danger: Token[] = [
+  { name: &quot;danger/soft-fill&quot;, variable: &quot;--status-danger-soft-fill&quot;, value: &quot;#FEF3F2&quot; },
+  { name: &quot;danger/soft-border&quot;, variable: &quot;--status-danger-soft-border&quot;, value: &quot;#FECDCA&quot; },
+  { name: &quot;danger/outline-border&quot;, variable: &quot;--status-danger-outline-border&quot;, value: &quot;#FDA29B&quot; },
+  { name: &quot;danger/text&quot;, variable: &quot;--status-danger-text&quot;, value: &quot;#B42318&quot; },
+  { name: &quot;danger/icon&quot;, variable: &quot;--status-danger-icon&quot;, value: &quot;#D92D20&quot; },
+  { name: &quot;danger/solid-fill&quot;, variable: &quot;--status-danger-solid-fill&quot;, value: &quot;#D92D20&quot; },
+  { name: &quot;danger/on-solid&quot;, variable: &quot;--status-danger-on-solid&quot;, value: &quot;#FFFFFF&quot; },
+  { name: &quot;danger/soft-hover&quot;, variable: &quot;--status-danger-soft-hover&quot;, value: &quot;#FEE9E8&quot; },
+  { name: &quot;danger/soft-pressed&quot;, variable: &quot;--status-danger-soft-pressed&quot;, value: &quot;#FEE0DD&quot; },
+  { name: &quot;danger/solid-hover&quot;, variable: &quot;--status-danger-solid-hover&quot;, value: &quot;#C3291D&quot; },
+  { name: &quot;danger/solid-pressed&quot;, variable: &quot;--status-danger-solid-pressed&quot;, value: &quot;#AE241A&quot; },
+];
+
+const neutral: Token[] = [
+  { name: &quot;neutral/soft-fill&quot;, variable: &quot;--status-neutral-soft-fill&quot;, value: &quot;#F2F4F7&quot; },
+  { name: &quot;neutral/soft-border&quot;, variable: &quot;--status-neutral-soft-border&quot;, value: &quot;#D0D5DD&quot; },
+  { name: &quot;neutral/outline-border&quot;, variable: &quot;--status-neutral-outline-border&quot;, value: &quot;#D0D5DD&quot; },
+  { name: &quot;neutral/text&quot;, variable: &quot;--status-neutral-text&quot;, value: &quot;#344054&quot; },
+  { name: &quot;neutral/icon&quot;, variable: &quot;--status-neutral-icon&quot;, value: &quot;#667085&quot; },
+  { name: &quot;neutral/solid-fill&quot;, variable: &quot;--status-neutral-solid-fill&quot;, value: &quot;#475467&quot; },
+  { name: &quot;neutral/on-solid&quot;, variable: &quot;--status-neutral-on-solid&quot;, value: &quot;#FFFFFF&quot; },
+  { name: &quot;neutral/soft-hover&quot;, variable: &quot;--status-neutral-soft-hover&quot;, value: &quot;#EEF0F4&quot; },
+  { name: &quot;neutral/soft-pressed&quot;, variable: &quot;--status-neutral-soft-pressed&quot;, value: &quot;#EAEDF1&quot; },
+  { name: &quot;neutral/solid-hover&quot;, variable: &quot;--status-neutral-solid-hover&quot;, value: &quot;#404C5D&quot; },
+  { name: &quot;neutral/solid-pressed&quot;, variable: &quot;--status-neutral-solid-pressed&quot;, value: &quot;#394352&quot; },
+];
+
+const brand: Token[] = [
+  { name: &quot;brand/soft-fill&quot;, variable: &quot;--status-brand-soft-fill&quot;, value: &quot;#EFF6FF&quot; },
+  { name: &quot;brand/soft-border&quot;, variable: &quot;--status-brand-soft-border&quot;, value: &quot;#B2CCFF&quot; },
+  { name: &quot;brand/outline-border&quot;, variable: &quot;--status-brand-outline-border&quot;, value: &quot;#84A9FF&quot; },
+  { name: &quot;brand/text&quot;, variable: &quot;--status-brand-text&quot;, value: &quot;#1849A9&quot; },
+  { name: &quot;brand/icon&quot;, variable: &quot;--status-brand-icon&quot;, value: &quot;#2563EB&quot; },
+  { name: &quot;brand/solid-fill&quot;, variable: &quot;--status-brand-solid-fill&quot;, value: &quot;#2563EB&quot; },
+  { name: &quot;brand/on-solid&quot;, variable: &quot;--status-brand-on-solid&quot;, value: &quot;#FFFFFF&quot; },
+  { name: &quot;brand/soft-hover&quot;, variable: &quot;--status-brand-soft-hover&quot;, value: &quot;#E2EDFF&quot; },
+  { name: &quot;brand/soft-pressed&quot;, variable: &quot;--status-brand-soft-pressed&quot;, value: &quot;#D5E4FF&quot; },
+  { name: &quot;brand/solid-hover&quot;, variable: &quot;--status-brand-solid-hover&quot;, value: &quot;#1D4ED8&quot; },
+  { name: &quot;brand/solid-pressed&quot;, variable: &quot;--status-brand-solid-pressed&quot;, value: &quot;#1E40AF&quot; },
+];
+
+const shared: Token[] = [
+  { name: &quot;outline/fill&quot;, variable: &quot;--status-outline-fill&quot;, value: &quot;#FFFFFF&quot; },
+  { name: &quot;disabled/text&quot;, variable: &quot;--status-disabled-text&quot;, value: &quot;#667085&quot; },
+  { name: &quot;disabled/border&quot;, variable: &quot;--status-disabled-border&quot;, value: &quot;#98A2B3&quot; },
+  { name: &quot;docs/background&quot;, variable: &quot;--status-docs-background&quot;, value: &quot;#F8FAFC&quot; },
+];
+
+function TokenList({ tokens }: { tokens: Token[] }) {
+  return (
+    &lt;ul className=&quot;flex flex-col&quot;&gt;
+      {tokens.map((token) =&gt; (
+        &lt;li key={token.name} className=&quot;flex h-14 items-center gap-5 px-4&quot;&gt;
+          &lt;div
+            className=&quot;size-9 shrink-0 rounded-lg border border-[#e5e7eb]&quot;
+            style={{ background: `var(${token.variable})` }}
+          /&gt;
+          &lt;p className=&quot;w-[240px] font-sans text-sm font-medium text-black/85&quot;&gt;{token.name}&lt;/p&gt;
+          &lt;p className=&quot;w-[120px] font-sans text-[13px] text-black/40&quot;&gt;{token.value}&lt;/p&gt;
+          &lt;p className=&quot;font-sans text-[13px] text-black/35&quot;&gt;{token.variable}&lt;/p&gt;
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+function Group({ title, tokens }: { title: string; tokens: Token[] }) {
+  return (
+    &lt;section className=&quot;flex flex-col gap-3&quot;&gt;
+      &lt;h2 className=&quot;font-sans text-[13px] font-medium tracking-[0.8px] text-black/35 uppercase&quot;&gt;{title}&lt;/h2&gt;
+      &lt;TokenList tokens={tokens} /&gt;
+    &lt;/section&gt;
+  );
+}
+
+const meta = {
+  title: &quot;Foundations/Badge status&quot;,
+  parameters: { layout: &quot;fullscreen&quot; },
+} satisfies Meta;
+
+export default meta;
+
+type Story = StoryObj&lt;typeof meta&gt;;
+
+export const StatusFoundations: Story = {
+  name: &quot;Status foundations&quot;,
+  render: () =&gt; (
+    &lt;div className=&quot;flex flex-col gap-10 bg-[var(--status-docs-background)] p-8&quot;&gt;
+      &lt;Group title=&quot;Success&quot; tokens={success} /&gt;
+      &lt;Group title=&quot;Info&quot; tokens={info} /&gt;
+      &lt;Group title=&quot;Warning&quot; tokens={warning} /&gt;
+      &lt;Group title=&quot;Danger&quot; tokens={danger} /&gt;
+      &lt;Group title=&quot;Neutral&quot; tokens={neutral} /&gt;
+      &lt;Group title=&quot;Brand&quot; tokens={brand} /&gt;
+      &lt;Group title=&quot;Shared&quot; tokens={shared} /&gt;
+    &lt;/div&gt;
+  ),
+};
+</code></pre></div>
+    </div>
+        </div>
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">Specify an @import jsdoc tag on your component or your stories meta such as @import import { Badgestatus } from &#39;my-design-system&#39;;</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Status foundations</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const StatusFoundations = () =&gt; (
+  &lt;div className=&quot;flex flex-col gap-10 bg-[var(--status-docs-background)] p-8&quot;&gt;
+    &lt;Group title=&quot;Success&quot; tokens={success} /&gt;
+    &lt;Group title=&quot;Info&quot; tokens={info} /&gt;
+    &lt;Group title=&quot;Warning&quot; tokens={warning} /&gt;
+    &lt;Group title=&quot;Danger&quot; tokens={danger} /&gt;
+    &lt;Group title=&quot;Neutral&quot; tokens={neutral} /&gt;
+    &lt;Group title=&quot;Brand&quot; tokens={brand} /&gt;
+    &lt;Group title=&quot;Shared&quot; tokens={shared} /&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
 <article
   
   class="card 
@@ -2422,9 +3650,9 @@ export const Review: Story = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> Color</h2>
       <div class="badges">
-        <label for="c-error-0-foundations-color-err" class="badge err as-toggle">API error</label>
-        <label for="c-error-0-foundations-color-info" class="badge info as-toggle">2 infos</label>
-        <label for="c-error-0-foundations-color-stories" class="badge ok as-toggle">11 stories</label>
+        <label for="c-error-1-foundations-color-err" class="badge err as-toggle">API error</label>
+        <label for="c-error-1-foundations-color-info" class="badge info as-toggle">2 infos</label>
+        <label for="c-error-1-foundations-color-stories" class="badge ok as-toggle">11 stories</label>
         
         
       </div>
@@ -2436,9 +3664,9 @@ export const Review: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-0-foundations-color-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-0-foundations-color-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-0-foundations-color-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-1-foundations-color-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-1-foundations-color-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-1-foundations-color-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -2830,9 +4058,9 @@ export const ShadowTokens: Story = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> Motion</h2>
       <div class="badges">
-        <label for="c-error-1-foundations-motion-err" class="badge err as-toggle">API error</label>
-        <label for="c-error-1-foundations-motion-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-1-foundations-motion-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-error-2-foundations-motion-err" class="badge err as-toggle">API error</label>
+        <label for="c-error-2-foundations-motion-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-2-foundations-motion-stories" class="badge ok as-toggle">1 story</label>
         
         
       </div>
@@ -2844,9 +4072,9 @@ export const ShadowTokens: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-1-foundations-motion-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-1-foundations-motion-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-1-foundations-motion-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-2-foundations-motion-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-2-foundations-motion-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-2-foundations-motion-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -3084,9 +4312,9 @@ import { motion } from 'motion/react';</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-err"></span> Panel</h2>
       <div class="badges">
-        <label for="c-error-2-onboarding-panel-err" class="badge err as-toggle">API error</label>
-        <label for="c-error-2-onboarding-panel-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-2-onboarding-panel-stories" class="badge ok as-toggle">2 stories</label>
+        <label for="c-error-3-onboarding-panel-err" class="badge err as-toggle">API error</label>
+        <label for="c-error-3-onboarding-panel-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-3-onboarding-panel-stories" class="badge ok as-toggle">2 stories</label>
         
         
       </div>
@@ -3098,9 +4326,9 @@ import { motion } from 'motion/react';</code></pre>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-2-onboarding-panel-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-2-onboarding-panel-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-2-onboarding-panel-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-3-onboarding-panel-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-3-onboarding-panel-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-3-onboarding-panel-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
@@ -3240,9 +4468,9 @@ export const FormColumn: Story = {
     <div class="title">
       <h2><span class="status-dot dot-err"></span> Screens</h2>
       <div class="badges">
-        <label for="c-error-3-onboarding-screens-err" class="badge err as-toggle">API error</label>
-        <label for="c-error-3-onboarding-screens-info" class="badge info as-toggle">1 info</label>
-        <label for="c-error-3-onboarding-screens-stories" class="badge ok as-toggle">8 stories</label>
+        <label for="c-error-4-onboarding-screens-err" class="badge err as-toggle">API error</label>
+        <label for="c-error-4-onboarding-screens-info" class="badge info as-toggle">1 info</label>
+        <label for="c-error-4-onboarding-screens-stories" class="badge ok as-toggle">8 stories</label>
         
         
       </div>
@@ -3254,9 +4482,9 @@ export const FormColumn: Story = {
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  <input id="c-error-3-onboarding-screens-err" class="tg tg-err" type="checkbox" hidden />
-  <input id="c-error-3-onboarding-screens-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-error-3-onboarding-screens-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-error-4-onboarding-screens-err" class="tg tg-err" type="checkbox" hidden />
+  <input id="c-error-4-onboarding-screens-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-error-4-onboarding-screens-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
   
