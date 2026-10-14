@@ -5,7 +5,7 @@
 
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { OnboardingStep, StepIntro } from "@/components/onboarding/step-screen";
+import { OnboardingStep } from "@/components/onboarding/step-screen";
 import { asset } from "@/lib/public-asset";
 
 const steps = [
@@ -21,6 +21,8 @@ export function ReviewStep() {
       progress="w-full"
       backHref="/signature"
       secondaryLabel="Save & Close"
+      title="Review Summary"
+      helper="Flat list of prior steps, each with a title, an edit affordance, and static data."
       aside={
         <div className="flex flex-col gap-4">
           <h2 className="text-[22px] leading-[30px] font-semibold text-[#12123d]">Next Steps</h2>
@@ -57,10 +59,6 @@ export function ReviewStep() {
         </div>
       }
     >
-      <StepIntro
-        title="Review Summary"
-        helper="Flat list of prior steps, each with a title, an edit affordance, and static data."
-      />
       <div className="flex flex-col gap-8">
         <SummaryBlock title="Identity" href="/create-login">
           <Field label="Username" value="Tomford23" />

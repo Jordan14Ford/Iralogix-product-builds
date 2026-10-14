@@ -9,25 +9,15 @@ export type OnboardingStep = {
   label?: string;
 };
 
-function CurrentStep({ step }: { step: number }) {
+function StepMark({ step, filled }: { step: number; filled: boolean }) {
   return (
-    <span className="flex size-6 items-center justify-center rounded-full bg-[#2563eb] font-inter text-xs leading-4 font-medium text-white shadow-[0_1px_1px_rgba(0,0,0,0.05)]">
-      {step}
-    </span>
-  );
-}
-
-function CompleteStep({ step }: { step: number }) {
-  return (
-    <span className="flex size-6 items-center justify-center rounded-full bg-[#eff6ff] font-inter text-xs leading-none font-semibold text-[rgba(37,99,235,0.45)]">
-      {step}
-    </span>
-  );
-}
-
-function UpcomingStep({ step }: { step: number }) {
-  return (
-    <span className="flex size-6 items-center justify-center rounded-full border-[1.5px] border-[#b8c0cc] bg-white font-inter text-xs leading-4 font-medium text-[#667085]">
+    <span
+      className={
+        filled
+          ? "flex size-[22px] items-center justify-center rounded-full bg-[#3563e0] font-sans text-xs leading-none font-semibold text-white"
+          : "flex size-[22px] items-center justify-center rounded-full border-[1.5px] border-[#d0d5dd] bg-white font-sans text-xs leading-none font-semibold text-[#667085]"
+      }
+    >
       {step}
     </span>
   );
@@ -53,56 +43,35 @@ export function OnboardingHeader({
   progress: string;
 }) {
   return (
-    <header className="fixed inset-x-0 top-0 z-20 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.06),0_4px_10px_rgba(15,23,42,0.06)]">
-      <div className="relative flex h-[58px] items-center gap-3 px-6">
+    <header className="bg-white">
+      <div className="flex h-14 items-center gap-3 px-4 lg:px-8">
         <Logo />
         <nav
           aria-label="Onboarding progress"
-          className="flex h-[58px] min-w-0 flex-1 items-center justify-start overflow-x-auto md:absolute md:top-0 md:left-1/2 md:h-[58px] md:max-w-[calc(100%-8rem)] md:flex-none md:-translate-x-1/2 md:justify-center"
+          className="flex min-w-0 flex-1 items-center justify-start overflow-x-auto lg:justify-center"
         >
-          <ol className="flex items-center gap-2">
+          <ol className="flex items-center gap-3.5">
             {steps.map((step, index) => {
               const number = index + 1;
-              const isLast = index === steps.length - 1;
-
-              if (step.state === "current") {
-                return (
-                  <li key={number} className="flex shrink-0 items-center gap-2">
-                    <span className="flex items-center gap-2">
-                      <CurrentStep step={number} />
-                      {step.label ? (
-                        <span className="font-inter text-xs leading-4 font-semibold text-[#2563eb]">
-                          {step.label}
-                        </span>
-                      ) : null}
-                    </span>
-                    {isLast ? null : (
-                      <span className="flex w-7 items-center pl-2" aria-hidden="true">
-                        <span className="block h-px w-5 bg-[#e5e7eb]" />
-                      </span>
-                    )}
-                  </li>
-                );
-              }
+              const filled = step.state === "current" || step.state === "complete";
 
               return (
                 <li key={number} className="flex shrink-0 items-center gap-2">
-                  {step.state === "complete" ? (
-                    <CompleteStep step={number} />
-                  ) : (
-                    <UpcomingStep step={number} />
-                  )}
-                  {isLast ? null : (
-                    <span className="block h-px w-5 bg-[#e5e7eb]" aria-hidden="true" />
-                  )}
+                  <StepMark step={number} filled={filled} />
+                  {step.state === "current" && step.label ? (
+                    <span className="font-sans text-[13px] leading-none font-semibold text-[#3563e0]">
+                      {step.label}
+                    </span>
+                  ) : null}
                 </li>
               );
             })}
           </ol>
         </nav>
+        <div className="hidden w-[57px] shrink-0 lg:block" aria-hidden="true" />
       </div>
-      <div className="h-1 bg-[#ebebed]" aria-hidden="true">
-        <div className={`h-full bg-[#3d5cf2] ${progress}`} />
+      <div className="h-3 bg-[#eaecf0]" aria-hidden="true">
+        <div className={`h-full bg-[#3563e0] ${progress}`} />
       </div>
     </header>
   );

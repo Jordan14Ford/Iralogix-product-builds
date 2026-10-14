@@ -4,7 +4,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useState } from "react";
-import { OnboardingStep, StepIntro } from "@/components/onboarding/step-screen";
+import { OnboardingStep } from "@/components/onboarding/step-screen";
 import { asset } from "@/lib/public-asset";
 
 const banks = [
@@ -66,13 +66,11 @@ export function BankStep() {
       backHref="/contribution"
       nextHref="/banks-connected"
       secondaryLabel="Save & finish later"
+      eyebrow="Step 4 of 6"
+      title="State the task plainly"
+      helper="One line of helper text directly below, muted color, explains why or what to expect - never decorative."
       aside={<NextAside />}
     >
-      <StepIntro
-        eyebrow="Step 4 of 6"
-        title="State the task plainly"
-        helper="One line of helper text directly below, muted color, explains why or what to expect - never decorative."
-      />
       <p className="text-base leading-[26px] font-medium text-black/50">Popular Banks</p>
       <div className="mt-3 grid grid-cols-3 gap-3">
         {banks.map((bank, index) => (
@@ -113,13 +111,11 @@ export function BanksConnectedStep() {
       backHref="/bank"
       nextHref="/strategy"
       secondaryLabel="Save and Close"
+      eyebrow="Step 4 of 6"
+      title="State the task plainly"
+      helper="One line of helper text directly below, muted color, explains why or what to expect - never decorative."
       aside={<NextAside />}
     >
-      <StepIntro
-        eyebrow="Step 4 of 6"
-        title="State the task plainly"
-        helper="One line of helper text directly below, muted color, explains why or what to expect - never decorative."
-      />
       <div className="flex flex-col gap-3">
         <BankRow
           name="Bank of America"

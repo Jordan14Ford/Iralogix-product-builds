@@ -3,18 +3,18 @@
 import { FormEvent, ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { flowSteps, OnboardingHeader } from "@/components/onboarding/onboarding-header";
 import {
-  OnboardingActions,
-  OnboardingBack,
-  OnboardingData,
-} from "@/components/onboarding/onboarding-panel";
+  flowSteps,
+  OnboardingHeader,
+  type OnboardingStep as OnboardingStepModel,
+} from "@/components/onboarding/onboarding-header";
+import { OnboardingBack } from "@/components/onboarding/onboarding-panel";
 
 const primaryButtonClass =
-  "h-12 w-full rounded-[7px] bg-[#2563eb] px-6 text-base font-semibold text-white hover:bg-[#1d4ed8]";
+  "h-12 w-full rounded-[8px] bg-[#3563e0] px-6 text-[15px] font-semibold text-white hover:bg-[#3563e0] active:bg-[#3563e0]";
 
 const secondaryButtonClass =
-  "h-12 w-full rounded-[7px] border-0 bg-transparent px-6 text-base font-semibold text-[#0f172a] hover:bg-[#f8fafc]";
+  "h-11 w-full rounded-lg border-0 bg-transparent px-6 text-[15px] font-semibold text-[#101828] shadow-none hover:bg-transparent active:bg-transparent";
 
 export function StepIntro({
   eyebrow,
@@ -26,19 +26,95 @@ export function StepIntro({
   helper: string;
 }) {
   return (
-    <div className="pb-10">
-      <div className="flex flex-col gap-2">
-        {eyebrow ? (
-          <p className="text-xs leading-4 font-semibold tracking-[1.2px] text-[#6b7280] uppercase">
-            {eyebrow}
-          </p>
+    <div className="flex flex-col gap-2">
+      {eyebrow ? (
+        <p className="text-[11px] leading-none font-semibold tracking-[0.88px] text-[#667085] uppercase">
+          {eyebrow}
+        </p>
+      ) : null}
+      <h1 className="text-[28px] leading-[34px] font-semibold tracking-[-0.56px] text-[#101828]">
+        {title}
+      </h1>
+      <p className="text-[15px] leading-[22px] text-[#667085]">{helper}</p>
+    </div>
+  );
+}
+
+export function OnboardingScreen({
+  steps,
+  progress,
+  backHref,
+  eyebrow,
+  title,
+  helper,
+  primaryLabel,
+  secondaryLabel,
+  onSubmit,
+  children,
+  aside,
+  layout = "panel",
+}: {
+  steps: OnboardingStepModel[];
+  progress: string;
+  backHref?: string;
+  eyebrow?: string;
+  title: string;
+  helper: string;
+  primaryLabel: string;
+  secondaryLabel: string;
+  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  children: ReactNode;
+  aside: ReactNode;
+  layout?: "panel" | "identity";
+}) {
+  const identity = layout === "identity";
+
+  return (
+    <div
+      className={
+        identity
+          ? "flex min-h-screen flex-col bg-white lg:h-screen lg:overflow-hidden"
+          : "flex min-h-screen flex-col bg-white"
+      }
+    >
+      <OnboardingHeader steps={steps} progress={progress} />
+      <div className={identity ? "flex min-h-0 flex-1 flex-col lg:flex-row" : "flex flex-1 flex-col lg:flex-row"}>
+        <section
+          className={
+            identity
+              ? "identity-form-scroll w-full bg-white lg:h-full lg:w-1/2 lg:overflow-y-auto"
+              : "w-full bg-white lg:w-1/2"
+          }
+        >
+          <form onSubmit={onSubmit} className="px-6 pt-10 pb-12 lg:px-[60px] lg:pt-16 lg:pb-12">
+            {backHref ? (
+              <div className="relative mb-4 h-9 max-w-[480px]">
+                <OnboardingBack href={backHref} />
+              </div>
+            ) : null}
+            <div className="flex w-full max-w-[480px] flex-col gap-8">
+              <StepIntro eyebrow={eyebrow} title={title} helper={helper} />
+              <div>{children}</div>
+              <div className="flex flex-col">
+                <Button type="submit" size="lg" className={primaryButtonClass}>
+                  {primaryLabel}
+                </Button>
+                <Button type="button" variant="tertiary" size="lg" className={secondaryButtonClass}>
+                  {secondaryLabel}
+                </Button>
+              </div>
+            </div>
+          </form>
+        </section>
+        {identity ? (
+          <aside className="relative h-72 shrink-0 overflow-hidden lg:h-full lg:w-1/2">{aside}</aside>
         ) : (
-          <div className="h-4" aria-hidden="true" />
+          <aside className="flex w-full justify-center bg-[#f9fafb] px-6 py-12 lg:w-1/2 lg:px-20 lg:pt-16 lg:pb-12">
+            <div className="h-fit w-full max-w-[440px] rounded-[16px] border border-[#eaecf0] bg-white p-7">
+              {aside}
+            </div>
+          </aside>
         )}
-        <h1 className="pt-1 text-[28px] leading-8 font-semibold tracking-[-0.7px] text-[#111827]">
-          {title}
-        </h1>
-        <p className="text-sm leading-5 text-[#6b7280]">{helper}</p>
       </div>
     </div>
   );
@@ -50,18 +126,22 @@ export function OnboardingStep({
   backHref,
   nextHref,
   secondaryLabel,
+  eyebrow,
+  title,
+  helper,
   children,
   aside,
-  asideWidth = "max-w-[480px]",
 }: {
   currentStep: number;
   progress: string;
   backHref: string;
   nextHref?: string;
   secondaryLabel: string;
+  eyebrow?: string;
+  title: string;
+  helper: string;
   children: ReactNode;
   aside: ReactNode;
-  asideWidth?: string;
 }) {
   const router = useRouter();
 
@@ -71,30 +151,20 @@ export function OnboardingStep({
   }
 
   return (
-    <div className="relative min-h-screen bg-[#f8fafc] max-lg:pb-[184px]">
-      <OnboardingHeader steps={flowSteps(currentStep)} progress={progress} />
-      <div className="flex min-h-screen flex-col lg:flex-row">
-        <section className="w-full border-[#ebebed] bg-white lg:min-h-screen lg:w-1/2 lg:rounded-r-2xl lg:border-r lg:border-b">
-          <form onSubmit={onSubmit}>
-            <OnboardingData insetClassName="lg:px-[62px]">
-              <OnboardingBack href={backHref} />
-              {children}
-            </OnboardingData>
-            <OnboardingActions panelClassName="lg:w-1/2" insetClassName="lg:px-[62px]">
-              <Button type="submit" className={primaryButtonClass}>
-                Continue
-              </Button>
-              <Button type="button" className={secondaryButtonClass}>
-                {secondaryLabel}
-              </Button>
-            </OnboardingActions>
-          </form>
-        </section>
-        <aside className="flex flex-1 items-center justify-center px-6 py-10 lg:sticky lg:top-0 lg:h-screen lg:px-8">
-          <div className={`w-full rounded-2xl bg-white p-8 ${asideWidth}`}>{aside}</div>
-        </aside>
-      </div>
-    </div>
+    <OnboardingScreen
+      steps={flowSteps(currentStep)}
+      progress={progress}
+      backHref={backHref}
+      eyebrow={eyebrow}
+      title={title}
+      helper={helper}
+      primaryLabel="Continue"
+      secondaryLabel={secondaryLabel}
+      onSubmit={onSubmit}
+      aside={aside}
+    >
+      {children}
+    </OnboardingScreen>
   );
 }
 

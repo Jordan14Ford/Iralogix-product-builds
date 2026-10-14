@@ -4,7 +4,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useState } from "react";
-import { HorizonTabs, OnboardingStep, StepIntro } from "@/components/onboarding/step-screen";
+import { HorizonTabs, OnboardingStep } from "@/components/onboarding/step-screen";
 import { asset } from "@/lib/public-asset";
 import {
   formatDollars,
@@ -25,7 +25,9 @@ export function ContributionStep() {
       backHref="/create-login"
       nextHref="/bank"
       secondaryLabel="Save & finish later"
-      asideWidth="max-w-[570px]"
+      eyebrow="Step 3 of 6"
+      title="Create your contribution amount"
+      helper="Choose how much of each paycheck goes into your SIMPLE IRA. Adjust anytime — your changes apply to future paychecks only."
       aside={
         <div className="flex flex-col gap-6">
           <h2 className="text-xl leading-7 font-semibold text-black/90">
@@ -50,11 +52,6 @@ export function ContributionStep() {
         </div>
       }
     >
-      <StepIntro
-        eyebrow="Step 3 of 6"
-        title="Create your contribution amount"
-        helper="Choose how much of each paycheck goes into your SIMPLE IRA. Adjust anytime — your changes apply to future paychecks only."
-      />
       <div className="flex flex-col gap-3">
         <div className="flex gap-6">
           <div className="flex min-w-0 flex-1 flex-col gap-1.5">

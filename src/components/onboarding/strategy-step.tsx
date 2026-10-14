@@ -4,7 +4,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useState } from "react";
-import { HorizonTabs, OnboardingStep, StepIntro } from "@/components/onboarding/step-screen";
+import { HorizonTabs, OnboardingStep } from "@/components/onboarding/step-screen";
 import { formatWholeDollars, projectedBalance } from "@/components/onboarding/contribution-math";
 import { asset } from "@/lib/public-asset";
 
@@ -55,6 +55,9 @@ export function StrategyStep() {
       backHref="/banks-connected"
       nextHref="/beneficiaries"
       secondaryLabel="Save & Close"
+      eyebrow="Step 5 of 6"
+      title="Select your strategy"
+      helper="One line of helper text directly below, muted color, explains why or what to expect - never decorative."
       aside={
         <div className="flex flex-col gap-3">
           <h2 className="text-[22px] leading-[30px] font-semibold text-[#12123d]">
@@ -113,11 +116,6 @@ export function StrategyStep() {
         </div>
       }
     >
-      <StepIntro
-        eyebrow="Step 5 of 6"
-        title="Select your strategy"
-        helper="One line of helper text directly below, muted color, explains why or what to expect - never decorative."
-      />
       <p className="text-sm leading-[22px] text-[#64748b]">
         Estimated in 20 years with Target Date 2055
       </p>

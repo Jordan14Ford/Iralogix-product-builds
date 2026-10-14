@@ -4,7 +4,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { PointerEvent, useEffect, useRef, useState } from "react";
-import { OnboardingStep, StepIntro } from "@/components/onboarding/step-screen";
+import { OnboardingStep } from "@/components/onboarding/step-screen";
 import { asset } from "@/lib/public-asset";
 
 export function SignatureStep() {
@@ -69,6 +69,8 @@ export function SignatureStep() {
       backHref="/beneficiaries"
       nextHref="/review"
       secondaryLabel="Save & Close"
+      title="We’ll need your signature"
+      helper="Flat list of prior steps, each with a title, an edit affordance, and static data."
       aside={
         <div className="flex flex-col gap-4">
           <div>
@@ -101,10 +103,6 @@ export function SignatureStep() {
         </div>
       }
     >
-      <StepIntro
-        title="We’ll need your signature"
-        helper="Flat list of prior steps, each with a title, an edit affordance, and static data."
-      />
       <div className="relative h-[220px] rounded-xl border border-[#e9eaef] bg-[#fafafa]">
         <canvas
           ref={canvasRef}

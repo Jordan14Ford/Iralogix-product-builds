@@ -4,15 +4,11 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useMemo, useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { OnboardingStep, StepIntro } from "@/components/onboarding/step-screen";
+import { InputField } from "@/components/onboarding/input-field";
+import { OnboardingStep } from "@/components/onboarding/step-screen";
 import { asset } from "@/lib/public-asset";
 
 type Person = { id: number; name: string; relationship: string; percentage: string };
-
-const inputClassName =
-  "h-12 rounded-[6px] border-[#d1d5db] bg-white px-4 text-sm font-normal text-[#111827] shadow-none placeholder:text-[#9ca3af] focus-visible:border-[#2563eb] focus-visible:ring-0 md:text-sm";
 
 let nextId = 3;
 
@@ -29,7 +25,9 @@ export function BeneficiariesStep() {
   ]);
 
   const total = useMemo(() => {
-    const values = [...primary, ...contingent].map((person) => Number(person.percentage) || 0);
+    const values = [...primary, ...contingent].map(
+      (person) => Number(person.percentage.replace("%", "")) || 0,
+    );
     return values.reduce((sum, value) => sum + value, 0);
   }, [primary, contingent]);
 
@@ -43,6 +41,9 @@ export function BeneficiariesStep() {
       backHref="/strategy"
       nextHref="/signature"
       secondaryLabel="Save & Close"
+      eyebrow="Step 6 of 6"
+      title="Add beneficaries"
+      helper="One line of helper text directly below, muted color, explains why or what to expect - never decorative."
       aside={
         <div className="flex flex-col gap-4">
           <h2 className="text-[22px] leading-[30px] font-semibold text-[#12123d]">
@@ -80,11 +81,6 @@ export function BeneficiariesStep() {
         </div>
       }
     >
-      <StepIntro
-        eyebrow="Step 6 of 6"
-        title="Add beneficaries"
-        helper="One line of helper text directly below, muted color, explains why or what to expect - never decorative."
-      />
       <PersonGroup
         title="Primary Beneficaries"
         action="Add Primary Beneficary"
@@ -147,15 +143,13 @@ function PersonGroup({
       </div>
       {people.map((person) => (
         <div key={person.id} className="flex flex-col gap-3">
-          <div className="flex flex-col gap-1.5">
-            <Label className="font-inter text-[13px] font-semibold text-[#374151]">{nameLabel}</Label>
-            <Input
-              value={person.name}
-              placeholder={namePlaceholder}
-              onChange={(event) => update(person.id, { name: event.target.value })}
-              className={inputClassName}
-            />
-          </div>
+          <InputField
+            label={nameLabel}
+            fieldType="name"
+            value={person.name}
+            placeholder={namePlaceholder}
+            onValueChange={(next) => update(person.id, { name: next })}
+          />
           <div className="flex items-end gap-6">
             <div className="relative w-[58%]">
               <select
@@ -178,16 +172,13 @@ function PersonGroup({
                 className="pointer-events-none absolute top-1/2 right-3.5 max-w-none -translate-y-1/2"
               />
             </div>
-            <div className="flex flex-1 flex-col gap-1.5">
-              <Label className="font-inter text-[13px] font-semibold text-[#374151]">Percentage</Label>
-              <Input
-                inputMode="numeric"
+            <div className="flex-1">
+              <InputField
+                label="Percentage"
+                fieldType="percentage"
                 value={person.percentage}
                 placeholder="50%"
-                onChange={(event) =>
-                  update(person.id, { percentage: event.target.value.replace(/[^\d.]/g, "") })
-                }
-                className={inputClassName}
+                onValueChange={(next) => update(person.id, { percentage: next })}
               />
             </div>
           </div>

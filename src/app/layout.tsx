@@ -10,7 +10,7 @@ const publicSans = Public_Sans({
 
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["500", "600"],
+  weight: ["400", "500", "600"],
   variable: "--font-inter-family",
 });
 

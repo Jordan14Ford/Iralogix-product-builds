@@ -25,6 +25,7 @@ The public site is a static export served from the `gh-pages` branch at [https:/
 
 ```bash
 NEXT_PUBLIC_BASE_PATH=/Iralogix-product-builds npm run build
+STORYBOOK_BASE_PATH=/Iralogix-product-builds/storybook/ npm run build-storybook -- -o out/storybook
 ```
 
-That writes `out/`. Publish the contents of `out/` to `gh-pages` (include `.nojekyll` so `/_next` assets are served). Do not force-push `main`.
+That writes `out/`, with Storybook at `out/storybook`. Publish the contents of `out/` to `gh-pages` (include `.nojekyll` so `/_next` assets are served). The public Storybook is [https://jordan14ford.github.io/Iralogix-product-builds/storybook/](https://jordan14ford.github.io/Iralogix-product-builds/storybook/). Do not force-push `main`. The static site stays embeddable: do not add `X-Frame-Options: DENY` or `frame-ancestors 'none'`.
