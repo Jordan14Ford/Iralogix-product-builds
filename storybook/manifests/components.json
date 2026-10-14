@@ -781,7 +781,7 @@
             "description": ""
           },
           "progress": {
-            "required": true,
+            "required": false,
             "tsType": {
               "name": "string"
             },
@@ -1426,6 +1426,72 @@
       ],
       "import": "import {\n  BanksConnectedStep,\n  BankStep,\n  BeneficiariesStep,\n  ContributionStep,\n  CreateLogin,\n  ReviewStep,\n  SignatureStep,\n  StrategyStep,\n} from 'onboarding';"
     },
+    "design-system-stepper": {
+      "id": "design-system-stepper",
+      "name": "Stepper",
+      "path": "./src/stories/stepper.stories.tsx",
+      "jsDocTags": {},
+      "reactDocgen": {
+        "description": "",
+        "methods": [],
+        "displayName": "Stepper",
+        "definedInFile": "/workspace/src/components/ui/stepper.tsx",
+        "actualName": "Stepper",
+        "exportName": "Stepper",
+        "props": {
+          "step": {
+            "required": false,
+            "tsType": {
+              "name": "unknown[number]",
+              "raw": "(typeof stepperSteps)[number]"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "1",
+              "computed": false
+            }
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "design-system-stepper--steps",
+          "name": "Steps",
+          "snippet": "const Steps = () => (\n  <div className=\"flex flex-col gap-6 bg-[#4b5563] p-6\">\n    {stepperSteps.map((step) => (\n      <Stepper key={step} step={step} />\n    ))}\n  </div>\n);"
+        },
+        {
+          "id": "design-system-stepper--step-1",
+          "name": "Step 1",
+          "snippet": "const Step1 = () => (\n  <div className=\"bg-white p-6\">\n    <Stepper step={1} />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-stepper--step-2",
+          "name": "Step 2",
+          "snippet": "const Step2 = () => (\n  <div className=\"bg-white p-6\">\n    <Stepper step={2} />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-stepper--step-3",
+          "name": "Step 3",
+          "snippet": "const Step3 = () => (\n  <div className=\"bg-white p-6\">\n    <Stepper step={3} />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-stepper--step-4",
+          "name": "Step 4",
+          "snippet": "const Step4 = () => (\n  <div className=\"bg-white p-6\">\n    <Stepper step={4} />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-stepper--step-5",
+          "name": "Step 5",
+          "snippet": "const Step5 = () => (\n  <div className=\"bg-white p-6\">\n    <Stepper step={5} />\n  </div>\n);"
+        },
+        {
+          "id": "design-system-stepper--step-6",
+          "name": "Step 6",
+          "snippet": "const Step6 = () => (\n  <div className=\"bg-white p-6\">\n    <Stepper step={6} />\n  </div>\n);"
+        }
+      ],
+      "import": "import { Stepper } from 'onboarding';"
+    },
     "design-system-unified-header": {
       "id": "design-system-unified-header",
       "name": "UnifiedHeader",
@@ -1564,6 +1630,6 @@
   },
   "meta": {
     "docgen": "react-docgen",
-    "durationMs": 489
+    "durationMs": 695
   }
 }
