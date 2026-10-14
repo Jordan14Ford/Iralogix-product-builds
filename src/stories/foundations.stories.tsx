@@ -150,3 +150,51 @@ export const SurfacesBordersStrokes: Story = {
     </div>
   ),
 };
+
+function TokenBrowser({ title, tokens }: { title: string; tokens: Token[] }) {
+  return (
+    <div className="min-h-screen bg-theme-bg-surface p-8">
+      <Group title={title} tokens={tokens} />
+    </div>
+  );
+}
+
+export const BrandTokens: Story = {
+  name: "Brand",
+  render: () => <TokenBrowser title="Brand palette" tokens={brand} />,
+};
+
+export const SemanticTokens: Story = {
+  name: "Semantic",
+  render: () => <TokenBrowser title="Semantic — status colors" tokens={semantic} />,
+};
+
+export const FinancialTokens: Story = {
+  name: "Financial indicators",
+  render: () => <TokenBrowser title="Financial indicators" tokens={financial} />,
+};
+
+export const ChartTokens: Story = {
+  name: "Chart series",
+  render: () => <TokenBrowser title="Chart series" tokens={chart} />,
+};
+
+export const BackgroundTokens: Story = {
+  name: "Backgrounds",
+  render: () => <TokenBrowser title="Backgrounds" tokens={backgrounds} />,
+};
+
+export const BorderTokens: Story = {
+  name: "Borders",
+  render: () => <TokenBrowser title="Borders" tokens={borders} />,
+};
+
+export const StrokeTokens: Story = {
+  name: "Strokes",
+  render: () => <TokenBrowser title="Strokes" tokens={strokes} />,
+};
+
+export const ShadowTokens: Story = {
+  name: "Shadow",
+  render: () => <TokenBrowser title="Shadow" tokens={shadow} />,
+};

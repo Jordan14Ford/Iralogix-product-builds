@@ -80,6 +80,12 @@
   --stroke-thin: 1px;
   --stroke-thick: 2px;
   --shadow-light-2: 0 2px 4px #0000000f;
+  --duration-hover: var(--motion-hover-duration);
+  --ease-hover: var(--motion-hover-ease);
+  --duration-panel: var(--motion-panel-duration);
+  --ease-panel: var(--motion-panel-ease);
+  --default-transition-duration: var(--motion-hover-duration);
+  --default-transition-timing-function: var(--motion-hover-ease);
 }
 
 :root {
@@ -147,6 +153,14 @@
   --skeleton-base: #f5f5f5;
   --theme-border: #ebebeb;
   --state-focus-ring: rgb(108 43 217 / 0.35);
+
+  /* Motion. Hover is the short ease-out. Panel covers step changes. Spring settles a press. */
+  --motion-hover-duration: 150ms;
+  --motion-hover-ease: cubic-bezier(0, 0, 0.2, 1);
+  --motion-panel-duration: 280ms;
+  --motion-panel-ease: cubic-bezier(0, 0, 0.2, 1);
+  --motion-spring-duration: 450ms;
+  --motion-spring-bounce: 0.18;
 }
 
 .dark {
@@ -193,4 +207,29 @@
   html {
     @apply font-sans;
   }
+}
+
+/* Verify account only. Scrolling stays; the native bar does not. */
+.identity-scroll-hidden,
+.identity-scroll-hidden body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.identity-scroll-hidden::-webkit-scrollbar,
+.identity-scroll-hidden body::-webkit-scrollbar {
+  display: none;
+}
+
+.identity-form-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.identity-form-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+[data-step-settled="true"] {
+  transform: none !important;
 }

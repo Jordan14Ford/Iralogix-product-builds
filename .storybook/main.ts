@@ -8,6 +8,7 @@ const config: StorybookConfig = {
     "@chromatic-com/storybook",
     "@storybook/addon-vitest",
     "@storybook/addon-a11y",
+    "storybook-addon-pseudo-states",
     "@storybook/addon-docs",
     "@storybook/addon-mcp",
   ],
@@ -15,6 +16,7 @@ const config: StorybookConfig = {
   staticDirs: ["../public"],
   async viteFinal(config) {
     return mergeConfig(config, {
+      base: process.env.STORYBOOK_BASE_PATH || config.base,
       plugins: [tailwindcss()],
     });
   },

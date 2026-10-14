@@ -1,9 +1,13 @@
+"use client"
+
 import { Button as ButtonPrimitive } from "@base-ui/react/button"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
+import { motion } from "motion/react"
+import { settleSpring, usePrefersReducedMotion } from "@/lib/motion"
 
 const buttonVariants = cva(
-  "inline-flex shrink-0 items-center justify-center border border-transparent font-sans font-semibold whitespace-nowrap transition-colors outline-none select-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 focus-visible:ring-offset-brand-on-primary disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:shrink-0",
+  "inline-flex shrink-0 items-center justify-center border border-transparent font-sans font-semibold whitespace-nowrap transition-colors duration-hover ease-hover outline-none select-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 focus-visible:ring-offset-brand-on-primary disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -97,11 +101,20 @@ function Button({
     leadingIcon?: React.ReactNode
     trailingIcon?: React.ReactNode
   }) {
+  const reduce = usePrefersReducedMotion()
+  const blocked = disabled || state === "disabled"
+
   return (
     <ButtonPrimitive
       data-slot="button"
-      disabled={disabled || state === "disabled"}
+      disabled={blocked}
       className={cn(buttonVariants({ variant, size, state, className }))}
+      render={
+        <motion.button
+          whileTap={reduce || blocked ? undefined : { y: 2 }}
+          transition={reduce ? { duration: 0 } : settleSpring}
+        />
+      }
       {...props}
     >
       {leadingIcon}

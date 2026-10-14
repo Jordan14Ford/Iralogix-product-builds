@@ -3,7 +3,7 @@
 /* Logo crop and workspace art are fixed design assets, not optimized content images. */
 /* eslint-disable @next/next/no-img-element */
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -66,6 +66,13 @@ export function VerifyAccount() {
   const [ssnRevealed, setSsnRevealed] = useState(false);
   const router = useRouter();
 
+  useEffect(() => {
+    document.documentElement.classList.add("identity-scroll-hidden");
+    return () => {
+      document.documentElement.classList.remove("identity-scroll-hidden");
+    };
+  }, []);
+
   function handleSsnChange(next: string) {
     if (ssnRevealed) {
       setSsn(digitsOnly(next, 9));
@@ -116,7 +123,7 @@ export function VerifyAccount() {
       <OnboardingHeader steps={identitySteps} progress="w-1/6" />
 
       <div className="flex min-h-screen flex-col lg:h-screen lg:flex-row lg:overflow-hidden">
-        <section className="w-full lg:h-screen lg:w-[48.889%] lg:overflow-y-auto">
+        <section className="identity-form-scroll w-full lg:h-screen lg:w-[48.889%] lg:overflow-y-auto">
           <form onSubmit={onSubmit}>
             <OnboardingData insetClassName="lg:px-12">
             <div className="pb-10">
